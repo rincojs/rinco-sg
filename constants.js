@@ -1,8 +1,15 @@
+/*!
+ * xddsp
+ * Copyright(c) 2014 Allan Esquina
+ * MIT Licensed
+ */
+ 
 'use strict';
 //CONSTANTS
 module.exports = {
     RELATIVE_PATH: process.cwd(),
     TEMPLATE_DIR: "/templates/",
+    DATA_DIR: "/data/",
     STATIC_DIR: "/public/",
     PAGES_DIR: "/pages",
     DIST_DIR: "/dist/",

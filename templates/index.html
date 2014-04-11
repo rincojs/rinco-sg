@@ -6,6 +6,11 @@
 </head>
 <body>
 	<section>
+		<!-- data usage -->
+		@data(user.json)
+		@data(generic.json as menu)
+
+		<!-- include usage -->
 		@include(header.html)
 		@include(content.html)
 		@include(footer.html)

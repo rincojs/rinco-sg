@@ -63,12 +63,15 @@
             _fs.mkdir('./' + _inputProjectName + "/templates", "0755");
             _fs.mkdir('./' + _inputProjectName + "/pages", "0755");
             _fs.mkdir('./' + _inputProjectName + "/public", "0755");
+            _fs.mkdir('./' + _inputProjectName + "/data", "0755");
             _fs.mkdir('./' + _inputProjectName + "/dist", "0755");
 
             app.copyFile(__dirname + "/templates/", "header.html", './' + _inputProjectName + "/templates" );
             app.copyFile(__dirname + "/templates/", "content.html", './' + _inputProjectName + "/templates" );
             app.copyFile(__dirname + "/templates/", "footer.html", './' + _inputProjectName + "/templates" );
             app.copyFile(__dirname + "/templates/", "index.html", './' + _inputProjectName + "/pages" );
+            app.copyFile(__dirname + "/templates/", "user.json", './' + _inputProjectName + "/data" );
+            app.copyFile(__dirname + "/templates/", "generic.json", './' + _inputProjectName + "/data" );
 
         });
     },
@@ -111,7 +114,7 @@
 
     }
     app.render.middlewares = [];
-    app.registerMiddleware = function(middleware) {
+    app.registerPlugin = function(middleware) {
         return app.render.middlewares.push(middleware);
     }    
     app.getFileContent = function(file) {

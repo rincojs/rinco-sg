@@ -12,13 +12,12 @@
     "url": "https://github.com/"
   },
   "dependencies": {
-    "connect" : "2.14.4"
+    "connect": "2.14.4",
+    "handlebars": "^2.0.0-alpha.2"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "engines": {
     "node": ">= 0.8.0"
   },
-  "scripts": {
-  }
+  "scripts": {}
 }

@@ -1,10 +1,16 @@
+/*!
+ * xddsp - include templates
+ * Copyright(c) 2014 Allan Esquina
+ * MIT Licensed
+ */
+
 'use strict';
 
 var xddsp = require('../xddsp'),
 	config = require('../constants');
 
 // Parse templates files
-xddsp.registerMiddleware(function(next, content) {
+xddsp.registerPlugin(function(next, content) {
 	
 	    //Replace include tags to templates files contents
 	    var responseString = content.toString().replace(/\@include\((.*?)\)/g, function(match, contents, offset, s) {
@@ -18,3 +24,4 @@ xddsp.registerMiddleware(function(next, content) {
 
 	    next(responseString);
 });
+	  
