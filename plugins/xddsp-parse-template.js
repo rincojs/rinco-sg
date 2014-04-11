@@ -20,7 +20,7 @@ xddsp.registerPlugin(function(next, content) {
 	        } else {
 	            return config.SERVER_TEMPLATE_NOT_FOUND + " File: " + config.TEMPLATE_DIR + contents;
 	        }
-	    });	
+	    });
 
 	    next(responseString);
 });

@@ -34,6 +34,7 @@ xddsp.registerPlugin(function(next, content) {
 	    		return "";
 	    	}
 	    );
+
 	    // Parse template with handlebarsjs
 	    template = Handlebars.compile(responseString);				
 		responseString = template(data);
