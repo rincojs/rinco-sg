@@ -128,6 +128,8 @@ app.createServer = function() {
     // start socket
     io = io.listen(myServer);
     io.sockets.on('connection', function (socket) {});
+    // reduce logging
+    io.set('log level', 1);
 
     // start watch files
     app.startWatch();
