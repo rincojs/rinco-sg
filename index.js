@@ -11,5 +11,6 @@ var xddsp = require('./xddsp');
 
 require('./plugins/xddsp-parse-template');
 require('./plugins/xddsp-handlebars');
+require('./plugins/xddsp-reload');
 
 xddsp.init();
