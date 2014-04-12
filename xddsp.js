@@ -23,7 +23,9 @@ var _args,
     sass = require('node-sass'),
     sh = require('shelljs'),
     open = require('open'),
-    relativePath = config.RELATIVE_PATH;
+    relativePath = config.RELATIVE_PATH,
+    templateDir = config.TEMPLATE_DIR;
+
 
 require('colors');
 
@@ -67,15 +69,15 @@ app.prompt = function() {
 app.createScaffolding = function(name) {
 
     _fs.mkdir(name, "0755", function(e) {
-        _fs.mkdir('./' + _inputProjectName + "/templates", "0755",  function(e) {
-            app.copyFile(__dirname + "/templates/", "header.html", './' + _inputProjectName + "/templates" );
-            app.copyFile(__dirname + "/templates/", "content.html", './' + _inputProjectName + "/templates" );
-            app.copyFile(__dirname + "/templates/", "footer.html", './' + _inputProjectName + "/templates" );            
+        _fs.mkdir('./' + _inputProjectName + templateDir, "0755",  function(e) {
+            app.copyFile(__dirname + templateDir + "/", "header.html", './' + _inputProjectName + templateDir );
+            app.copyFile(__dirname + templateDir + "/", "content.html", './' + _inputProjectName + templateDir );
+            app.copyFile(__dirname + templateDir + "/", "footer.html", './' + _inputProjectName + templateDir );            
         });
 
 
         _fs.mkdir('./' + _inputProjectName + "/pages", "0755", function(e) {
-            app.copyFile(__dirname + "/templates/", "index.html", './' + _inputProjectName + "/pages" );
+            app.copyFile(__dirname + templateDir + "/", "index.html", './' + _inputProjectName + "/pages" );
         });
 
 
@@ -85,14 +87,14 @@ app.createScaffolding = function(name) {
 
 
         _fs.mkdir('./' + _inputProjectName + "/data", "0755", function(e) {
-            app.copyFile(__dirname + "/templates/", "user.json", './' + _inputProjectName + "/data" );
-            app.copyFile(__dirname + "/templates/", "generic.json", './' + _inputProjectName + "/data" );            
+            app.copyFile(__dirname + templateDir + "/", "user.json", './' + _inputProjectName + "/data" );
+            app.copyFile(__dirname + templateDir + "/", "generic.json", './' + _inputProjectName + "/data" );            
         });
 
         _fs.mkdir('./' + _inputProjectName + "/dist", "0755");
 
         _fs.mkdir('./' + _inputProjectName + "/sass", "0755", function(e) {
-            app.copyFile(__dirname + "/templates/", "main.scss", './' + _inputProjectName + "/sass" );
+            app.copyFile(__dirname + templateDir + "/", "main.scss", './' + _inputProjectName + "/sass" );
         });
 
 
