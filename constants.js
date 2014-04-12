@@ -13,6 +13,7 @@ module.exports = {
     STATIC_DIR: "/public/",
     PAGES_DIR: "/pages",
     DIST_DIR: "/dist/",
+    DEV_PATH: 'http://localhost',
     SERVER_PORT: "3000",
     PROMPT_Q_PROJECT_NAME: "Qual o nome do projeto? ",
     PROMPT_FILE_CREATED: "Criando arquivo ",

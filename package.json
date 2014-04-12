@@ -18,7 +18,8 @@
     "node-watch": "^0.3.4",
     "node-sass": "^0.8.4",
     "colors": "~0.6.2",
-    "shelljs": "~0.2.6"
+    "shelljs": "~0.2.6",
+    "open": "~0.0.5"
   },
   "devDependencies": {},
   "engines": {

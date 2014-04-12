@@ -21,7 +21,8 @@ var _args,
     io = require("socket.io"),
     watch = require('node-watch'),
     sass = require('node-sass'),
-    sh = require('shelljs');
+    sh = require('shelljs'),
+    open = require('open');
 
 require('colors');
 
@@ -131,7 +132,8 @@ app.createServer = function() {
     // start watch files
     app.startWatch();
 
-    sh.echo( '✔ http://localhost:3000/index.html'.green );
+    // open the page in browser
+    app.openBrowser();
 
 };
 
@@ -230,5 +232,26 @@ app.build = function() {
         });
     });
 };
-    
+
+app.openBrowser = function() {
+
+    var devPath = config.DEV_PATH + ':' + config.SERVER_PORT + '/index.html';
+
+    open( devPath, 'google-chrome', function( code ) {
+
+        // if code is null, the browser exists
+        if ( code === null ) {
+
+            sh.echo( '✔ http://localhost:3000/index.html'.green );
+
+        } else {
+
+            // otherwise, open the default browser
+            open( devPath );
+        } 
+
+    });
+
+};
+
 module.exports = app;
