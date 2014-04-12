@@ -20,7 +20,10 @@ var _args,
     http = require("http"),
     io = require("socket.io"),
     watch = require('node-watch'),
-    sass = require('node-sass');
+    sass = require('node-sass'),
+    sh = require('shelljs');
+
+require('colors');
 
 app.init = function() {
 
@@ -127,6 +130,9 @@ app.createServer = function() {
 
     // start watch files
     app.startWatch();
+
+    sh.echo( '✔ http://localhost:3000/index.html'.green );
+
 };
 
 app.startWatch = function () {
