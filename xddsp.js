@@ -22,7 +22,8 @@ var _args,
     watch = require('node-watch'),
     sass = require('node-sass'),
     sh = require('shelljs'),
-    open = require('open');
+    open = require('open'),
+    relativePath = config.RELATIVE_PATH;
 
 require('colors');
 
@@ -106,10 +107,10 @@ app.puts = function(error, stdout, stderr) { _sys.puts(stdout) };
 
 app.createServer = function() {
     var server = connect().use(connect.logger('dev'))
-        .use(connect.static(config.RELATIVE_PATH + "/public"))
+        .use(connect.static(relativePath + "/public"))
         // .use( sass.middleware({
-        //           src: config.RELATIVE_PATH + "/sass"
-        //         , dest: config.RELATIVE_PATH + '/public/css'
+        //           src: relativePath + "/sass"
+        //         , dest: relativePath + '/public/css'
         //         , debug: true
         //       })) 
         .use(callbackServer);
@@ -144,7 +145,7 @@ app.watch = function( path, options, fn ) {
 
     options = options || { recursive: false, followSymLinks: true };
 
-    watch(config.RELATIVE_PATH + path, options, function( filename ) {
+    watch(relativePath + path, options, function( filename ) {
         if ( typeof fn === 'function' ) {
             fn.call( filename );
         } else {
@@ -166,11 +167,11 @@ app.startWatch = function () {
         // name = name.reverse()[0].split(".")[0];
 
         var css = sass.render({
-            file: config.RELATIVE_PATH + '/sass/main.scss',            
-            includePaths: [ config.RELATIVE_PATH + '/sass' ],
+            file: relativePath + '/sass/main.scss',            
+            includePaths: [ relativePath + '/sass' ],
             outputStyle: 'compressed',
             success: function(css) {
-                app.createFile(config.RELATIVE_PATH + "/public/css/styles.css", css, function(){
+                app.createFile(relativePath + "/public/css/styles.css", css, function(){
                     io.sockets.emit('refresh', { action: 'refresh' });
                 })
                 //console.log(css)
@@ -210,7 +211,7 @@ app.registerPlugin = function(middleware) {
 };
 
 app.getFileContent = function(file, filePath) {
-    var filePath = filePath || config.RELATIVE_PATH + file, out = false;
+    var filePath = filePath || relativePath + file, out = false;
     console.log(filePath);
 
     if(_fs.existsSync(filePath)) {
@@ -234,11 +235,11 @@ app.createFile = function( name, content, callback ) {
 };
 
 app.build = function() {
-    _fs.readdir(config.RELATIVE_PATH + config.PAGES_DIR,function(err, files) {
+    _fs.readdir(relativePath + config.PAGES_DIR,function(err, files) {
 
         files.forEach(function(name) {
             app.render( "/" + name , function( content ){
-                app.createFile( config.RELATIVE_PATH + config.DIST_DIR + name, content );
+                app.createFile( relativePath + config.DIST_DIR + name, content );
             });
         });
     });
