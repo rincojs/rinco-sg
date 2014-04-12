@@ -139,19 +139,28 @@ app.createServer = function() {
 
 };
 
+// Alias of watch
+app.watch = function( path, options, fn ) {
+
+    options = options || { recursive: false, followSymLinks: true };
+
+    watch(config.RELATIVE_PATH + path, options, function( filename ) {
+        if ( typeof fn === 'function' ) {
+            fn.call( filename );
+        } else {
+            io.sockets.emit('refresh', { action: 'refresh' });
+        }
+    });
+
+};
+
 app.startWatch = function () {
 
-    watch(config.RELATIVE_PATH + '/templates', { recursive: false, followSymLinks: true }, function( filename ) {
-        io.sockets.emit('refresh', { action: 'refresh' });
-    });
+    app.watch('/templates');
+    app.watch('/pages');
 
-    watch(config.RELATIVE_PATH + '/pages', { recursive: false, followSymLinks: true }, function( filename ) {
-        io.sockets.emit('refresh', { action: 'refresh' });
-    });
-
-    //Sass Compilation
-
-    watch(config.RELATIVE_PATH + '/sass', { recursive: false, followSymLinks: true }, function( filename ) {
+    // Sass compilation
+    app.watch('/sass', function( filename ) {
 
         // var name = filename.split("/");
         // name = name.reverse()[0].split(".")[0];
