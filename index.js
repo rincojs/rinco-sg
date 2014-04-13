@@ -13,4 +13,6 @@ require('./plugins/xddsp-parse-template');
 require('./plugins/xddsp-handlebars');
 require('./plugins/xddsp-reload');
 
+require('./tasks.js');
+
 xddsp.init();

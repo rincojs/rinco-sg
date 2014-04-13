@@ -9,7 +9,7 @@
 
 var app = {};
 
-var _args,
+var _args = process.argv.slice(2),
     config = require('./constants'),
     _readline = require('readline'),
     _fs = require("fs"),
@@ -31,20 +31,100 @@ require('colors');
 
 app.init = function() {
 
-    _args = process.argv.slice(2);
+    if( app.checkConfigFile() ) {
 
-    if( _args[0] !== undefined )  {            
-      switch ( _args[0] ) {
-        case "server":
-            app.createServer();
-            break;
-        case "build":
-          app.build();
-            break;
-      }
+        if( _args[0] !== undefined )  {
+
+            // Try run a task group, otherwise, run a specific task
+            if( !app.runTaskGroup( _args[0] ) ) {
+
+                app.task( _args[0] );
+            }
+        } else {
+            app.prompt();
+        }
     } else {
+
+        sh.echo( '✔ hey, I did not find any configuration file! '.red );
         app.prompt();
     }
+};
+
+app.runTaskGroup = function( name ) {
+
+    // Checks if group exists
+    if( typeof app.task.groups[ name ] === "object" ) {
+
+        // Run tasks
+        app.task.groups[ name ].forEach( function( task )  {
+            app.task( task );
+        });
+        return true;
+
+    } else {
+        return false;
+    }
+};
+
+app.task = function( name ) {
+
+    // Checks if the task name exists 
+    if( typeof app.task.tasks[ name ] === "function" ) {
+
+        // Start task
+        app.task.tasks[ name ]( app );
+    } else {
+        sh.echo( '✔ hey, I did not find the task '.red + name.yellow + ', you registered it? '.red );
+    }
+};
+
+app.task.tasks = [];
+
+app.task.groups = [];
+
+app.registerTask = function( name,  task ) {
+
+    // Checks if task is a function and if name exists
+    if( typeof task === "function" && typeof name !== undefined && name.length > 2 ) {
+
+        // Checks if task exists
+        if( typeof app.task.tasks[ name ] !== "function" ) {
+
+           // Register task 
+           app.task.tasks[ name ] = task ;
+        }
+
+    }
+};
+
+app.registerTaskGroup = function( name,  tasks ) {
+
+    // Checks if task is a object 
+    if( typeof tasks === "object" && typeof name !== undefined && name.length > 2 ) {
+
+        // Checks if group exists
+        if( typeof app.task.groups[ name ] !== "object" ) {
+
+            // Register group 
+            app.task.groups[ name ] = tasks;
+        }
+    }
+};
+
+app.checkConfigFile = function() {
+
+    // Vefify if config file exist
+    if( _fs.existsSync( relativePath + "/rconf.js" ) ) {
+
+        // Load confg from project
+        require( relativePath + "/rconf" )
+
+        return true; 
+
+    } else {
+
+        return false;
+    }     
 };
 
 app.prompt = function() {
@@ -97,6 +177,7 @@ app.createScaffolding = function(name) {
             app.copyFile(__dirname + templateDir + "/", "main.scss", './' + _inputProjectName + "/sass" );
         });
 
+        app.copyFile(__dirname + templateDir + "/", "rconf.js", './' + _inputProjectName + "/" );            
 
     });
 };
