@@ -23,6 +23,7 @@ var _args = process.argv.slice(2),
     sass = require('node-sass'),
     sh = require('shelljs'),
     open = require('open'),
+    inquirer = require('inquirer'),
     relativePath = config.RELATIVE_PATH,
     templateDir = config.TEMPLATE_DIR;
 
@@ -30,6 +31,8 @@ var _args = process.argv.slice(2),
 require('colors');
 
 app.init = function() {
+
+    app.sayHello();
 
     if( app.checkConfigFile() ) {
 
@@ -41,12 +44,11 @@ app.init = function() {
                 app.task( _args[0] );
             }
         } else {
-            app.prompt();
+            app.prompt( "create_project" );
         }
     } else {
 
-        sh.echo( '✔ hey, I did not find any configuration file! '.red );
-        app.prompt();
+        sh.echo( '✔ Hey, I did not find any configuration file! '.red );
     }
 };
 
@@ -74,8 +76,18 @@ app.task = function( name ) {
         // Start task
         app.task.tasks[ name ]( app );
     } else {
-        sh.echo( '✔ hey, I did not find the task '.red + name.yellow + ', you registered it? '.red );
+        sh.echo( '✔ Hey, I did not find the task '.red + name.yellow + ', you registered it? \n'.red );
+        app.prompt( "list_tasks" );
     }
+};
+
+app.task.getTaskNames = function() {            
+    var out = [];
+
+    for ( var key in app.task.tasks ) {
+        out.push( key );
+    }
+    return out;
 };
 
 app.task.tasks = [];
@@ -126,29 +138,105 @@ app.checkConfigFile = function() {
         return false;
     }     
 };
+app.sayHello = function() {
 
-app.prompt = function() {
-    var rl = _readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
+ 
+    sh.echo( '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n');
+    sh.echo( '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n');
+    sh.echo( '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n');
+    sh.echo( '   _____ _                   ___ _____'.yellow );
+    sh.echo( '  | ___ (_)                 |_  /  ___|'.yellow );
+    sh.echo( '  | |_/ /_ _ __   ___ ___     | \\ `--. '.yellow );
+    sh.echo( "  |    /| |  _ \\ / __/ _ \\    | |`--. \\ ".yellow );
+    sh.echo( '  | |\\ \\| | | | | (_| (_) /\\__/ /\\__/ /'.yellow );
+    sh.echo( '  \\_| \\_|_|_| |_|\\___\\___/\\____/\\____/ '.yellow );
+    sh.echo( '  \n');
 
-    (function question() {
-        rl.question(config.PROMPT_Q_PROJECT_NAME, function(answer) {
-            if(answer !== undefined && answer.length > 0) {
-                _inputProjectName = answer;
-                app.createScaffolding(_inputProjectName);
-                rl.close();
-            } else {
-                question();
-            }
-        }); 
-    }());
+    sh.echo( ' * Static pages generator with sass, handlebars and watch reload!'.green);
+    sh.echo( " * It's pretty cool".green + " :)".blue);
+    sh.echo( '\n\n');
+    
+
+
+
+
+};
+app.prompt = function( action ) {
+    // var rl = _readline.createInterface({
+    //     input: process.stdin,
+    //     output: process.stdout
+    // });
+
+    // (function question() {
+    //     rl.question(config.PROMPT_Q_PROJECT_NAME, function(answer) {
+    //         if(answer !== undefined && answer.length > 0) {
+    //             _inputProjectName = answer;
+    //             app.createScaffolding(_inputProjectName);
+    //             rl.close();
+    //         } else {
+    //             question();
+    //         }
+    //     }); 
+    // }());
+
+    switch( action ) {
+        case "create_project":
+            prompt_create_project();
+            break;
+        case "list_tasks":
+            prompt_list_tasks()
+            break;
+    }
+    function prompt_create_project() {
+
+        var questions = [
+        {
+            type: "input",
+            name: "project_name",
+            message: "Hey, what name you want to give your project?",
+            validate: function( value ) {
+                
+                if ( value !== undefined && value.length > 2 ) {
+                   return true;
+                } else {
+                    return "Oh oh, something is wrong! Try again warrior!";
+                }
+            },
+            default: false
+        }];
+
+        inquirer.prompt( questions, function( answers ) {
+
+            _inputProjectName = answers.project_name;
+            app.createScaffolding(function() {
+
+                prompt_list_tasks();
+            }); 
+            // console.log(answers.project_name);
+        });
+    }
+    function prompt_list_tasks() {
+        
+        var questions = [
+        {
+            type: "list",
+            name: "project_task",
+            message: "Oh right! What do you like to do now?",
+            choices:app.task.getTaskNames(),
+            default: false
+        }];
+
+        inquirer.prompt( questions, function( answers ) {
+            sh.cd(relativePath + "/" + _inputProjectName);
+            sh.exec( "node " + __dirname + "/index.js " + answers.project_task );
+            //app.task( answers.project_task );
+        });
+    }   
 };
 
-app.createScaffolding = function(name) {
+app.createScaffolding = function( callback ) {
 
-    _fs.mkdir(name, "0755", function(e) {
+    _fs.mkdir(_inputProjectName, "0755", function(e) {
         _fs.mkdir('./' + _inputProjectName + templateDir, "0755",  function(e) {
             app.copyFile(__dirname + templateDir + "/", "header.html", './' + _inputProjectName + templateDir );
             app.copyFile(__dirname + templateDir + "/", "content.html", './' + _inputProjectName + templateDir );
@@ -177,9 +265,11 @@ app.createScaffolding = function(name) {
             app.copyFile(__dirname + templateDir + "/", "main.scss", './' + _inputProjectName + "/sass" );
         });
 
-        app.copyFile(__dirname + templateDir + "/", "rconf.js", './' + _inputProjectName + "/" );            
+        app.copyFile(__dirname + templateDir + "/", "rconf.js", './' + _inputProjectName + "/" );
 
+        setTimeout( callback, 500 );
     });
+   
 };
 
 app.copyFile = function(pathOrigin, fileName, pathTo) {
@@ -347,6 +437,11 @@ app.openBrowser = function() {
 
     });
 
+};
+
+app.openSublime = function() {
+
+    sh.exec( "subl ." );
 };
 
 module.exports = app;

@@ -11,6 +11,11 @@ var xddsp = require('./xddsp'),
 
 // Registering tasks
 
+xddsp.registerTask( "start-dev", function( rinco ) {
+	rinco.createServer();
+	rinco.openSublime();
+});
+
 xddsp.registerTask( "server", function( rinco ) {
 	rinco.createServer();
 });
