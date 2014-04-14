@@ -1,5 +1,5 @@
 {
-  "name": "xddsp",
+  "name": "rinco",
   "description": "",
   "version": "1.0.0",
   "author": "Allan Esquina <loloudxur@gmail.com>",
@@ -26,5 +26,7 @@
   "engines": {
     "node": ">= 0.8.0"
   },
-  "scripts": {}
+  "scripts": {},
+  "preferGlobal": "true",
+  "bin": { "rinco": "cli/rinco.js" }
 }

@@ -1,18 +1,17 @@
-//#!/usr/bin/env node
 /*!
- * xddsp
+ * rinco
  * Copyright(c) 2014 Allan Esquina
  * MIT Licensed
  */
  
 'use strict';
 
-var xddsp = require('./xddsp');
+var rinco = require('./rinco');
 
-require('./plugins/xddsp-parse-template');
-require('./plugins/xddsp-handlebars');
-require('./plugins/xddsp-reload');
+require('./plugins/rinco-parse-template');
+require('./plugins/rinco-handlebars');
+require('./plugins/rinco-reload');
 
 require('./tasks.js');
 
-xddsp.init();
+rinco.init();

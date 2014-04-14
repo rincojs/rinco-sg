@@ -1,20 +1,20 @@
 /*!
- * xddsp - include templates
+ * rinco - include templates
  * Copyright(c) 2014 Allan Esquina
  * MIT Licensed
  */
 
 'use strict';
 
-var xddsp = require('../xddsp'),
+var rinco = require('../rinco'),
 	config = require('../constants');
 
 // Parse templates files
-xddsp.registerPlugin(function(next, content) {
+rinco.registerPlugin(function(next, content) {
 	
 	    //Replace include tags to templates files contents
 	    var responseString = content.toString().replace(/\@include\((.*?)\)/g, function(match, contents, offset, s) {
-	        var tmpTemplate = xddsp.getFileContent(config.TEMPLATE_DIR + contents);
+	        var tmpTemplate = rinco.getFileContent(config.TEMPLATE_DIR + contents);
 	        if(tmpTemplate) {
 	            return tmpTemplate;
 	        } else {

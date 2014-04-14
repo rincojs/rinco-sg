@@ -1,5 +1,5 @@
 /*!
- * xddsp
+ * rinco
  * Copyright(c) 2014 Allan Esquina
  * MIT Licensed
  */
@@ -35,7 +35,7 @@ app.init = function() {
     app.sayHello();
 
     if( app.checkConfigFile() ) {
-
+        
         if( _args[0] !== undefined )  {
 
             // Try run a task group, otherwise, run a specific task
@@ -44,11 +44,12 @@ app.init = function() {
                 app.task( _args[0] );
             }
         } else {
-            app.prompt( "create_project" );
+            app.prompt( "list_tasks" );
         }
     } else {
 
-        sh.echo( '✔ Hey, I did not find any configuration file! '.red );
+        //sh.echo( '✔ Hey, I did not find any configuration file! '.red );
+        app.prompt( "list_options" );
     }
 };
 
@@ -155,29 +156,10 @@ app.sayHello = function() {
     sh.echo( ' * Static pages generator with sass, handlebars and watch reload!'.green);
     sh.echo( " * It's pretty cool".green + " :)".blue);
     sh.echo( '\n\n');
-    
-
-
-
 
 };
-app.prompt = function( action ) {
-    // var rl = _readline.createInterface({
-    //     input: process.stdin,
-    //     output: process.stdout
-    // });
 
-    // (function question() {
-    //     rl.question(config.PROMPT_Q_PROJECT_NAME, function(answer) {
-    //         if(answer !== undefined && answer.length > 0) {
-    //             _inputProjectName = answer;
-    //             app.createScaffolding(_inputProjectName);
-    //             rl.close();
-    //         } else {
-    //             question();
-    //         }
-    //     }); 
-    // }());
+app.prompt = function( action ) {
 
     switch( action ) {
         case "create_project":
@@ -185,6 +167,9 @@ app.prompt = function( action ) {
             break;
         case "list_tasks":
             prompt_list_tasks()
+            break;
+        case "list_options":
+            prompt_list_options()
             break;
     }
     function prompt_create_project() {
@@ -212,7 +197,6 @@ app.prompt = function( action ) {
 
                 prompt_list_tasks();
             }); 
-            // console.log(answers.project_name);
         });
     }
     function prompt_list_tasks() {
@@ -227,11 +211,39 @@ app.prompt = function( action ) {
         }];
 
         inquirer.prompt( questions, function( answers ) {
-            sh.cd(relativePath + "/" + _inputProjectName);
-            sh.exec( "node " + __dirname + "/index.js " + answers.project_task );
-            //app.task( answers.project_task );
+            
+            if( _inputProjectName !== undefined ) { 
+                sh.cd(relativePath + "/" + _inputProjectName);
+            }
+
+            sh.exec( "rinco " + answers.project_task );
         });
-    }   
+    }
+    function prompt_list_options() {
+        
+        var questions = [
+        {
+            type: "list",
+            name: "project_options",
+            message: "Hello, welcome to RincoJS cli, what do you like to do?",
+            choices:["Create a new project", "See the documentation"],
+            default: false
+        }];
+
+        inquirer.prompt( questions, function( answers ) {
+
+            if( answers.project_options === "Create a new project" ) {
+
+                prompt_create_project();
+            }
+            if( answers.project_options === "See the documentation" ) {
+
+                app.openBrowser( "rincojs.com/doc" );
+                app.sayHello();
+                prompt_list_options();
+            }             
+        });
+    }
 };
 
 app.createScaffolding = function( callback ) {
@@ -309,7 +321,9 @@ app.createServer = function() {
     app.startWatch();
 
     // open the page in browser
-    app.openBrowser();
+    app.openBrowser(null, function() {
+        sh.echo( '✔ http://localhost:3000/index.html'.green );
+    });
 
 };
 
@@ -418,16 +432,19 @@ app.build = function() {
     });
 };
 
-app.openBrowser = function() {
+app.openBrowser = function( url, callback ) {
 
-    var devPath = config.DEV_PATH + ':' + config.SERVER_PORT + '/index.html';
+    var devPath = url || config.DEV_PATH + ':' + config.SERVER_PORT + '/index.html';
 
     open( devPath, 'google-chrome', function( code ) {
 
         // if code is null, the browser exists
         if ( code === null ) {
 
-            sh.echo( '✔ http://localhost:3000/index.html'.green );
+            if( typeof callback === "function" ) {
+
+                callback();            
+            }
 
         } else {
 

@@ -1,27 +1,27 @@
 /*!
- * xddsp - tasks
+ * rinco - tasks
  * Copyright(c) 2014 Allan Esquina
  * MIT Licensed
  */
 
 'use strict';
 
-var xddsp = require('./xddsp'),
+var rinco = require('./rinco'),
 	config = require('./constants');
 
 // Registering tasks
 
-xddsp.registerTask( "start-dev", function( rinco ) {
+rinco.registerTask( "start-dev", function( rinco ) {
 	rinco.createServer();
 	rinco.openSublime();
 });
 
-xddsp.registerTask( "server", function( rinco ) {
+rinco.registerTask( "server", function( rinco ) {
 	rinco.createServer();
 });
 
-xddsp.registerTask( "build", function( rinco ) {
+rinco.registerTask( "build", function( rinco ) {
 	rinco.build();
 });
 
-// xddsp.registerTaskGroup( "teste:grupo", ["teste"] );
+// rinco.registerTaskGroup( "teste:grupo", ["teste"] );

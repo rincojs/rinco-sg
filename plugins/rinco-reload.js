@@ -1,21 +1,21 @@
 /*!
- * xddsp - reload
+ * rinco - reload
  * Copyright(c) 2014 Allan Esquina
  * MIT Licensed
  */
 
 'use strict';
 
-var xddsp = require('../xddsp'),
+var rinco = require('../rinco'),
 	config = require('../constants');
 
 // Parse templates files
-xddsp.registerPlugin(function(next, content) {
+rinco.registerPlugin(function(next, content) {
 	
 	    //Replace head tag to reload.js content + head 
 	    var responseString = content.toString().replace(/(\<\/head\>)/, function( match, head ) {
 	        
-	        var script = xddsp.getFileContent("", __dirname + "/.." + config.TEMPLATE_DIR + "reload.js" );
+	        var script = rinco.getFileContent("", __dirname + "/.." + config.TEMPLATE_DIR + "reload.js" );
 	        
 	        if( script ) {
 	            return script + "\n" + head;
