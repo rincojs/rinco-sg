@@ -20,6 +20,10 @@ rinco.registerTask( "server", function( rinco ) {
 	rinco.createServer();
 });
 
+rinco.registerTask( "server:no-handlebars", function( rinco ) {
+	rinco.createServer( [ "rinco_handlebars" ] );
+});
+
 rinco.registerTask( "build", function( rinco ) {
 	rinco.build();
 });

@@ -10,7 +10,7 @@ var rinco = require('../rinco'),
 	config = require('../constants');
 
 // Parse templates files
-rinco.registerPlugin(function(next, content) {
+rinco.registerPlugin(function rinco_reload( next, content ) {
 	
 	    //Replace head tag to reload.js content + head 
 	    var responseString = content.toString().replace(/(\<\/head\>)/, function( match, head ) {

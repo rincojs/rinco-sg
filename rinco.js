@@ -290,7 +290,10 @@ app.copyFile = function(pathOrigin, fileName, pathTo) {
 
 app.puts = function(error, stdout, stderr) { _sys.puts(stdout) };
 
-app.createServer = function() {
+app.createServer = function( ignore_plugin_list ) {
+    
+    ignore_plugin_list = ignore_plugin_list || [];
+
     var server = connect().use(connect.logger('dev'))
         .use(connect.static(relativePath + "/public"))
         // .use( sass.middleware({
@@ -305,7 +308,7 @@ app.createServer = function() {
         app.render( req.url , function( content ) {
             // Send response to client
             res.end( content );
-        })
+        }, ignore_plugin_list );
     }
 
     // start server listen
@@ -357,13 +360,15 @@ app.startWatch = function () {
             file: relativePath + '/sass/main.scss',            
             includePaths: [ relativePath + '/sass' ],
             outputStyle: 'compressed',
-            success: function(css) {
-                app.createFile(relativePath + "/public/css/styles.css", css, function(){
-                    io.sockets.emit('refresh', { action: 'refresh' });
+            success: function( css ) {
+
+                app.createFile(relativePath + "/public/css/styles.css", css, function() {
+
+                    io.sockets.emit( 'refresh', { action: 'refresh' } );
                 })
                 //console.log(css)
             },
-            error: function(e) {
+            error: function( e ) {
                 console.log(e);
             }
         });
@@ -372,18 +377,32 @@ app.startWatch = function () {
 
 };
 
-app.render = function(file, callback) {
+app.render = function(file, callback, ignore_plugin_list) {
 
     var content = app.getFileContent(config.PAGES_DIR + file),
-        i = 0;
+        i = -1;
+
+    ignore_plugin_list = ignore_plugin_list || [];
 
     function next(value) {
+
         content = value;
 
+        i += 1;
+
         if( i < app.render.middlewares.length ) {
-            app.render.middlewares[i++](next, content);
+
+            if( ignore_plugin_list.indexOf( app.render.middlewares[i].name ) === -1 ) {
+
+                app.render.middlewares[i](next, content);
+            } else {
+
+                next( content );
+            }
+            
         } else {
-            callback(content);
+
+            callback( content );
         }
     }
 
@@ -422,12 +441,16 @@ app.createFile = function( name, content, callback ) {
 };
 
 app.build = function() {
-    _fs.readdir(relativePath + config.PAGES_DIR,function(err, files) {
 
-        files.forEach(function(name) {
+    _fs.readdir( relativePath + config.PAGES_DIR, function( err, files ) {
+
+        files.forEach(function( name ) {
+
             app.render( "/" + name , function( content ){
+
                 app.createFile( relativePath + config.DIST_DIR + name, content );
-            });
+
+            }, [ "rinco_reload" ] );
         });
     });
 };

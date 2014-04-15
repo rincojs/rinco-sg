@@ -11,7 +11,7 @@ var rinco = require('../rinco'),
 	Handlebars = require('handlebars');
 
 // Parse templates files
-rinco.registerPlugin(function(next, content) {
+rinco.registerPlugin( function rinco_handlebars( next, content ) {
 	var data = [], dataTmp, template;
 	    //Replace data tags to templates files contents
 	    var responseString = content.toString().replace(/\@data\((.*?)\)/g, 

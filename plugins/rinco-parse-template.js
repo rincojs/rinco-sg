@@ -10,7 +10,7 @@ var rinco = require('../rinco'),
 	config = require('../constants');
 
 // Parse templates files
-rinco.registerPlugin(function(next, content) {
+rinco.registerPlugin( function rinco_template( next, content ) {
 	
 	    //Replace include tags to templates files contents
 	    var responseString = content.toString().replace(/\@include\((.*?)\)/g, function(match, contents, offset, s) {
