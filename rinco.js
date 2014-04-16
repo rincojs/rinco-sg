@@ -349,6 +349,7 @@ app.startWatch = function () {
 
     app.watch('/templates');
     app.watch('/pages');
+    app.watch('/data');
 
     // Sass compilation
     app.watch('/sass', function( filename ) {
@@ -378,8 +379,9 @@ app.startWatch = function () {
 };
 
 app.render = function(file, callback, ignore_plugin_list) {
-
-    var content = app.getFileContent(config.PAGES_DIR + file),
+    console.log(file);
+    var file = ( file.indexOf(".html") !== -1 ) ? file : file + "/index.html";
+    var content = app.getFileContent( config.PAGES_DIR + file ),
         i = -1;
 
     ignore_plugin_list = ignore_plugin_list || [];
