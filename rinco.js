@@ -29,6 +29,8 @@ var _args = process.argv.slice(2),
     open = require('open'),
     path = require('path'),
     inquirer = require('inquirer'),
+    coffeescript = require("coffee-script"),
+    sync = require("sync"),
     relativePath = config.RELATIVE_PATH,
     templateDir = config.TEMPLATE_DIR;
 
@@ -268,6 +270,7 @@ app.createScaffolding = function( callback ) {
 
         _fs.mkdir('./' + _inputProjectName + "/public", "0755", function(e) {
             _fs.mkdir('./' + _inputProjectName + "/public/css", "0755");
+            _fs.mkdir('./' + _inputProjectName + "/public/js", "0755");
         });        
 
 
@@ -278,6 +281,8 @@ app.createScaffolding = function( callback ) {
 
         _fs.mkdir('./' + _inputProjectName + "/dist", "0755");
 
+        _fs.mkdir('./' + _inputProjectName + "/js", "0755", function(e) {
+        });
         _fs.mkdir('./' + _inputProjectName + "/css", "0755", function(e) {
             app.copyFile(__dirname + templateDir + "/", "styles.scss", './' + _inputProjectName + "/css" );
         });
@@ -323,7 +328,7 @@ app.createServer = function( ignore_plugin_list ) {
     io = io.listen(myServer);
     io.sockets.on('connection', function (socket) {});
     // reduce logging
-    io.set('log level', 1);
+   io.set('log level', 0);
 
     // start watch files
     app.startWatch();
@@ -336,42 +341,49 @@ app.createServer = function( ignore_plugin_list ) {
 };
 
 // Alias of watch
-app.watch = function( path, options, fn ) {
+app.watch = function( path, fn, options ) {
 
     options = options || { recursive: true, followSymLinks: true };
 
-    watch(relativePath + path, options, function( filename ) {
+    watch(relativePath + path, options, callWatch );
+
+    function callWatch( filename ) {
         if ( typeof fn === 'function' ) {
-            fn.call( filename );
+            fn( filename );
         } else {
             io.sockets.emit('refresh', { action: 'refresh' });
         }
-    });
+    }
 
 };
 
 app.startWatch = function () {
 
-    app.watch('/templates');
-    app.watch('/pages');
-    app.watch('/data');
+    app.watch('/');
 
     // CSS pre-compilation
     app.watch('/css', function( filename ) {
-        
-        // SASS
-        if( path.extname( filename ) === '.scss' ) {
-            app.compile.sass( filename );
-        }
-        // Styus
-        if( path.extname( filename ) === '.styl' ) {
-            app.compile.stylus( filename );
-        }
-        // Less 
-        if( path.extname( filename ) === '.js' ) {
-            app.compile.less( filename );
+
+        switch( path.extname( filename ) ) {
+            case '.scss':
+                app.compile.sass( filename );
+                break;
+            case '.styl':
+                app.compile.stylus( filename );
+                break;
+            case '.js':
+                app.compile.less( filename );
+                break;
         }
 
+    });
+
+    // JS pre-compilation
+    app.watch('/js', function( filename ) {
+        // Coffee Script 
+        if( path.extname( filename ) === '.coffee' ) {
+            app.compile.coffeescript( filename );
+        }
     });
 
 };
@@ -385,9 +397,8 @@ app.compile.stylus = function( filename ) {
          app.createFile(relativePath + "/public/css/" + name.split(".")[0] + ".css", css, function() {
 
             io.sockets.emit( 'refresh', { action: 'refresh' } );
-        })
+        });
         
-        console.log(css);
     });
 }
 
@@ -402,7 +413,21 @@ app.compile.less = function( filename ) {
             io.sockets.emit( 'refresh', { action: 'refresh' } );
         })
         
-        console.log(css);
+    });
+}
+
+app.compile.coffeescript = function( filename ) {
+    var str = app.getFileContent( "", filename ).toString(),
+        name = path.basename( filename );
+
+    sync(function() {
+
+        var js = coffeescript.compile( str );
+
+        app.createFile(relativePath + "/public/js/" + name.split(".")[0] + ".js", js, function() {
+
+            io.sockets.emit( 'refresh', { action: 'refresh' } );
+        })
     });
 }
 
@@ -432,9 +457,7 @@ app.compile.sass = function( filename ) {
     }
 }
 
-
 app.render = function(file, callback, ignore_plugin_list) {
-    console.log(file);
     var file = ( file.indexOf(".html") !== -1 ) ? file : file + "/index.html";
     var content = app.getFileContent( config.PAGES_DIR + file ),
         i = -1;
