@@ -20,7 +20,9 @@
     "colors": "~0.6.2",
     "shelljs": "~0.2.6",
     "open": "~0.0.5",
-    "inquirer": "^0.4.1"
+    "inquirer": "^0.4.1",
+    "stylus": "^0.43.1",
+    "less": "^1.7.0"
   },
   "devDependencies": {},
   "engines": {
@@ -28,5 +30,7 @@
   },
   "scripts": {},
   "preferGlobal": "true",
-  "bin": { "rinco": "cli/rinco.js" }
+  "bin": {
+    "rinco": "cli/rinco.js"
+  }
 }

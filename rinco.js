@@ -7,7 +7,9 @@
 "use strict";
 
 
-var app = {};
+var app = {
+    compile:{}
+};
 
 var _args = process.argv.slice(2),
     config = require('./constants'),
@@ -21,8 +23,11 @@ var _args = process.argv.slice(2),
     io = require("socket.io"),
     watch = require('node-watch'),
     sass = require('node-sass'),
+    stylus = require('stylus'),
+    less = require('less'),
     sh = require('shelljs'),
     open = require('open'),
+    path = require('path'),
     inquirer = require('inquirer'),
     relativePath = config.RELATIVE_PATH,
     templateDir = config.TEMPLATE_DIR;
@@ -273,8 +278,8 @@ app.createScaffolding = function( callback ) {
 
         _fs.mkdir('./' + _inputProjectName + "/dist", "0755");
 
-        _fs.mkdir('./' + _inputProjectName + "/sass", "0755", function(e) {
-            app.copyFile(__dirname + templateDir + "/", "main.scss", './' + _inputProjectName + "/sass" );
+        _fs.mkdir('./' + _inputProjectName + "/css", "0755", function(e) {
+            app.copyFile(__dirname + templateDir + "/", "styles.scss", './' + _inputProjectName + "/css" );
         });
 
         app.copyFile(__dirname + templateDir + "/", "rconf.js", './' + _inputProjectName + "/" );
@@ -333,7 +338,7 @@ app.createServer = function( ignore_plugin_list ) {
 // Alias of watch
 app.watch = function( path, options, fn ) {
 
-    options = options || { recursive: false, followSymLinks: true };
+    options = options || { recursive: true, followSymLinks: true };
 
     watch(relativePath + path, options, function( filename ) {
         if ( typeof fn === 'function' ) {
@@ -351,19 +356,70 @@ app.startWatch = function () {
     app.watch('/pages');
     app.watch('/data');
 
-    // Sass compilation
-    app.watch('/sass', function( filename ) {
+    // CSS pre-compilation
+    app.watch('/css', function( filename ) {
+        
+        // SASS
+        if( path.extname( filename ) === '.scss' ) {
+            app.compile.sass( filename );
+        }
+        // Styus
+        if( path.extname( filename ) === '.styl' ) {
+            app.compile.stylus( filename );
+        }
+        // Less 
+        if( path.extname( filename ) === '.js' ) {
+            app.compile.less( filename );
+        }
 
-        // var name = filename.split("/");
-        // name = name.reverse()[0].split(".")[0];
+    });
 
+};
+
+app.compile.stylus = function( filename ) {
+    var str = app.getFileContent( "", filename ).toString(),
+        name = path.basename( filename );
+
+    stylus.render( str, { filename: filename }, function( err, css ){
+        if (err) throw err;
+         app.createFile(relativePath + "/public/css/" + name.split(".")[0] + ".css", css, function() {
+
+            io.sockets.emit( 'refresh', { action: 'refresh' } );
+        })
+        
+        console.log(css);
+    });
+}
+
+app.compile.less = function( filename ) {
+    var str = app.getFileContent( "", filename ).toString(),
+        name = path.basename( filename );
+
+    less.render( str, function( err, css ){
+        if (err) throw err;
+         app.createFile(relativePath + "/public/css/" + name.split(".")[0] + ".css", css, function() {
+
+            io.sockets.emit( 'refresh', { action: 'refresh' } );
+        })
+        
+        console.log(css);
+    });
+}
+
+app.compile.sass = function( filename ) {
+    
+    // Get file name
+    var name = path.basename( filename );
+
+    // Ignore import files from sass
+    if( name[0] !== "_") {
         var css = sass.render({
-            file: relativePath + '/sass/main.scss',            
-            includePaths: [ relativePath + '/sass' ],
+            file: filename,            
+            includePaths: [ relativePath + '/css' ],
             outputStyle: 'compressed',
             success: function( css ) {
 
-                app.createFile(relativePath + "/public/css/styles.css", css, function() {
+                app.createFile(relativePath + "/public/css/" + name.split(".")[0] + ".css", css, function() {
 
                     io.sockets.emit( 'refresh', { action: 'refresh' } );
                 })
@@ -373,10 +429,9 @@ app.startWatch = function () {
                 console.log(e);
             }
         });
+    }
+}
 
-    });
-
-};
 
 app.render = function(file, callback, ignore_plugin_list) {
     console.log(file);
@@ -423,7 +478,7 @@ app.getFileContent = function(file, filePath) {
     console.log(filePath);
 
     if(_fs.existsSync(filePath)) {
-        return _fs.readFileSync(filePath);
+        return _fs.readFileSync( filePath );
     } else {
         return false;
     }     
