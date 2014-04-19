@@ -8,6 +8,7 @@
 
 var rinco = require('../rinco'),
 	config = require('../constants'),
+	path = require('path'),
 	Handlebars = require('handlebars');
 
 // Parse templates files
@@ -24,7 +25,7 @@ rinco.registerPlugin( function rinco_handlebars( next, content ) {
 	    			file = split[0].trim();
 	    		} 
 	    		// parse json from file	
-	    		dataTmp = JSON.parse(rinco.getFileContent(config.DATA_DIR + file));
+	    		dataTmp = JSON.parse(rinco.getFileContent(null, path.join(config.DATA_DIR, file) ) );
 	    		// adding json content in data array with a alias key
 	    		if(dataTmp) {
 	    			alias = split[1] || file.split(".")[0];

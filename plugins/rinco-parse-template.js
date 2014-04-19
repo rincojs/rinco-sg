@@ -7,7 +7,8 @@
 'use strict';
 
 var rinco = require('../rinco'),
-	config = require('../constants');
+	config = require('../constants'),
+	path = require('path');
 
 // Parse templates files
 rinco.registerPlugin( function rinco_template( next, content ) {
@@ -21,7 +22,7 @@ rinco.registerPlugin( function rinco_template( next, content ) {
 			// Replace include tags to templates files contents
 			var content = content.toString().replace(/\@include\((.*?)\)/g, function(match, contents, offset, s) {
 
-			    var tmpTemplate = rinco.getFileContent( config.TEMPLATE_DIR + contents );
+			    var tmpTemplate = rinco.getFileContent( null, path.join( config.INCLUDE_DIR, contents ) );
 
 			    if( tmpTemplate ) {			    	
 			    	// Prevents that the template includes itself
@@ -32,7 +33,7 @@ rinco.registerPlugin( function rinco_template( next, content ) {
 
 			    } else {
 
-			        return config.SERVER_TEMPLATE_NOT_FOUND + " File: " + config.TEMPLATE_DIR + contents;
+			        return config.SERVER_TEMPLATE_NOT_FOUND + " File: " + path.join( config.INCLUDE_DIR, contents );
 			    }
 			});
 			// Call recursive function

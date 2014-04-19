@@ -14,7 +14,7 @@ var app = {
 var _args = process.argv.slice(2),
     config = require('./constants'),
     _readline = require('readline'),
-    _fs = require("fs"),
+    fs = require("fs"),
     _inputProjectName,
     _sys = require('sys'),
     _exec = require('child_process').exec,
@@ -134,7 +134,7 @@ app.registerTaskGroup = function( name,  tasks ) {
 app.checkConfigFile = function() {
 
     // Vefify if config file exist
-    if( _fs.existsSync( relativePath + "/rconf.js" ) ) {
+    if( fs.existsSync( relativePath + "/rconf.js" ) ) {
 
         // Load confg from project
         require( relativePath + "/rconf" )
@@ -255,47 +255,65 @@ app.prompt = function( action ) {
 
 app.createScaffolding = function( callback ) {
 
-    _fs.mkdir(_inputProjectName, "0755", function(e) {
-        _fs.mkdir('./' + _inputProjectName + templateDir, "0755",  function(e) {
-            app.copyFile(__dirname + templateDir + "/", "header.html", './' + _inputProjectName + templateDir );
-            app.copyFile(__dirname + templateDir + "/", "content.html", './' + _inputProjectName + templateDir );
-            app.copyFile(__dirname + templateDir + "/", "footer.html", './' + _inputProjectName + templateDir );            
+    var path_project = path.join('./', _inputProjectName ),
+        rinco_path_assets = path.join( path_project, 'assets' ),
+        rinco_path_data = path.join( rinco_path_assets, 'data' ),
+        rinco_path_pages = path.join( rinco_path_assets, 'pages' ),
+        rinco_path_includes = path.join( rinco_path_assets, 'includes' ),
+        rinco_path_css = path.join( rinco_path_assets, 'css' ),
+        rinco_path_js = path.join( rinco_path_assets, 'js' ),
+        rinco_path_public = path.join( path_project, 'public' ),
+        rinco_path_public_css = path.join( rinco_path_public, 'css' ),
+        rinco_path_public_js = path.join( rinco_path_public, 'js' ),
+        rinco_path_templates = path.join( __dirname, templateDir ),
+        rinco_path_build = path.join( path_project, 'build' );
+
+
+    fs.mkdir(_inputProjectName, '0755', function(e) {
+
+        fs.mkdir( rinco_path_assets, '0755', function(e) {
+
+            fs.mkdir( rinco_path_data, '0755', function(e) {
+                app.copyFile( path.join( rinco_path_templates, 'user.json' ), rinco_path_data );
+                app.copyFile( path.join( rinco_path_templates, 'generic.json' ), rinco_path_data );            
+            });
+
+            fs.mkdir( rinco_path_pages, '0755', function(e) {
+                app.copyFile( path.join( rinco_path_templates, 'index.html' ),  rinco_path_pages );
+            });
+
+            fs.mkdir( rinco_path_includes, '0755',  function(e) {
+                app.copyFile( path.join( rinco_path_templates, 'header.html' ), rinco_path_includes );
+                app.copyFile( path.join( rinco_path_templates, 'content.html' ), rinco_path_includes );
+                app.copyFile( path.join( rinco_path_templates, 'footer.html' ), rinco_path_includes );
+            });
+
+            fs.mkdir( rinco_path_js, '0755', function(e) { });
+            fs.mkdir( rinco_path_css, '0755', function(e) {
+                app.copyFile( path.join( rinco_path_templates, 'styles.scss' ), rinco_path_css );
+            });
+
         });
 
-
-        _fs.mkdir('./' + _inputProjectName + "/pages", "0755", function(e) {
-            app.copyFile(__dirname + templateDir + "/", "index.html", './' + _inputProjectName + "/pages" );
-        });
-
-
-        _fs.mkdir('./' + _inputProjectName + "/public", "0755", function(e) {
-            _fs.mkdir('./' + _inputProjectName + "/public/css", "0755");
-            _fs.mkdir('./' + _inputProjectName + "/public/js", "0755");
+        fs.mkdir( rinco_path_public , '0755', function(e) {
+            fs.mkdir( rinco_path_public_css, '0755' );
+            fs.mkdir( rinco_path_public_js, '0755' );
         });        
 
+        fs.mkdir( rinco_path_build, '0755' );
 
-        _fs.mkdir('./' + _inputProjectName + "/data", "0755", function(e) {
-            app.copyFile(__dirname + templateDir + "/", "user.json", './' + _inputProjectName + "/data" );
-            app.copyFile(__dirname + templateDir + "/", "generic.json", './' + _inputProjectName + "/data" );            
-        });
-
-        _fs.mkdir('./' + _inputProjectName + "/dist", "0755");
-
-        _fs.mkdir('./' + _inputProjectName + "/js", "0755", function(e) {
-        });
-        _fs.mkdir('./' + _inputProjectName + "/css", "0755", function(e) {
-            app.copyFile(__dirname + templateDir + "/", "styles.scss", './' + _inputProjectName + "/css" );
-        });
-
-        app.copyFile(__dirname + templateDir + "/", "rconf.js", './' + _inputProjectName + "/" );
+        app.copyFile( path.join( rinco_path_templates, 'rconf.js' ),  path_project );
 
         setTimeout( callback, 500 );
+
     });
+
    
 };
 
-app.copyFile = function(pathOrigin, fileName, pathTo) {
-    _fs.createReadStream( pathOrigin + fileName ).pipe(_fs.createWriteStream( pathTo + "/" + fileName ));
+app.copyFile = function(fileName, pathTo) {
+
+    sh.cp( fileName, pathTo );
 };
 
 app.puts = function(error, stdout, stderr) { _sys.puts(stdout) };
@@ -304,16 +322,11 @@ app.createServer = function( ignore_plugin_list ) {
     
     ignore_plugin_list = ignore_plugin_list || [];
 
-    var server = connect().use(connect.logger('dev'))
-        .use(connect.static(relativePath + "/public"))
-        // .use( sass.middleware({
-        //           src: relativePath + "/sass"
-        //         , dest: relativePath + '/public/css'
-        //         , debug: true
-        //       })) 
-        .use(callbackServer);
+    var server = connect().use( connect.logger('dev') )
+        .use( connect.static( config.PUBLIC_DIR ) )
+        .use( callbackServer );
 
-    function callbackServer(req, res){      
+    function callbackServer( req, res ){      
         
         app.render( req.url , function( content ) {
             // Send response to client
@@ -322,7 +335,7 @@ app.createServer = function( ignore_plugin_list ) {
     }
 
     // start server listen
-    var myServer = http.createServer(server).listen(config.SERVER_PORT);
+    var myServer = http.createServer( server ).listen( config.SERVER_PORT );
 
     // start socket
     io = io.listen(myServer);
@@ -458,8 +471,8 @@ app.compile.sass = function( filename ) {
 }
 
 app.render = function(file, callback, ignore_plugin_list) {
-    var file = ( file.indexOf(".html") !== -1 ) ? file : file + "/index.html";
-    var content = app.getFileContent( config.PAGES_DIR + file ),
+    // var file = ( file.indexOf(".html") !== -1 ) ? file : file + "/index.html";
+    var content = app.getFileContent( null, path.join( config.PAGES_DIR, file )),
         i = -1;
 
     ignore_plugin_list = ignore_plugin_list || [];
@@ -500,15 +513,15 @@ app.getFileContent = function(file, filePath) {
     var filePath = filePath || relativePath + file, out = false;
     console.log(filePath);
 
-    if(_fs.existsSync(filePath)) {
-        return _fs.readFileSync( filePath );
+    if(fs.existsSync(filePath)) {
+        return fs.readFileSync( filePath );
     } else {
         return false;
     }     
 };
 
 app.createFile = function( name, content, callback ) {
-    _fs.writeFile(name, content, function(err) {
+    fs.writeFile(name, content, function(err) {
         if(err) {
             console.log(err);
         } else {
@@ -522,13 +535,13 @@ app.createFile = function( name, content, callback ) {
 
 app.build = function() {
 
-    _fs.readdir( relativePath + config.PAGES_DIR, function( err, files ) {
+    fs.readdir( config.PAGES_DIR, function( err, files ) {
 
         files.forEach(function( name ) {
 
             app.render( "/" + name , function( content ){
 
-                app.createFile( relativePath + config.DIST_DIR + name, content );
+                app.createFile( path.join( config.BUILD_DIR, name ), content );
 
             }, [ "rinco_reload" ] );
         });
