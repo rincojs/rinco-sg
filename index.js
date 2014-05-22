@@ -1,9 +1,11 @@
+/* jslint node: true */
+
 /*!
  * rinco
  * Copyright(c) 2014 Allan Esquina
  * MIT Licensed
  */
- 
+
 'use strict';
 
 var rinco = require('./rinco');

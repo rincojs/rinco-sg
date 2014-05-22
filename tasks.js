@@ -7,25 +7,24 @@
 'use strict';
 
 var rinco = require('./rinco'),
-	config = require('./constants');
+    config = require('./constants');
 
 // Registering tasks
-
 rinco.registerTask( "start-dev", function( rinco ) {
-	rinco.createServer();
-	rinco.openSublime();
+    rinco.createServer();
+    rinco.openSublime();
 });
 
 rinco.registerTask( "server", function( rinco ) {
-	rinco.createServer();
+    rinco.createServer();
 });
 
 rinco.registerTask( "server:no-handlebars", function( rinco ) {
-	rinco.createServer( [ "rinco_handlebars" ] );
+    rinco.createServer( [ "rinco_handlebars" ] );
 });
 
 rinco.registerTask( "build", function( rinco ) {
-	rinco.build();
+    rinco.build();
 });
 
 // rinco.registerTaskGroup( "teste:grupo", ["teste"] );
