@@ -15,7 +15,6 @@ var _args = process.argv.slice(2),
     config = require('./constants'),
     _readline = require('readline'),
     fs = require("fs"),
-    _inputProjectName,
     _sys = require('sys'),
     _exec = require('child_process').exec,
     connect = require('connect'),
@@ -30,16 +29,17 @@ var _args = process.argv.slice(2),
     path = require('path'),
     inquirer = require('inquirer'),
     coffeescript = require("coffee-script"),
-    sync = require("sync"),
+    // sync = require("sync"),
+    _inputProjectName,
     relativePath = config.RELATIVE_PATH,
-    templateDir = config.TEMPLATE_DIR;
+    templateDir = config.RINCO_TEMPLATE_PATH;
 
 
 require('colors');
 
 app.init = function() {
 
-    app.sayHello();
+    // app.sayHello();
 
     if( app.checkConfigFile() ) {
         
@@ -218,6 +218,7 @@ app.prompt = function( action ) {
         }];
 
         inquirer.prompt( questions, function( answers ) {
+            console.log( _inputProjectName )
             
             if( _inputProjectName !== undefined ) { 
                 sh.cd(relativePath + "/" + _inputProjectName);
@@ -265,7 +266,7 @@ app.createScaffolding = function( callback ) {
         rinco_path_public = path.join( path_project, 'public' ),
         rinco_path_public_css = path.join( rinco_path_public, 'css' ),
         rinco_path_public_js = path.join( rinco_path_public, 'js' ),
-        rinco_path_templates = path.join( __dirname, templateDir ),
+        rinco_path_templates = path.join( templateDir ),
         rinco_path_build = path.join( path_project, 'build' );
 
 
@@ -433,7 +434,7 @@ app.compile.coffeescript = function( filename ) {
     var str = app.getFileContent( "", filename ).toString(),
         name = path.basename( filename );
 
-    sync(function() {
+    // sync(function() {
 
         var js = coffeescript.compile( str );
 
@@ -441,7 +442,7 @@ app.compile.coffeescript = function( filename ) {
 
             io.sockets.emit( 'refresh', { action: 'refresh' } );
         })
-    });
+    // });
 }
 
 app.compile.sass = function( filename ) {
