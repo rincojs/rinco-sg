@@ -345,7 +345,7 @@ app.startWatch = function () {
     app.watch( '/' );
 
     // CSS pre-compilation
-    app.watch( '/css', function( filename ) {
+    app.watch( '/assets/css', function( filename ) {
         switch( path.extname( filename ) ) {
             case '.scss':
                 app.compile.sass( filename );
