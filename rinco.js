@@ -141,7 +141,6 @@ app.sayHello = function() {
     sh.echo( ' * Static pages generator with sass, handlebars and watch reload!'.green);
     sh.echo( " * It's pretty cool".green + " :)".blue);
     sh.echo( '\n\n');
-
 };
 
 app.prompt = function( action ) {
