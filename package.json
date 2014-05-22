@@ -27,11 +27,15 @@
     "sync": "^0.2.2",
     "markdown": "^0.5.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "*"
+  },
   "engines": {
     "node": ">= 0.8.0"
   },
-  "scripts": {},
+  "scripts": {
+    "test": "make test"
+  },
   "preferGlobal": "true",
   "bin": {
     "rinco": "cli/rinco.js"
