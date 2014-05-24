@@ -41,11 +41,12 @@ app.init = function() {
 
     // app.sayHello();
 
+    console.log( _args[0] );
     if( app.checkConfigFile() ) {
         if( _args[0] !== undefined )  {
             // Try run a task group, otherwise, run a specific task
             if( !app.runTaskGroup( _args[0] ) ) {
-                app.task( _args[0] );
+                app.task();
             }
         } else {
             app.prompt( "list_tasks" );
@@ -69,11 +70,13 @@ app.runTaskGroup = function( name ) {
     }
 };
 
-app.task = function( name ) {
+app.task = function() {
+    console.log( _args );
+    var name = _args[0];
     // Checks if the task name exists
     if( typeof app.task.tasks[ name ] === "function" ) {
         // Start task
-        app.task.tasks[ name ]( app );
+        app.task.tasks[ name ]();
     } else {
         sh.echo( '✔ Hey, I did not find the task '.red + name.yellow + ', you registered it? \n'.red );
         app.prompt( "list_tasks" );
@@ -294,6 +297,7 @@ app.puts = function( error, stdout, stderr ) { _sys.puts(stdout); };
 app.createServer = function( ignore_plugin_list ) {
 
     ignore_plugin_list = ignore_plugin_list || [];
+    config.SERVER_PORT = _args[1] || config.SERVER_PORT;
 
     var server = connect().use( connect.logger('dev') )
         .use( connect.static( config.PUBLIC_DIR ) )
@@ -320,7 +324,7 @@ app.createServer = function( ignore_plugin_list ) {
 
     // open the page in browser
     app.openBrowser( null, function() {
-        sh.echo( '✔ http://localhost:3000/index.html'.green );
+        sh.echo( '✔ http://localhost:' + config.SERVER_PORT + '/index.html'.green );
     });
 };
 

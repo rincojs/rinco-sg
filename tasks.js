@@ -10,20 +10,20 @@ var rinco = require('./rinco'),
     config = require('./constants');
 
 // Registering tasks
-rinco.registerTask( "start-dev", function( rinco ) {
+rinco.registerTask( "start-dev", function() {
     rinco.createServer();
     rinco.openSublime();
 });
 
-rinco.registerTask( "server", function( rinco ) {
+rinco.registerTask( "server", function() {
     rinco.createServer();
 });
 
-rinco.registerTask( "server:no-handlebars", function( rinco ) {
+rinco.registerTask( "server:no-handlebars", function() {
     rinco.createServer( [ "rinco_handlebars" ] );
 });
 
-rinco.registerTask( "build", function( rinco ) {
+rinco.registerTask( "build", function() {
     rinco.build();
 });
 
