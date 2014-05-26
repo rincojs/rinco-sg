@@ -42,7 +42,8 @@ app.init = function() {
     // app.sayHello();
 
     console.log( _args[0] );
-    if( app.checkConfigFile() ) {
+
+    if( app.checkConfigFile() || _args[1] !== undefined ) {
         if( _args[0] !== undefined )  {
             // Try run a task group, otherwise, run a specific task
             if( !app.runTaskGroup( _args[0] ) ) {
@@ -71,7 +72,6 @@ app.runTaskGroup = function( name ) {
 };
 
 app.task = function() {
-    console.log( _args );
     var name = _args[0];
     // Checks if the task name exists
     if( typeof app.task.tasks[ name ] === "function" ) {
@@ -235,6 +235,10 @@ app.prompt = function( action ) {
 };
 
 app.createScaffolding = function( callback ) {
+
+    _inputProjectName = _inputProjectName || _args[1] || false;
+
+    if( !_inputProjectName ) callback( true );
 
     var path_project = path.join('./', _inputProjectName ),
         rinco_path_assets = path.join( path_project, 'assets' ),

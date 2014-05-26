@@ -1,0 +1,16 @@
+{
+	"items": [
+		{
+			"link": "/home",
+			"name": "home"
+		},
+		{
+			"link": "/doc",
+			"name": "documentation"
+		},
+		{
+			"link": "/download",
+			"name": "download"
+		}
+	]
+}

@@ -27,4 +27,14 @@ rinco.registerTask( "build", function() {
     rinco.build();
 });
 
+rinco.registerTask( "init", function() {
+    rinco.createScaffolding( function( error ) {
+    	if( error ) {
+    		console.log('Invalid name!');
+    		return false;
+    	}
+    	rinco.prompt( "list_tasks" );
+    });
+});
+
 // rinco.registerTaskGroup( "teste:grupo", ["teste"] );
