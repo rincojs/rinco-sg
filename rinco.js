@@ -323,12 +323,45 @@ app.createServer = function( ignore_plugin_list ) {
     // reduce logging
     io.set('log level', 0);
 
+    // render files to public path
+    app.renderFiles();
     // start watch files
     app.startWatch();
 
     // open the page in browser
-    app.openBrowser( null, function() {
-        sh.echo( '✔ http://localhost:' + config.SERVER_PORT + '/index.html'.green );
+    // app.openBrowser( null, function() {
+    //     sh.echo( '✔ http://localhost:' + config.SERVER_PORT + '/index.html'.green );
+    // });
+};
+
+app.renderFiles = function() {
+    fs.readdir( path.join( relativePath, '/assets/css/' ) , function( err, files ) {
+        files.forEach(function( filename ) {
+            switch( path.extname( filename ) ) {
+                case '.scss':
+                    app.compile.sass( filename );
+                    break;
+                case '.styl':
+                    app.compile.stylus( filename );
+                    break;
+                case '.js':
+                    app.compile.less( filename );
+                    break;
+            }
+        });
+    });
+
+    fs.readdir( path.join( relativePath, '/assets/js/' ), function( err, files ) {
+        files.forEach(function( filename ) {
+            switch( path.extname( filename ) ) {
+                case '.js':
+                    app.compile.js( filename );
+                    break;
+                case '.coffee':
+                    app.compile.coffeescript( filename );
+                    break;
+            }
+        });
     });
 };
 
@@ -366,11 +399,15 @@ app.startWatch = function () {
         }
     });
 
-    // JS pre-compilation
-    app.watch( '/js', function( filename ) {
-        // Coffee Script
-        if ( path.extname( filename ) === '.coffee' ) {
-            app.compile.coffeescript( filename );
+    // JS 
+    app.watch( '/assets/js', function( filename ) {
+        switch( path.extname( filename ) ) {
+            case '.js':
+                app.compile.js( filename );
+                break;
+            case '.coffee':
+                app.compile.coffeescript( filename );
+                break;
         }
     });
 
@@ -413,7 +450,17 @@ app.compile.coffeescript = function( filename ) {
     // });
 };
 
+app.compile.js = function( filename ) {
+    var name = path.basename( filename ), str = app.getFileContent( null, path.join( relativePath, 'assets/js', name ) ).toString(),
+        js = str; 
+
+    app.createFile( relativePath + "/public/js/" + name.split(".")[0] + ".js", js, function() {
+        io.sockets.emit( 'refresh', { action: 'refresh' } );
+    });
+};
+
 app.compile.sass = function( filename ) {
+    console.log( 'sass', filename )
     // Get file name
     var name = path.basename( filename );
 
@@ -421,7 +468,7 @@ app.compile.sass = function( filename ) {
     if( name[0] !== "_") {
         var css = sass.render({
             file: filename,
-            includePaths: [ relativePath + '/css' ],
+            includePaths: [ relativePath + '/assets/css' ],
             outputStyle: 'compressed',
             success: function( css ) {
                 app.createFile( relativePath + "/public/css/" + name.split(".")[0] + ".css", css, function() {
@@ -468,8 +515,8 @@ app.registerPlugin = function( middleware ) {
 };
 
 app.getFileContent = function( file, filePath ) {
-    var filePath = filePath || relativePath + file, out = false;
-    console.log(filePath);
+    var filePath = filePath || path.join( relativePath, file ), out = false;
+    console.log('filepath', filePath);
 
     if(fs.existsSync(filePath)) {
         return fs.readFileSync( filePath );
