@@ -14,7 +14,7 @@ var rinco = require('../rinco'),
     path = require('path');
 
 // Parse templates files
-rinco.registerPlugin( function rinco_template( next, content ) {
+rinco.registerMiddleware( function rinco_template( next, content ) {
 
     parse_template( content );
 

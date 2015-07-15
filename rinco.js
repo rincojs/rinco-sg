@@ -32,7 +32,6 @@ var _args = process.argv.slice(2),
     coffeescript = require("coffee-script"),
     // sync = require("sync"),
     _inputProjectName,
-    relativePath = config.RELATIVE_PATH,
     templateDir = config.RINCO_TEMPLATE_PATH;
 
 require('colors');
@@ -120,9 +119,9 @@ app.registerTaskGroup = function( name,  tasks ) {
 
 app.checkConfigFile = function() {
     // Vefify if config file exist
-    if( fs.existsSync( relativePath + "/rconf.js" ) ) {
+    if( fs.existsSync( config.RELATIVE_PATH + "/rconf.js" ) ) {
         // Load confg from project
-        require( relativePath + "/rconf" );
+        require( config.RELATIVE_PATH + "/rconf" );
         return true;
     } else {
         return false;
@@ -201,7 +200,7 @@ app.prompt = function( action ) {
             console.log( _inputProjectName );
 
             if ( _inputProjectName !== undefined ) {
-                sh.cd(relativePath + "/" + _inputProjectName);
+                sh.cd(config.RELATIVE_PATH + "/" + _inputProjectName);
             }
 
             sh.exec( "rinco " + answers.project_task );
@@ -236,60 +235,68 @@ app.prompt = function( action ) {
 
 app.createScaffolding = function( callback ) {
 
-    _inputProjectName = _inputProjectName || _args[1] || false;
+  if (!sh.which('git')) {
+    sh.echo('Sorry, this script requires git');
+    exit(1);
+  }
 
-    if( !_inputProjectName ) callback( true );
+  _inputProjectName = _inputProjectName || _args[1] || '';
+  sh.exec('git clone https://github.com/rincojs/tpl-rinco-staticgen-default.git ' + _inputProjectName);
+  (callback && callback.call && callback.call());
 
-    var path_project = path.join('./', _inputProjectName ),
-        rinco_path_assets = path.join( path_project, 'assets' ),
-        rinco_path_data = path.join( rinco_path_assets, 'data' ),
-        rinco_path_pages = path.join( rinco_path_assets, 'pages' ),
-        rinco_path_includes = path.join( rinco_path_assets, 'includes' ),
-        rinco_path_css = path.join( rinco_path_assets, 'css' ),
-        rinco_path_js = path.join( rinco_path_assets, 'js' ),
-        rinco_path_public = path.join( path_project, 'public' ),
-        rinco_path_public_css = path.join( rinco_path_public, 'css' ),
-        rinco_path_public_js = path.join( rinco_path_public, 'js' ),
-        rinco_path_templates = path.join( templateDir ),
-        rinco_path_build = path.join( path_project, 'build' );
-
-    fs.mkdir(_inputProjectName, '0755', function(e) {
-
-        fs.mkdir( rinco_path_assets, '0755', function(e) {
-
-            fs.mkdir( rinco_path_data, '0755', function(e) {
-                app.copyFile( path.join( rinco_path_templates, 'user.json' ), rinco_path_data );
-                app.copyFile( path.join( rinco_path_templates, 'generic.json' ), rinco_path_data );
-            });
-
-            fs.mkdir( rinco_path_pages, '0755', function(e) {
-                app.copyFile( path.join( rinco_path_templates, 'index.html' ),  rinco_path_pages );
-            });
-
-            fs.mkdir( rinco_path_includes, '0755',  function(e) {
-                app.copyFile( path.join( rinco_path_templates, 'header.html' ), rinco_path_includes );
-                app.copyFile( path.join( rinco_path_templates, 'content.html' ), rinco_path_includes );
-                app.copyFile( path.join( rinco_path_templates, 'footer.html' ), rinco_path_includes );
-            });
-
-            fs.mkdir( rinco_path_js, '0755', function(e) { });
-            fs.mkdir( rinco_path_css, '0755', function(e) {
-                app.copyFile( path.join( rinco_path_templates, 'styles.scss' ), rinco_path_css );
-            });
-
-        });
-
-        fs.mkdir( rinco_path_public , '0755', function(e) {
-            fs.mkdir( rinco_path_public_css, '0755' );
-            fs.mkdir( rinco_path_public_js, '0755' );
-        });
-
-        fs.mkdir( rinco_path_build, '0755' );
-
-        app.copyFile( path.join( rinco_path_templates, 'rconf.js' ),  path_project );
-
-        setTimeout( callback, 500 );
-    });
+    //
+    // if( !_inputProjectName ) callback( true );
+    //
+    // var path_project = path.join('./', _inputProjectName ),
+    //     rinco_path_assets = path.join( path_project, 'assets' ),
+    //     rinco_path_data = path.join( rinco_path_assets, 'data' ),
+    //     rinco_path_pages = path.join( rinco_path_assets, 'pages' ),
+    //     rinco_path_includes = path.join( rinco_path_assets, 'includes' ),
+    //     rinco_path_css = path.join( rinco_path_assets, 'css' ),
+    //     rinco_path_js = path.join( rinco_path_assets, 'js' ),
+    //     rinco_path_public = path.join( path_project, 'public' ),
+    //     rinco_path_public_css = path.join( rinco_path_public, 'css' ),
+    //     rinco_path_public_js = path.join( rinco_path_public, 'js' ),
+    //     rinco_path_templates = path.join( templateDir ),
+    //     rinco_path_build = path.join( path_project, 'build' );
+    //
+    // fs.mkdir(_inputProjectName, '0755', function(e) {
+    //
+    //     fs.mkdir( rinco_path_assets, '0755', function(e) {
+    //
+    //         fs.mkdir( rinco_path_data, '0755', function(e) {
+    //             app.copyFile( path.join( rinco_path_templates, 'user.json' ), rinco_path_data );
+    //             app.copyFile( path.join( rinco_path_templates, 'generic.json' ), rinco_path_data );
+    //         });
+    //
+    //         fs.mkdir( rinco_path_pages, '0755', function(e) {
+    //             app.copyFile( path.join( rinco_path_templates, 'index.html' ),  rinco_path_pages );
+    //         });
+    //
+    //         fs.mkdir( rinco_path_includes, '0755',  function(e) {
+    //             app.copyFile( path.join( rinco_path_templates, 'header.html' ), rinco_path_includes );
+    //             app.copyFile( path.join( rinco_path_templates, 'content.html' ), rinco_path_includes );
+    //             app.copyFile( path.join( rinco_path_templates, 'footer.html' ), rinco_path_includes );
+    //         });
+    //
+    //         fs.mkdir( rinco_path_js, '0755', function(e) { });
+    //         fs.mkdir( rinco_path_css, '0755', function(e) {
+    //             app.copyFile( path.join( rinco_path_templates, 'styles.scss' ), rinco_path_css );
+    //         });
+    //
+    //     });
+    //
+    //     fs.mkdir( rinco_path_public , '0755', function(e) {
+    //         fs.mkdir( rinco_path_public_css, '0755' );
+    //         fs.mkdir( rinco_path_public_js, '0755' );
+    //     });
+    //
+    //     fs.mkdir( rinco_path_build, '0755' );
+    //
+    //     app.copyFile( path.join( rinco_path_templates, 'rconf.js' ),  path_project );
+    //
+    //     setTimeout( callback, 500 );
+    // });
 };
 
 app.copyFile = function( fileName, pathTo ) {
@@ -298,9 +305,9 @@ app.copyFile = function( fileName, pathTo ) {
 
 app.puts = function( error, stdout, stderr ) { _sys.puts(stdout); };
 
-app.createServer = function( ignore_plugin_list ) {
+app.createServer = function( ignore_middlewares_list ) {
 
-    ignore_plugin_list = ignore_plugin_list || [];
+    ignore_middlewares_list = ignore_middlewares_list || [];
     config.SERVER_PORT = _args[1] || config.SERVER_PORT;
 
     var server = connect().use( connect.logger('dev') )
@@ -311,7 +318,7 @@ app.createServer = function( ignore_plugin_list ) {
         app.render( req.url , function( content ) {
             // Send response to client
             res.end( content );
-        }, ignore_plugin_list );
+        }, ignore_middlewares_list );
     }
 
     // start server listen
@@ -335,7 +342,7 @@ app.createServer = function( ignore_plugin_list ) {
 };
 
 app.renderFiles = function() {
-    fs.readdir( path.join( relativePath, '/assets/css/' ) , function( err, files ) {
+    fs.readdir( path.join( config.RELATIVE_PATH, '/assets/css/' ) , function( err, files ) {
         files.forEach(function( filename ) {
             switch( path.extname( filename ) ) {
                 case '.scss':
@@ -351,7 +358,7 @@ app.renderFiles = function() {
         });
     });
 
-    fs.readdir( path.join( relativePath, '/assets/js/' ), function( err, files ) {
+    fs.readdir( path.join( config.RELATIVE_PATH, '/assets/js/' ), function( err, files ) {
         files.forEach(function( filename ) {
             switch( path.extname( filename ) ) {
                 case '.js':
@@ -369,7 +376,7 @@ app.renderFiles = function() {
 app.watch = function( path, fn, options ) {
     options = options || { recursive: true, followSymLinks: true };
 
-    watch(relativePath + path, options, callWatch );
+    watch(config.RELATIVE_PATH + path, options, callWatch );
 
     function callWatch( filename ) {
         if ( typeof fn === 'function' ) {
@@ -382,7 +389,10 @@ app.watch = function( path, fn, options ) {
 
 app.startWatch = function () {
 
-    app.watch( '/' );
+    app.watch( '/', function() {
+      io.sockets.emit( 'refresh', { action: 'refresh' } );
+    });
+
 
     // CSS pre-compilation
     app.watch( '/assets/css', function( filename ) {
@@ -399,7 +409,7 @@ app.startWatch = function () {
         }
     });
 
-    // JS 
+    // JS
     app.watch( '/assets/js', function( filename ) {
         switch( path.extname( filename ) ) {
             case '.js':
@@ -419,7 +429,7 @@ app.compile.stylus = function( filename ) {
 
     stylus.render( str, { filename: filename }, function( err, css ) {
         if ( err ) throw err;
-        app.createFile( relativePath + "/public/css/" + name.split(".")[0] + ".css", css, function() {
+        app.createFile( config.RELATIVE_PATH + "/public/css/" + name.split(".")[0] + ".css", css, function() {
             io.sockets.emit( 'refresh', { action: 'refresh' } );
         });
     });
@@ -431,7 +441,7 @@ app.compile.less = function( filename ) {
 
     less.render( str, function( err, css ){
         if ( err ) throw err;
-        app.createFile( relativePath + "/public/css/" + name.split(".")[0] + ".css", css, function() {
+        app.createFile( config.RELATIVE_PATH + "/public/css/" + name.split(".")[0] + ".css", css, function() {
             io.sockets.emit( 'refresh', { action: 'refresh' } );
         });
     });
@@ -444,51 +454,47 @@ app.compile.coffeescript = function( filename ) {
     // sync(function() {
         var js = coffeescript.compile( str );
 
-        app.createFile( relativePath + "/public/js/" + name.split(".")[0] + ".js", js, function() {
+        app.createFile( config.RELATIVE_PATH + "/public/js/" + name.split(".")[0] + ".js", js, function() {
             io.sockets.emit( 'refresh', { action: 'refresh' } );
         });
     // });
 };
 
 app.compile.js = function( filename ) {
-    var name = path.basename( filename ), str = app.getFileContent( null, path.join( relativePath, 'assets/js', name ) ).toString(),
-        js = str; 
+    var name = path.basename( filename ), str = app.getFileContent( null, path.join( config.RELATIVE_PATH, 'assets/js', name ) ).toString(),
+        js = str;
 
-    app.createFile( relativePath + "/public/js/" + name.split(".")[0] + ".js", js, function() {
+    app.createFile( config.RELATIVE_PATH + "/public/js/" + name.split(".")[0] + ".js", js, function() {
         io.sockets.emit( 'refresh', { action: 'refresh' } );
     });
 };
 
 app.compile.sass = function( filename ) {
-    console.log( 'sass', filename )
     // Get file name
     var name = path.basename( filename );
 
+    var pathdist = path.join(config.PUBLIC_DIR, 'css', name.split(".")[0] + ".css");
     // Ignore import files from sass
     if( name[0] !== "_") {
         var css = sass.render({
-            file: filename,
-            includePaths: [ relativePath + '/assets/css' ],
-            outputStyle: 'compressed',
-            success: function( css ) {
-                app.createFile( relativePath + "/public/css/" + name.split(".")[0] + ".css", css, function() {
-                    io.sockets.emit( 'refresh', { action: 'refresh' } );
-                });
-                //console.log(css)
-            },
-            error: function( e ) {
-                console.log(e);
-            }
+            file: path.join(config.RELATIVE_PATH, '/assets/css', name),
+            includePaths: [ config.RELATIVE_PATH + '/assets/css' ],
+            outputStyle: 'compressed'
+          },function( err, rendered ) {
+              app.createFile( pathdist, rendered.css.toString(), function() {
+                  io.sockets.emit( 'refresh', { action: 'refresh' } );
+              });
+              //console.log(css)
         });
     }
 };
 
-app.render = function( file, callback, ignore_plugin_list ) {
+app.render = function( file, callback, ignore_middlewares_list ) {
     // var file = ( file.indexOf(".html") !== -1 ) ? file : file + "/index.html";
     var content = app.getFileContent( null, path.join( config.PAGES_DIR, file )),
         i = -1;
 
-    ignore_plugin_list = ignore_plugin_list || [];
+    ignore_middlewares_list = ignore_middlewares_list || [];
 
     function next( value ) {
         content = value;
@@ -496,7 +502,7 @@ app.render = function( file, callback, ignore_plugin_list ) {
 
         if ( i < app.render.middlewares.length ) {
 
-            if ( ignore_plugin_list.indexOf( app.render.middlewares[i].name ) === -1 ) {
+            if ( ignore_middlewares_list.indexOf( app.render.middlewares[i].name ) === -1 ) {
                 app.render.middlewares[i]( next, content );
             } else {
                 next( content );
@@ -510,12 +516,12 @@ app.render = function( file, callback, ignore_plugin_list ) {
 
 app.render.middlewares = [];
 
-app.registerPlugin = function( middleware ) {
+app.registerMiddleware = function( middleware ) {
     return app.render.middlewares.push( middleware );
 };
 
 app.getFileContent = function( file, filePath ) {
-    var filePath = filePath || path.join( relativePath, file ), out = false;
+    var filePath = filePath || path.join( config.RELATIVE_PATH, file ), out = false;
     console.log('filepath', filePath);
 
     if(fs.existsSync(filePath)) {

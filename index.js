@@ -10,9 +10,10 @@
 
 var rinco = require('./rinco');
 
-require('./plugins/rinco-parse-template');
-require('./plugins/rinco-handlebars');
-require('./plugins/rinco-reload');
+require('./middlewares/rinco-parse-template');
+require('./middlewares/rinco-handlebars');
+require('./middlewares/rinco-mustache');
+require('./middlewares/rinco-reload');
 
 require('./tasks.js');
 
