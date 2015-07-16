@@ -345,6 +345,9 @@ app.renderFiles = function() {
     fs.readdir( path.join( config.RELATIVE_PATH, '/assets/css/' ) , function( err, files ) {
         files.forEach(function( filename ) {
             switch( path.extname( filename ) ) {
+                case '.css':
+                    app.compile.css( filename );
+                    break;
                 case '.scss':
                     app.compile.sass( filename );
                     break;
@@ -352,6 +355,9 @@ app.renderFiles = function() {
                     app.compile.stylus( filename );
                     break;
                 case '.js':
+                    app.compile.less( filename );
+                    break;
+                case '.less':
                     app.compile.less( filename );
                     break;
             }
@@ -389,9 +395,7 @@ app.watch = function( path, fn, options ) {
 
 app.startWatch = function () {
 
-    app.watch( '/', function() {
-      io.sockets.emit( 'refresh', { action: 'refresh' } );
-    });
+    app.watch( '/');
 
 
     // CSS pre-compilation
@@ -404,6 +408,9 @@ app.startWatch = function () {
                 app.compile.stylus( filename );
                 break;
             case '.js':
+                app.compile.less( filename );
+                break;
+            case '.less':
                 app.compile.less( filename );
                 break;
         }
@@ -436,20 +443,37 @@ app.compile.stylus = function( filename ) {
 };
 
 app.compile.less = function( filename ) {
-    var str = app.getFileContent( "", filename ).toString(),
-        name = path.basename( filename );
+    var name = path.basename( filename );
+    var str = app.getFileContent( null, path.join( config.RELATIVE_PATH, 'assets/css', name ) ).toString();
 
-    less.render( str, function( err, css ){
-        if ( err ) throw err;
-        app.createFile( config.RELATIVE_PATH + "/public/css/" + name.split(".")[0] + ".css", css, function() {
+    less.render(str,
+    {
+      paths: [path.join( config.RELATIVE_PATH, 'assets/css' )],  // Specify search paths for @import directives
+      filename: path.join( config.RELATIVE_PATH, 'assets/css', name ), // Specify a filename, for better error messages
+      compress: false          // Minify CSS output
+    },
+    function (e, result) {
+        if ( e ) {
+          console.log( e );
+        }
+        app.createFile( config.RELATIVE_PATH + "/public/css/" + name.split(".")[0] + ".css", result, function() {
             io.sockets.emit( 'refresh', { action: 'refresh' } );
         });
     });
 };
 
+app.compile.css = function( filename ) {
+    var name = path.basename( filename );
+    var str = app.getFileContent( null, path.join( config.RELATIVE_PATH, 'assets/css', name ) ).toString();
+
+    app.createFile( config.RELATIVE_PATH + "/public/css/" + name, str, function() {
+        io.sockets.emit( 'refresh', { action: 'refresh' } );
+    });
+};
+
 app.compile.coffeescript = function( filename ) {
-    var str = app.getFileContent( "", filename ).toString(),
-        name = path.basename( filename );
+    var name = path.basename( filename );
+    var str = app.getFileContent(  null, path.join( config.RELATIVE_PATH, 'assets/js', name ) ).toString();
 
     // sync(function() {
         var js = coffeescript.compile( str );
@@ -481,6 +505,9 @@ app.compile.sass = function( filename ) {
             includePaths: [ config.RELATIVE_PATH + '/assets/css' ],
             outputStyle: 'compressed'
           },function( err, rendered ) {
+              if( err ) {
+                console.log(err);
+              }
               app.createFile( pathdist, rendered.css.toString(), function() {
                   io.sockets.emit( 'refresh', { action: 'refresh' } );
               });
@@ -522,7 +549,6 @@ app.registerMiddleware = function( middleware ) {
 
 app.getFileContent = function( file, filePath ) {
     var filePath = filePath || path.join( config.RELATIVE_PATH, file ), out = false;
-    console.log('filepath', filePath);
 
     if(fs.existsSync(filePath)) {
         return fs.readFileSync( filePath );
@@ -536,7 +562,7 @@ app.createFile = function( name, content, callback ) {
         if(err) {
             console.log(err);
         } else {
-            console.log(config.PROMPT_FILE_CREATED + name);
+            // console.log(config.PROMPT_FILE_CREATED + name);
             if( callback ) {
                 callback();
             }
