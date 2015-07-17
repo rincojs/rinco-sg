@@ -1,5 +1,4 @@
 /* jslint node: true */
-
 /*!
  * rinco - reload
  * Copyright(c) 2014 Allan Esquina
@@ -8,24 +7,24 @@
 
 'use strict';
 
-var rinco = require('../rinco'),
-    path = require('path'),
-    config = require('../constants');
+var rinco = require('../rinco');
+
+require('../lib/constants');
 
 // Parse templates files
-rinco.registerMiddleware(function rinco_reload( next, content ) {
+rinco.render.middleware.register(function rinco_reload(next, content) {
 
-        //Replace head tag to reload.js content + head
-        var responseString = content.toString().replace(/(\<\/head\>)/, function( match, head ) {
+    //Replace head tag to reload.js content + head
+    var responseString = content.toString().replace(/(\<\/head\>)/, function (match, head) {
 
-            var script = rinco.getFileContent( null,  path.join( config.RINCO_TEMPLATE_PATH, 'reload.js' ) );
+        var script = rinco.fs.file.read(null, path.join(config.RINCO_TEMPLATE_PATH, 'reload.js'));
 
-            if( script ) {
-                return script + "\n" + head;
-            } else {
-                return config.SERVER_TEMPLATE_NOT_FOUND + " File: " + path.join( config.RINCO_TEMPLATE_PATH, 'reload.js' );
-            }
-        });
+        if (script) {
+            return script + "\n" + head;
+        } else {
+            return "File: " + rinco.fs.path.join(config.RINCO_TEMPLATE_PATH, 'reload.js');
+        }
+    });
 
-        next(responseString);
+    next(responseString);
 });

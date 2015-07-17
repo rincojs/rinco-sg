@@ -6,35 +6,36 @@
 
 'use strict';
 
-var rinco = require('./rinco'),
-    config = require('./constants');
+var rinco = require('./rinco');
+
+require('./lib/constants');
 
 // Registering tasks
-rinco.registerTask( "start-dev", function() {
-    rinco.createServer();
-    rinco.openSublime();
+rinco.task.register("start-dev", function () {
+    rinco.server.start();
+    rinco.util.openSublime();
 });
 
-rinco.registerTask( "server", function() {
-    rinco.createServer();
+rinco.task.register("server", function () {
+    rinco.server.start();
 });
 
-rinco.registerTask( "server:no-handlebars", function() {
-    rinco.createServer( [ "rinco_handlebars" ] );
+rinco.task.register("server:no-handlebars", function () {
+    rinco.server.start(["rinco_handlebars"]);
 });
 
-rinco.registerTask( "build", function() {
-    rinco.build();
+rinco.task.register("build", function () {
+    rinco.util.build();
 });
 
-rinco.registerTask( "init", function() {
-    rinco.createScaffolding( function( error ) {
-    	if( error ) {
-    		console.log('Invalid name!');
-    		return false;
-    	}
-    	rinco.prompt( "list_tasks" );
+rinco.task.register("init", function () {
+    rinco.server.start(function (error) {
+        if (error) {
+            console.log('Invalid name!');
+            return false;
+        }
+        rinco.prompt.direction("list_tasks");
     });
 });
 
-// rinco.registerTaskGroup( "teste:grupo", ["teste"] );
+// rinco.task.register( "teste:grupo", ["teste"] );

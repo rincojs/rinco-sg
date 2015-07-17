@@ -1,39 +1,39 @@
 /* jslint node: true */
-
 /*!
  * rinco - handlebars compile
  * Copyright(c) 2014 Allan Esquina
  * MIT Licensed
  */
-
 'use strict';
 
-var rinco = require('../rinco'),
-    config = require('../constants'),
-    path = require('path'),
-    Handlebars = require('handlebars');
+var rinco = require('../rinco');
+var Handlebars = require('handlebars');
+
+require('../lib/constants');
 
 // Parse templates files
-rinco.registerMiddleware( function rinco_handlebars( next, content ) {
-    var data = [], dataTmp, template;
+rinco.render.middleware.register(function rinco_handlebars(next, content) {
+    var data = [],
+        dataTmp, template;
 
     // Replace data tags to templates files contents
     var responseString = content.toString().replace(/\@data\((.*?)\)/g,
-        function(match, file, b, c) {
+        function (match, file, b, c) {
             // define vars
-            var split = [], alias;
+            var split = [],
+                alias;
 
             // alias verification
-            if ( file.indexOf("as") !== -1 ) {
+            if (file.indexOf("as") !== -1) {
                 split = file.split("as");
                 file = split[0].trim();
             }
 
             // parse json from file
-            dataTmp = JSON.parse( rinco.getFileContent(null, path.join( config.DATA_DIR, file ) ) );
+            dataTmp = JSON.parse(rinco.fs.file.read(null, rinco.fs.path.join(config.DATA_DIR, file)));
 
             // adding json content in data array with a alias key
-            if ( dataTmp ) {
+            if (dataTmp) {
                 alias = split[1] || file.split(".")[0];
                 data[alias.trim()] = dataTmp;
             }
