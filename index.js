@@ -8,13 +8,12 @@
 
 'use strict';
 
-var rinco = require('./rinco');
+var rinco = require('./lib/rinco');
 
-require('./middlewares/rinco-parse-template');
-// require('./middlewares/rinco-handlebars');
-require('./middlewares/rinco-mustache');
-require('./middlewares/rinco-reload');
-
-require('./tasks.js');
+require('./lib/middleware/rinco-parse-template');
+// require('./lib/middleware/rinco-handlebars');
+require('./lib/middleware/rinco-mustache');
+require('./lib/middleware/rinco-reload');
+require('./tasks');
 
 rinco.init();

@@ -6,9 +6,7 @@
 
 'use strict';
 
-var rinco = require('./rinco');
-
-require('./lib/constants');
+var rinco = require('./lib/rinco');
 
 // Registering tasks
 rinco.task.register("start-dev", function () {
