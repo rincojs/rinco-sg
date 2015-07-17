@@ -11,7 +11,7 @@
 var rinco = require('./rinco');
 
 require('./middlewares/rinco-parse-template');
-require('./middlewares/rinco-handlebars');
+// require('./middlewares/rinco-handlebars');
 require('./middlewares/rinco-mustache');
 require('./middlewares/rinco-reload');
 

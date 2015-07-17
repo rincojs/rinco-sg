@@ -32,7 +32,8 @@ var _args = process.argv.slice(2),
     coffeescript = require("coffee-script"),
     // sync = require("sync"),
     _inputProjectName,
-    templateDir = config.RINCO_TEMPLATE_PATH;
+    templateDir = config.RINCO_TEMPLATE_PATH,
+    mkdirp = require('mkdirp');
 
 require('colors');
 
@@ -315,7 +316,7 @@ app.createServer = function( ignore_middlewares_list ) {
         .use( callbackServer );
 
     function callbackServer( req, res ){
-        app.render( req.url , function( content ) {
+        app.render( path.join(config.PAGES_DIR, req.url) , function( content ) {
             // Send response to client
             res.end( content );
         }, ignore_middlewares_list );
@@ -341,24 +342,25 @@ app.createServer = function( ignore_middlewares_list ) {
     // });
 };
 
-app.renderFiles = function() {
+app.renderFiles = function(dist) {
+
     fs.readdir( path.join( config.RELATIVE_PATH, '/assets/css/' ) , function( err, files ) {
         files.forEach(function( filename ) {
-            switch( path.extname( filename ) ) {
+            switch( path.extname( filename, dist ) ) {
                 case '.css':
-                    app.compile.css( filename );
+                    app.compile.css( filename, dist );
                     break;
                 case '.scss':
-                    app.compile.sass( filename );
+                    app.compile.sass( filename, dist );
                     break;
                 case '.styl':
-                    app.compile.stylus( filename );
+                    app.compile.stylus( filename, dist );
                     break;
                 case '.js':
-                    app.compile.less( filename );
+                    app.compile.less( filename, dist );
                     break;
                 case '.less':
-                    app.compile.less( filename );
+                    app.compile.less( filename, dist );
                     break;
             }
         });
@@ -366,12 +368,12 @@ app.renderFiles = function() {
 
     fs.readdir( path.join( config.RELATIVE_PATH, '/assets/js/' ), function( err, files ) {
         files.forEach(function( filename ) {
-            switch( path.extname( filename ) ) {
+            switch( path.extname( filename, dist ) ) {
                 case '.js':
-                    app.compile.js( filename );
+                    app.compile.js( filename, dist );
                     break;
                 case '.coffee':
-                    app.compile.coffeescript( filename );
+                    app.compile.coffeescript( filename, dist );
                     break;
             }
         });
@@ -430,21 +432,23 @@ app.startWatch = function () {
 
 };
 
-app.compile.stylus = function( filename ) {
+app.compile.stylus = function( filename, dist ) {
     var str = app.getFileContent( "", filename ).toString(),
         name = path.basename( filename );
+    var dist = path.join(dist, "/css/") || path.join(config.RELATIVE_PATH, "/public/css/");
 
     stylus.render( str, { filename: filename }, function( err, css ) {
         if ( err ) throw err;
-        app.createFile( config.RELATIVE_PATH + "/public/css/" + name.split(".")[0] + ".css", css, function() {
-            io.sockets.emit( 'refresh', { action: 'refresh' } );
+        app.createFile( path.join( dist, name.split(".")[0] + ".css"), css, function() {
+            ( !dist && io.sockets.emit( 'refresh', { action: 'refresh' } ) );
         });
     });
 };
 
-app.compile.less = function( filename ) {
+app.compile.less = function( filename, dist ) {
     var name = path.basename( filename );
     var str = app.getFileContent( null, path.join( config.RELATIVE_PATH, 'assets/css', name ) ).toString();
+    var dist = path.join(dist, "/css/") || path.join(config.RELATIVE_PATH, "/public/css/");
 
     less.render(str,
     {
@@ -456,48 +460,52 @@ app.compile.less = function( filename ) {
         if ( e ) {
           console.log( e );
         }
-        app.createFile( config.RELATIVE_PATH + "/public/css/" + name.split(".")[0] + ".css", result, function() {
-            io.sockets.emit( 'refresh', { action: 'refresh' } );
+        app.createFile( path.join(dist, name.split(".")[0] + ".css"), result, function() {
+            ( !dist && io.sockets.emit( 'refresh', { action: 'refresh' } ) );
         });
     });
 };
 
-app.compile.css = function( filename ) {
+app.compile.css = function( filename, dist ) {
     var name = path.basename( filename );
     var str = app.getFileContent( null, path.join( config.RELATIVE_PATH, 'assets/css', name ) ).toString();
+    var dist = path.join(dist, "/css/") || path.join(config.RELATIVE_PATH, "/public/css/");
 
-    app.createFile( config.RELATIVE_PATH + "/public/css/" + name, str, function() {
-        io.sockets.emit( 'refresh', { action: 'refresh' } );
+    app.createFile( path.join(dist, name), str, function() {
+        ( !dist && io.sockets.emit( 'refresh', { action: 'refresh' } ) );
     });
 };
 
-app.compile.coffeescript = function( filename ) {
+app.compile.coffeescript = function( filename, dist ) {
     var name = path.basename( filename );
     var str = app.getFileContent(  null, path.join( config.RELATIVE_PATH, 'assets/js', name ) ).toString();
+    var dist = path.join(dist, "/js/") || path.join(config.RELATIVE_PATH, "/public/js/");
 
     // sync(function() {
         var js = coffeescript.compile( str );
 
-        app.createFile( config.RELATIVE_PATH + "/public/js/" + name.split(".")[0] + ".js", js, function() {
-            io.sockets.emit( 'refresh', { action: 'refresh' } );
+        app.createFile( path.join(dist, name.split(".")[0] + ".js"), js, function() {
+            ( !dist && io.sockets.emit( 'refresh', { action: 'refresh' } ) );
         });
     // });
 };
 
-app.compile.js = function( filename ) {
+app.compile.js = function( filename, dist ) {
     var name = path.basename( filename ), str = app.getFileContent( null, path.join( config.RELATIVE_PATH, 'assets/js', name ) ).toString(),
         js = str;
+    var dist = path.join(dist, "/js/") || path.join(config.RELATIVE_PATH, "/public/js/");
 
-    app.createFile( config.RELATIVE_PATH + "/public/js/" + name.split(".")[0] + ".js", js, function() {
-        io.sockets.emit( 'refresh', { action: 'refresh' } );
+    app.createFile( path.join(dist, name.split(".")[0] + ".js"), js, function() {
+        ( !dist && io.sockets.emit( 'refresh', { action: 'refresh' } ) );
     });
 };
 
-app.compile.sass = function( filename ) {
+app.compile.sass = function( filename, dist ) {
     // Get file name
     var name = path.basename( filename );
+    var dist = path.join(dist, "/css/") || path.join(config.RELATIVE_PATH, "/public/css/");
 
-    var pathdist = path.join(config.PUBLIC_DIR, 'css', name.split(".")[0] + ".css");
+    var pathdist = path.join(dist, name.split(".")[0] + ".css");
     // Ignore import files from sass
     if( name[0] !== "_") {
         var css = sass.render({
@@ -509,7 +517,7 @@ app.compile.sass = function( filename ) {
                 console.log(err);
               }
               app.createFile( pathdist, rendered.css.toString(), function() {
-                  io.sockets.emit( 'refresh', { action: 'refresh' } );
+                  ( !dist && io.sockets.emit( 'refresh', { action: 'refresh' } ) );
               });
               //console.log(css)
         });
@@ -518,7 +526,7 @@ app.compile.sass = function( filename ) {
 
 app.render = function( file, callback, ignore_middlewares_list ) {
     // var file = ( file.indexOf(".html") !== -1 ) ? file : file + "/index.html";
-    var content = app.getFileContent( null, path.join( config.PAGES_DIR, file )),
+    var content = app.getFileContent( null, file ),
         i = -1;
 
     ignore_middlewares_list = ignore_middlewares_list || [];
@@ -558,6 +566,8 @@ app.getFileContent = function( file, filePath ) {
 };
 
 app.createFile = function( name, content, callback ) {
+
+    app.createDir(path.dirname(name));
     fs.writeFile(name, content, function(err) {
         if(err) {
             console.log(err);
@@ -570,15 +580,45 @@ app.createFile = function( name, content, callback ) {
     });
 };
 
-app.build = function() {
-    fs.readdir( config.PAGES_DIR, function( err, files ) {
-        files.forEach(function( name ) {
-            app.render( "/" + name , function( content ){
-                app.createFile( path.join( config.BUILD_DIR, name ), content );
-            }, [ "rinco_reload" ] );
+app.readDir = function (dir, dist, fn) {
+
+    var file;
+    var origin = '';
+    origin = path.join(origin, dir);
+
+    fs.readdir( origin, function( err, files ) {
+
+        files.forEach(function( filename ) {
+
+          if( fs.lstatSync(path.join(dir, filename)).isDirectory() ) {
+            dist = path.join(dist, filename);
+            app.readDir( path.join(origin ,filename), dist, fn );
+
+          } else {
+
+            (fn && fn.call && fn( filename, dist, origin ));
+
+          }
+
         });
     });
+}
+
+app.build = function() {
+
+  app.readDir( config.PAGES_DIR, '', function (filename, dist, origin) {
+
+      app.render( path.join(origin, filename) , function( content ){
+          app.createFile( path.join(config.BUILD_DIR, dist, filename), content );
+      }, [ "rinco_reload" ] );
+
+  });
+  // css/js
+  app.renderFiles( config.BUILD_DIR );
 };
+app.createDir = function (dir) {
+  mkdirp.sync(dir);
+}
 
 app.openBrowser = function( url, callback ) {
     var devPath = url || config.DEV_PATH + ':' + config.SERVER_PORT + '/index.html';
