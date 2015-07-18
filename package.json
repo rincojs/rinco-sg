@@ -30,7 +30,8 @@
     "sync": "^0.2.2"
   },
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "*",
+    "should": "^7.0.2"
   },
   "engines": {
     "node": ">= 0.8.0"
