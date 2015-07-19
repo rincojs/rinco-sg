@@ -7,3 +7,7 @@ __comming soon__
 
 ## Temporary
         npm install -g
+* To create a project:
+
+        $ rinco
+
