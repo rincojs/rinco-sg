@@ -1,0 +1,12 @@
+{
+	"items": [
+		{
+			"link": "https://github.com/rincojs/rinco-staticgen",
+			"name": "home"
+		},
+		{
+			"link": "/doc",
+			"name": "documentation"
+		}
+	]
+}
