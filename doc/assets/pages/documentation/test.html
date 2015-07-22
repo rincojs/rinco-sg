@@ -34,9 +34,13 @@
                                     <h2>
                                         <a name="{{all.ctx.name}}" id="{{all.ctx.name}}">{{str}}</a>
                                     </h2>
-                                    <p>{{{all.description.full}}}</p>
+                                    <!-- <hr> -->
+                                    {{{all.description.full}}}
+                                    <!-- <hr> -->
                                 </header>
                                 <br>
+                              <div class="panel panel-default">
+                                  <div class="panel-body">
                                 <section class="params">
                                     <header>
                                         <h4>Parameters:</h4>
@@ -62,6 +66,10 @@
                                         </tbody>
                                     </table>
                                 </section>
+                              </div>
+                            </div>
+                              <div class="panel panel-default">
+                                  <div class="panel-body">
                                 <section class="returns">
                                     <header>
                                         <h4>Returns:</h4>
@@ -85,11 +93,20 @@
                                         </tbody>
                                     </table>
                                 </section>
+                              </div>
+                            </div>
+                              <div class="panel panel-default">
+                                  <div class="panel-body">
                                 <section class="example">
+                                  <header>
+                                    <h4>Example:</h4>
+                                  </header>
                                   {{#example}}
                                      {{{html}}}
                                   {{/example}}
                                 </section>
+                              </div>
+                            </div>
                                 <secion class="source">
                                     <dt>Source:</dt>
                                     <ul>
