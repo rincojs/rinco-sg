@@ -29,11 +29,6 @@
         "html": "<p>test</p>"
       },
       {
-        "type": "bosta",
-        "string": "test",
-        "html": "<p>test</p>"
-      },
-      {
         "type": "example",
         "string": "\n    rinco.fs.dir.write('sandbox');",
         "html": "<pre><code>rinco.fs.dir.write(&#39;sandbox&#39;);\n</code></pre>"
@@ -101,25 +96,40 @@
       },
       {
         "type": "param",
-        "string": "{String} Folder's name",
-        "name": "Folder's",
-        "description": "<p>name</p>",
+        "string": "{String} foldername",
+        "name": "foldername",
+        "description": "<p>Folder's name</p>",
         "types": [
-          "String"
+          "String",
+          "Object"
         ],
         "typesDescription": "<code>String</code>",
-        "optional": false,
+        "optional": true,
         "nullable": false,
         "nonNullable": false,
         "variable": false
       },
       {
         "type": "param",
-        "string": "{cb_dir}  - Callback",
-        "name": "-",
-        "description": "<p>Callback</p>",
+        "string": "{Array} foldername",
+        "name": "foldername",
+        "description": "<p>Folder's name</p>",
         "types": [
-          "cb_dir"
+          "Array"
+        ],
+        "typesDescription": "<code>String</code>",
+        "optional": true,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "param",
+        "string": "{Function} - Callback",
+        "name": "calback",
+        "description": "<p>Callback function</p>",
+        "types": [
+          "Function"
         ],
         "typesDescription": "<a href=\"cb_dir.html\">cb_dir</a>",
         "optional": false,
@@ -132,6 +142,19 @@
         "string": "{boolean} True if succes",
         "types": [
           "boolean"
+        ],
+        "typesDescription": "<code>boolean</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": "<p>True if succes</p>"
+      },
+      {
+        "type": "return",
+        "string": "{object} True if succes",
+        "types": [
+          "object"
         ],
         "typesDescription": "<code>boolean</code>",
         "optional": false,
