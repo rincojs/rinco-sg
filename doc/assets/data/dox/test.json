@@ -1,0 +1,2724 @@
+[
+  {
+    "tags": [],
+    "description": {
+      "full": "<p>EaselJS<br />Visit <a href=\"http://createjs.com/\">http://createjs.com/</a> for documentation, updates and examples.</p><p>Copyright (c) 2010 gskinner.com, inc.</p><p>Permission is hereby granted, free of charge, to any person<br />obtaining a copy of this software and associated documentation<br />files (the &quot;Software&quot;), to deal in the Software without<br />restriction, including without limitation the rights to use,<br />copy, modify, merge, publish, distribute, sublicense, and/or sell<br />copies of the Software, and to permit persons to whom the<br />Software is furnished to do so, subject to the following<br />conditions:</p><p>The above copyright notice and this permission notice shall be<br />included in all copies or substantial portions of the Software.</p><p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,<br />EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES<br />OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND<br />NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT<br />HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,<br />WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING<br />FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR<br />OTHER DEALINGS IN THE SOFTWARE.</p>",
+      "summary": "<p>EaselJS<br />Visit <a href=\"http://createjs.com/\">http://createjs.com/</a> for documentation, updates and examples.</p>",
+      "body": "<p>Copyright (c) 2010 gskinner.com, inc.</p><p>Permission is hereby granted, free of charge, to any person<br />obtaining a copy of this software and associated documentation<br />files (the &quot;Software&quot;), to deal in the Software without<br />restriction, including without limitation the rights to use,<br />copy, modify, merge, publish, distribute, sublicense, and/or sell<br />copies of the Software, and to permit persons to whom the<br />Software is furnished to do so, subject to the following<br />conditions:</p><p>The above copyright notice and this permission notice shall be<br />included in all copies or substantial portions of the Software.</p><p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,<br />EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES<br />OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND<br />NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT<br />HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,<br />WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING<br />FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR<br />OTHER DEALINGS IN THE SOFTWARE.</p>"
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": true,
+    "line": 1,
+    "codeStart": 30,
+    "code": "//##############################################################################\n// MovieClip.js\n//##############################################################################\n\nthis.createjs = this.createjs||{};\n\n(function() {\n\t\"use strict\";\n\n\n// constructor:",
+    "ctx": false
+  },
+  {
+    "tags": [
+      {
+        "type": "class",
+        "string": "MovieClip",
+        "html": "<p>MovieClip</p>"
+      },
+      {
+        "type": "main",
+        "string": "MovieClip",
+        "html": "<p>MovieClip</p>"
+      },
+      {
+        "type": "extends",
+        "string": "Container",
+        "otherClass": "Container",
+        "html": "<p>Container</p>"
+      },
+      {
+        "type": "constructor",
+        "string": "",
+        "html": ""
+      },
+      {
+        "type": "param",
+        "string": "{String} [mode=independent] Initial value for the mode property. One of MovieClip.INDEPENDENT,\nMovieClip.SINGLE_FRAME, or MovieClip.SYNCHED. The default is MovieClip.INDEPENDENT.",
+        "name": "[mode=independent]",
+        "description": "<p>Initial value for the mode property. One of MovieClip.INDEPENDENT, MovieClip.SINGLE_FRAME, or MovieClip.SYNCHED. The default is MovieClip.INDEPENDENT.</p>",
+        "types": [
+          "String"
+        ],
+        "typesDescription": "<code>String</code>",
+        "optional": true,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "param",
+        "string": "{Number} [startPosition=0] Initial value for the startPosition property.",
+        "name": "[startPosition=0]",
+        "description": "<p>Initial value for the startPosition property.</p>",
+        "types": [
+          "Number"
+        ],
+        "typesDescription": "<code>Number</code>",
+        "optional": true,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "param",
+        "string": "{Boolean} [loop=true] Initial value for the loop property. The default is true.",
+        "name": "[loop=true]",
+        "description": "<p>Initial value for the loop property. The default is true.</p>",
+        "types": [
+          "Boolean"
+        ],
+        "typesDescription": "<code>Boolean</code>",
+        "optional": true,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "param",
+        "string": "{Object} [labels=null] A hash of labels to pass to the timeline instance associated with this MovieClip.\nLabels only need to be passed if they need to be used.",
+        "name": "[labels=null]",
+        "description": "<p>A hash of labels to pass to the timeline instance associated with this MovieClip. Labels only need to be passed if they need to be used.</p>",
+        "types": [
+          "Object"
+        ],
+        "typesDescription": "<code>Object</code>",
+        "optional": true,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      }
+    ],
+    "description": {
+      "full": "<p>The MovieClip class associates a TweenJS Timeline with an EaselJS {{#crossLink &quot;Container&quot;}}{{/crossLink}}. It allows<br />you to create objects which encapsulate timeline animations, state changes, and synched actions. Due to the<br />complexities inherent in correctly setting up a MovieClip, it is largely intended for tool output and is not included<br />in the main EaselJS library.</p><p>Currently MovieClip only works properly if it is tick based (as opposed to time based) though some concessions have<br />been made to support time-based timelines in the future.</p><p><h4>Example</h4><br />This example animates two shapes back and forth. The grey shape starts on the left, but we jump to a mid-point in<br />the animation using {{#crossLink &quot;MovieClip/gotoAndPlay&quot;}}{{/crossLink}}.</p><pre><code> var stage = new createjs.Stage(&quot;canvas&quot;);\n createjs.Ticker.addEventListener(&quot;tick&quot;, stage);\n\n var mc = new createjs.MovieClip(null, 0, true, {start:20});\n stage.addChild(mc);\n\n var child1 = new createjs.Shape(\n     new createjs.Graphics().beginFill(&quot;#999999&quot;)\n         .drawCircle(30,30,30));\n var child2 = new createjs.Shape(\n     new createjs.Graphics().beginFill(&quot;#5a9cfb&quot;)\n         .drawCircle(30,30,30));\n\n mc.timeline.addTween(\n     createjs.Tween.get(child1)\n         .to({x:0}).to({x:60}, 50).to({x:0}, 50));\n mc.timeline.addTween(\n     createjs.Tween.get(child2)\n         .to({x:60}).to({x:0}, 50).to({x:60}, 50));\n\n mc.gotoAndPlay(&quot;start&quot;);\n</code></pre><p>It is recommended to use <code>tween.to()</code> to animate and set properties (use no duration to have it set<br />immediately), and the <code>tween.wait()</code> method to create delays between animations. Note that using the<br /><code>tween.set()</code> method to affect properties will likely not provide the desired result.</p>",
+      "summary": "<p>The MovieClip class associates a TweenJS Timeline with an EaselJS {{#crossLink &quot;Container&quot;}}{{/crossLink}}. It allows<br />you to create objects which encapsulate timeline animations, state changes, and synched actions. Due to the<br />complexities inherent in correctly setting up a MovieClip, it is largely intended for tool output and is not included<br />in the main EaselJS library.</p>",
+      "body": "<p>Currently MovieClip only works properly if it is tick based (as opposed to time based) though some concessions have<br />been made to support time-based timelines in the future.</p><p><h4>Example</h4><br />This example animates two shapes back and forth. The grey shape starts on the left, but we jump to a mid-point in<br />the animation using {{#crossLink &quot;MovieClip/gotoAndPlay&quot;}}{{/crossLink}}.</p><pre><code> var stage = new createjs.Stage(&quot;canvas&quot;);\n createjs.Ticker.addEventListener(&quot;tick&quot;, stage);\n\n var mc = new createjs.MovieClip(null, 0, true, {start:20});\n stage.addChild(mc);\n\n var child1 = new createjs.Shape(\n     new createjs.Graphics().beginFill(&quot;#999999&quot;)\n         .drawCircle(30,30,30));\n var child2 = new createjs.Shape(\n     new createjs.Graphics().beginFill(&quot;#5a9cfb&quot;)\n         .drawCircle(30,30,30));\n\n mc.timeline.addTween(\n     createjs.Tween.get(child1)\n         .to({x:0}).to({x:60}, 50).to({x:0}, 50));\n mc.timeline.addTween(\n     createjs.Tween.get(child2)\n         .to({x:60}).to({x:0}, 50).to({x:60}, 50));\n\n mc.gotoAndPlay(&quot;start&quot;);\n</code></pre><p>It is recommended to use <code>tween.to()</code> to animate and set properties (use no duration to have it set<br />immediately), and the <code>tween.wait()</code> method to create delays between animations. Note that using the<br /><code>tween.set()</code> method to affect properties will likely not provide the desired result.</p>"
+    },
+    "isPrivate": false,
+    "isConstructor": true,
+    "isClass": true,
+    "isEvent": false,
+    "ignore": false,
+    "line": 41,
+    "codeStart": 91,
+    "code": "function MovieClip(mode, startPosition, loop, labels) {\n\tthis.Container_constructor();\n\t!MovieClip.inited&&MovieClip.init(); // static init\n\n\n// public properties:",
+    "ctx": {
+      "type": "constructor",
+      "name": "MovieClip",
+      "string": "MovieClip()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "mode",
+        "name": "mode",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>mode</p>"
+      },
+      {
+        "type": "type",
+        "string": "String",
+        "types": [
+          "trin"
+        ],
+        "typesDescription": "<a href=\"trin.html\">trin</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>String</p>"
+      },
+      {
+        "type": "default",
+        "string": "null",
+        "html": "<p>null</p>"
+      }
+    ],
+    "description": {
+      "full": "<p>Controls how this MovieClip advances its time. Must be one of 0 (INDEPENDENT), 1 (SINGLE_FRAME), or 2 (SYNCHED).<br />See each constant for a description of the behaviour.</p>",
+      "summary": "<p>Controls how this MovieClip advances its time. Must be one of 0 (INDEPENDENT), 1 (SINGLE_FRAME), or 2 (SYNCHED).<br />See each constant for a description of the behaviour.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 97,
+    "codeStart": 104,
+    "code": "this.mode = mode||MovieClip.INDEPENDENT;",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "mode",
+      "value": "mode||MovieClip.INDEPENDENT",
+      "string": "this.mode"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "startPosition",
+        "name": "startPosition",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>startPosition</p>"
+      },
+      {
+        "type": "type",
+        "string": "Number",
+        "types": [
+          "umbe"
+        ],
+        "typesDescription": "<a href=\"umbe.html\">umbe</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>Number</p>"
+      },
+      {
+        "type": "default",
+        "string": "0",
+        "html": "<p>0</p>"
+      }
+    ],
+    "description": {
+      "full": "<p>Specifies what the first frame to play in this movieclip, or the only frame to display if mode is SINGLE_FRAME.</p>",
+      "summary": "<p>Specifies what the first frame to play in this movieclip, or the only frame to display if mode is SINGLE_FRAME.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 106,
+    "codeStart": 112,
+    "code": "this.startPosition = startPosition || 0;",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "startPosition",
+      "value": "startPosition || 0",
+      "string": "this.startPosition"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "loop",
+        "name": "loop",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>loop</p>"
+      },
+      {
+        "type": "type",
+        "string": "Boolean",
+        "types": [
+          "oolea"
+        ],
+        "typesDescription": "<a href=\"oolea.html\">oolea</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>Boolean</p>"
+      },
+      {
+        "type": "default",
+        "string": "true",
+        "html": "<p>true</p>"
+      }
+    ],
+    "description": {
+      "full": "<p>Indicates whether this MovieClip should loop when it reaches the end of its timeline.</p>",
+      "summary": "<p>Indicates whether this MovieClip should loop when it reaches the end of its timeline.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 114,
+    "codeStart": 120,
+    "code": "this.loop = loop;",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "loop",
+      "value": "loop",
+      "string": "this.loop"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "currentFrame",
+        "name": "currentFrame",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>currentFrame</p>"
+      },
+      {
+        "type": "type",
+        "string": "Number",
+        "types": [
+          "umbe"
+        ],
+        "typesDescription": "<a href=\"umbe.html\">umbe</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>Number</p>"
+      },
+      {
+        "type": "default",
+        "string": "0",
+        "html": "<p>0</p>"
+      },
+      {
+        "type": "readonly",
+        "string": "",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "<p>The current frame of the movieclip.</p>",
+      "summary": "<p>The current frame of the movieclip.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 122,
+    "codeStart": 129,
+    "code": "this.currentFrame = 0;",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "currentFrame",
+      "value": "0",
+      "string": "this.currentFrame"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "timeline",
+        "name": "timeline",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>timeline</p>"
+      },
+      {
+        "type": "type",
+        "string": "Timeline",
+        "types": [
+          "imelin"
+        ],
+        "typesDescription": "<a href=\"imelin.html\">imelin</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>Timeline</p>"
+      },
+      {
+        "type": "default",
+        "string": "null",
+        "html": "<p>null</p>"
+      }
+    ],
+    "description": {
+      "full": "<p>The TweenJS Timeline that is associated with this MovieClip. This is created automatically when the MovieClip<br />instance is initialized. Animations are created by adding <a href=\"http://tweenjs.com\">TweenJS</a> Tween<br />instances to the timeline.</p><h4>Example</h4>\n\n<pre><code> var tween = createjs.Tween.get(target).to({x:0}).to({x:100}, 30);\n var mc = new createjs.MovieClip();\n mc.timeline.addTween(tween);\n</code></pre><p>Elements can be added and removed from the timeline by toggling an &quot;_off&quot; property<br />using the <code>tweenInstance.to()</code> method. Note that using <code>Tween.set</code> is not recommended to<br />create MovieClip animations. The following example will toggle the target off on frame 0, and then back on for<br />frame 1. You can use the &quot;visible&quot; property to achieve the same effect.</p><pre><code> var tween = createjs.Tween.get(target).to({_off:false})\n     .wait(1).to({_off:true})\n     .wait(1).to({_off:false});\n</code></pre>",
+      "summary": "<p>The TweenJS Timeline that is associated with this MovieClip. This is created automatically when the MovieClip<br />instance is initialized. Animations are created by adding <a href=\"http://tweenjs.com\">TweenJS</a> Tween<br />instances to the timeline.</p>",
+      "body": "<h4>Example</h4>\n\n<pre><code> var tween = createjs.Tween.get(target).to({x:0}).to({x:100}, 30);\n var mc = new createjs.MovieClip();\n mc.timeline.addTween(tween);\n</code></pre><p>Elements can be added and removed from the timeline by toggling an &quot;_off&quot; property<br />using the <code>tweenInstance.to()</code> method. Note that using <code>Tween.set</code> is not recommended to<br />create MovieClip animations. The following example will toggle the target off on frame 0, and then back on for<br />frame 1. You can use the &quot;visible&quot; property to achieve the same effect.</p><pre><code> var tween = createjs.Tween.get(target).to({_off:false})\n     .wait(1).to({_off:true})\n     .wait(1).to({_off:false});\n</code></pre>"
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 131,
+    "codeStart": 155,
+    "code": "this.timeline = new createjs.Timeline(null, labels, {paused:true, position:startPosition, useTicks:true});",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "timeline",
+      "value": "new createjs.Timeline(null, labels, {paused:true, position:startPosition, useTicks:true})",
+      "string": "this.timeline"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "paused",
+        "name": "paused",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>paused</p>"
+      },
+      {
+        "type": "type",
+        "string": "Boolean",
+        "types": [
+          "oolea"
+        ],
+        "typesDescription": "<a href=\"oolea.html\">oolea</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>Boolean</p>"
+      },
+      {
+        "type": "default",
+        "string": "false",
+        "html": "<p>false</p>"
+      }
+    ],
+    "description": {
+      "full": "<p>If true, the MovieClip&#39;s position will not advance when ticked.</p>",
+      "summary": "<p>If true, the MovieClip&#39;s position will not advance when ticked.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 157,
+    "codeStart": 163,
+    "code": "this.paused = false;",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "paused",
+      "value": "false",
+      "string": "this.paused"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "actionsEnabled",
+        "name": "actionsEnabled",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>actionsEnabled</p>"
+      },
+      {
+        "type": "type",
+        "string": "Boolean",
+        "types": [
+          "oolea"
+        ],
+        "typesDescription": "<a href=\"oolea.html\">oolea</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>Boolean</p>"
+      },
+      {
+        "type": "default",
+        "string": "true",
+        "html": "<p>true</p>"
+      }
+    ],
+    "description": {
+      "full": "<p>If true, actions in this MovieClip&#39;s tweens will be run when the playhead advances.</p>",
+      "summary": "<p>If true, actions in this MovieClip&#39;s tweens will be run when the playhead advances.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 165,
+    "codeStart": 171,
+    "code": "this.actionsEnabled = true;",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "actionsEnabled",
+      "value": "true",
+      "string": "this.actionsEnabled"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "autoReset",
+        "name": "autoReset",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>autoReset</p>"
+      },
+      {
+        "type": "type",
+        "string": "Boolean",
+        "types": [
+          "oolea"
+        ],
+        "typesDescription": "<a href=\"oolea.html\">oolea</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>Boolean</p>"
+      },
+      {
+        "type": "default",
+        "string": "true",
+        "html": "<p>true</p>"
+      }
+    ],
+    "description": {
+      "full": "<p>If true, the MovieClip will automatically be reset to its first frame whenever the timeline adds<br />it back onto the display list. This only applies to MovieClip instances with mode=INDEPENDENT.<br /><br><br><br />For example, if you had a character animation with a &quot;body&quot; child MovieClip instance<br />with different costumes on each frame, you could set body.autoReset = false, so that<br />you can manually change the frame it is on, without worrying that it will be reset<br />automatically.</p>",
+      "summary": "<p>If true, the MovieClip will automatically be reset to its first frame whenever the timeline adds<br />it back onto the display list. This only applies to MovieClip instances with mode=INDEPENDENT.<br /><br><br><br />For example, if you had a character animation with a &quot;body&quot; child MovieClip instance<br />with different costumes on each frame, you could set body.autoReset = false, so that<br />you can manually change the frame it is on, without worrying that it will be reset<br />automatically.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 173,
+    "codeStart": 185,
+    "code": "this.autoReset = true;",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "autoReset",
+      "value": "true",
+      "string": "this.autoReset"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "frameBounds",
+        "name": "frameBounds",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>frameBounds</p>"
+      },
+      {
+        "type": "type",
+        "string": "Array",
+        "types": [
+          "rra"
+        ],
+        "typesDescription": "<a href=\"rra.html\">rra</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>Array</p>"
+      },
+      {
+        "type": "default",
+        "string": "null",
+        "html": "<p>null</p>"
+      }
+    ],
+    "description": {
+      "full": "<p>An array of bounds for each frame in the MovieClip. This is mainly intended for tool output.</p>",
+      "summary": "<p>An array of bounds for each frame in the MovieClip. This is mainly intended for tool output.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 187,
+    "codeStart": 193,
+    "code": "this.frameBounds = this.frameBounds||null; // TODO: Deprecated. This is for backwards support of FlashCC",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "frameBounds",
+      "value": "this.frameBounds||null",
+      "string": "this.frameBounds"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "framerate",
+        "name": "framerate",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>framerate</p>"
+      },
+      {
+        "type": "type",
+        "string": "{Number}",
+        "types": [
+          "Number"
+        ],
+        "typesDescription": "<code>Number</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{Number}</p>"
+      },
+      {
+        "type": "default",
+        "string": "null",
+        "html": "<p>null</p>"
+      }
+    ],
+    "description": {
+      "full": "<p>By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip<br />will cause it to advance based on elapsed time between ticks as appropriate to maintain the target<br />framerate.</p><p>For example, if a MovieClip with a framerate of 10 is placed on a Stage being updated at 40fps, then the MovieClip will<br />advance roughly one frame every 4 ticks. This will not be exact, because the time between each tick will<br />vary slightly between frames.</p><p>This feature is dependent on the tick event object (or an object with an appropriate &quot;delta&quot; property) being<br />passed into {{#crossLink &quot;Stage/update&quot;}}{{/crossLink}}.</p>",
+      "summary": "<p>By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip<br />will cause it to advance based on elapsed time between ticks as appropriate to maintain the target<br />framerate.</p>",
+      "body": "<p>For example, if a MovieClip with a framerate of 10 is placed on a Stage being updated at 40fps, then the MovieClip will<br />advance roughly one frame every 4 ticks. This will not be exact, because the time between each tick will<br />vary slightly between frames.</p><p>This feature is dependent on the tick event object (or an object with an appropriate &quot;delta&quot; property) being<br />passed into {{#crossLink &quot;Stage/update&quot;}}{{/crossLink}}.</p>"
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 195,
+    "codeStart": 210,
+    "code": "this.framerate = null;\n\n\n\t// private properties:",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "framerate",
+      "value": "null",
+      "string": "this.framerate"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "_synchOffset",
+        "name": "_synchOffset",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>_synchOffset</p>"
+      },
+      {
+        "type": "type",
+        "string": "Number",
+        "types": [
+          "umbe"
+        ],
+        "typesDescription": "<a href=\"umbe.html\">umbe</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>Number</p>"
+      },
+      {
+        "type": "default",
+        "string": "0",
+        "html": "<p>0</p>"
+      },
+      {
+        "type": "private",
+        "string": "",
+        "visibility": "private",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": true,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 214,
+    "codeStart": 220,
+    "code": "this._synchOffset = 0;",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "_synchOffset",
+      "value": "0",
+      "string": "this._synchOffset"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "_prevPos",
+        "name": "_prevPos",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>_prevPos</p>"
+      },
+      {
+        "type": "type",
+        "string": "Number",
+        "types": [
+          "umbe"
+        ],
+        "typesDescription": "<a href=\"umbe.html\">umbe</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>Number</p>"
+      },
+      {
+        "type": "default",
+        "string": "-1",
+        "html": "<p>-1</p>"
+      },
+      {
+        "type": "private",
+        "string": "",
+        "visibility": "private",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": true,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 222,
+    "codeStart": 228,
+    "code": "this._prevPos = -1; // TODO: evaluate using a ._reset Boolean prop instead of -1.",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "_prevPos",
+      "value": "-1",
+      "string": "this._prevPos"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "_prevPosition",
+        "name": "_prevPosition",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>_prevPosition</p>"
+      },
+      {
+        "type": "type",
+        "string": "Number",
+        "types": [
+          "umbe"
+        ],
+        "typesDescription": "<a href=\"umbe.html\">umbe</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>Number</p>"
+      },
+      {
+        "type": "default",
+        "string": "0",
+        "html": "<p>0</p>"
+      },
+      {
+        "type": "private",
+        "string": "",
+        "visibility": "private",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": true,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 230,
+    "codeStart": 236,
+    "code": "this._prevPosition = 0;",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "_prevPosition",
+      "value": "0",
+      "string": "this._prevPosition"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "_t",
+        "name": "_t",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>_t</p>"
+      },
+      {
+        "type": "type",
+        "string": "Number",
+        "types": [
+          "umbe"
+        ],
+        "typesDescription": "<a href=\"umbe.html\">umbe</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>Number</p>"
+      },
+      {
+        "type": "private",
+        "string": "",
+        "visibility": "private",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "<p>The time remaining from the previous tick, only applicable when .framerate is set.</p>",
+      "summary": "<p>The time remaining from the previous tick, only applicable when .framerate is set.</p>",
+      "body": ""
+    },
+    "isPrivate": true,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 238,
+    "codeStart": 244,
+    "code": "this._t = 0;",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "_t",
+      "value": "0",
+      "string": "this._t"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "_managed",
+        "name": "_managed",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>_managed</p>"
+      },
+      {
+        "type": "type",
+        "string": "Object",
+        "types": [
+          "bjec"
+        ],
+        "typesDescription": "<a href=\"bjec.html\">bjec</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>Object</p>"
+      },
+      {
+        "type": "private",
+        "string": "",
+        "visibility": "private",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "<p>List of display objects that are actively being managed by the MovieClip.</p>",
+      "summary": "<p>List of display objects that are actively being managed by the MovieClip.</p>",
+      "body": ""
+    },
+    "isPrivate": true,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 246,
+    "codeStart": 252,
+    "code": "this._managed = {};\n\t}\n\tvar p = createjs.extend(MovieClip, createjs.Container);\n\n\n// constants:",
+    "ctx": {
+      "type": "property",
+      "receiver": "this",
+      "name": "_managed",
+      "value": "{}",
+      "string": "this._managed"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "INDEPENDENT",
+        "name": "INDEPENDENT",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>INDEPENDENT</p>"
+      },
+      {
+        "type": "static",
+        "string": "",
+        "html": ""
+      },
+      {
+        "type": "type",
+        "string": "String",
+        "types": [
+          "trin"
+        ],
+        "typesDescription": "<a href=\"trin.html\">trin</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>String</p>"
+      },
+      {
+        "type": "default",
+        "string": "\"independent\"",
+        "html": "<p>&quot;independent&quot;</p>"
+      },
+      {
+        "type": "readonly",
+        "string": "",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "<p>The MovieClip will advance independently of its parent, even if its parent is paused.<br />This is the default mode.</p>",
+      "summary": "<p>The MovieClip will advance independently of its parent, even if its parent is paused.<br />This is the default mode.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 258,
+    "codeStart": 267,
+    "code": "MovieClip.INDEPENDENT = \"independent\";",
+    "ctx": {
+      "type": "property",
+      "receiver": "MovieClip",
+      "name": "INDEPENDENT",
+      "value": "\"independent\"",
+      "string": "MovieClip.INDEPENDENT"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "SINGLE_FRAME",
+        "name": "SINGLE_FRAME",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>SINGLE_FRAME</p>"
+      },
+      {
+        "type": "static",
+        "string": "",
+        "html": ""
+      },
+      {
+        "type": "type",
+        "string": "String",
+        "types": [
+          "trin"
+        ],
+        "typesDescription": "<a href=\"trin.html\">trin</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>String</p>"
+      },
+      {
+        "type": "default",
+        "string": "\"single\"",
+        "html": "<p>&quot;single&quot;</p>"
+      },
+      {
+        "type": "readonly",
+        "string": "",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "<p>The MovieClip will only display a single frame (as determined by the startPosition property).</p>",
+      "summary": "<p>The MovieClip will only display a single frame (as determined by the startPosition property).</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 269,
+    "codeStart": 277,
+    "code": "MovieClip.SINGLE_FRAME = \"single\";",
+    "ctx": {
+      "type": "property",
+      "receiver": "MovieClip",
+      "name": "SINGLE_FRAME",
+      "value": "\"single\"",
+      "string": "MovieClip.SINGLE_FRAME"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "SYNCHED",
+        "name": "SYNCHED",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>SYNCHED</p>"
+      },
+      {
+        "type": "static",
+        "string": "",
+        "html": ""
+      },
+      {
+        "type": "type",
+        "string": "String",
+        "types": [
+          "trin"
+        ],
+        "typesDescription": "<a href=\"trin.html\">trin</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>String</p>"
+      },
+      {
+        "type": "default",
+        "string": "\"synched\"",
+        "html": "<p>&quot;synched&quot;</p>"
+      },
+      {
+        "type": "readonly",
+        "string": "",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "<p>The MovieClip will be advanced only when its parent advances and will be synched to the position of<br />the parent MovieClip.</p>",
+      "summary": "<p>The MovieClip will be advanced only when its parent advances and will be synched to the position of<br />the parent MovieClip.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 279,
+    "codeStart": 288,
+    "code": "MovieClip.SYNCHED = \"synched\";\n\n\n// static properties:\nMovieClip.inited = false;\n\n\n// static methods:\nMovieClip.init = function() {\n\tif (MovieClip.inited) { return; }\n\t// plugins introduce some overhead to Tween, so we only install this if an MC is instantiated.\n\tMovieClipPlugin.install();\n\tMovieClip.inited = true;\n};\n\n\n// getter / setters:",
+    "ctx": {
+      "type": "property",
+      "receiver": "MovieClip",
+      "name": "SYNCHED",
+      "value": "\"synched\"",
+      "string": "MovieClip.SYNCHED"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "getLabels",
+        "html": "<p>getLabels</p>"
+      },
+      {
+        "type": "return",
+        "string": "{Array}",
+        "types": [
+          "Array"
+        ],
+        "typesDescription": "<code>Array</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": "",
+        "html": "<p>{Array}</p>"
+      },
+      {
+        "type": "deprecated",
+        "string": "",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "<p>Use the {{#crossLink &quot;MovieClip/labels:property&quot;}}{{/crossLink}} property instead.</p>",
+      "summary": "<p>Use the {{#crossLink &quot;MovieClip/labels:property&quot;}}{{/crossLink}} property instead.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 305,
+    "codeStart": 311,
+    "code": "p.getLabels = function() {\n\treturn this.timeline.getLabels();\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "getLabels",
+      "string": "p.getLabels()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "getCurrentLabel",
+        "html": "<p>getCurrentLabel</p>"
+      },
+      {
+        "type": "return",
+        "string": "{String}",
+        "types": [
+          "String"
+        ],
+        "typesDescription": "<code>String</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": "",
+        "html": "<p>{String}</p>"
+      },
+      {
+        "type": "deprecated",
+        "string": "",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "<p>Use the {{#crossLink &quot;MovieClip/currentLabel:property&quot;}}{{/crossLink}} property instead.</p>",
+      "summary": "<p>Use the {{#crossLink &quot;MovieClip/currentLabel:property&quot;}}{{/crossLink}} property instead.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 315,
+    "codeStart": 321,
+    "code": "p.getCurrentLabel = function() {\n\tthis._updateTimeline();\n\treturn this.timeline.getCurrentLabel();\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "getCurrentLabel",
+      "string": "p.getCurrentLabel()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "getDuration",
+        "html": "<p>getDuration</p>"
+      },
+      {
+        "type": "return",
+        "string": "{Number}",
+        "types": [
+          "Number"
+        ],
+        "typesDescription": "<code>Number</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": "",
+        "html": "<p>{Number}</p>"
+      },
+      {
+        "type": "protected",
+        "string": "",
+        "visibility": "protected",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "<p>Use the {{#crossLink &quot;MovieClip/duration:property&quot;}}{{/crossLink}} property instead.</p>",
+      "summary": "<p>Use the {{#crossLink &quot;MovieClip/duration:property&quot;}}{{/crossLink}} property instead.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 326,
+    "codeStart": 332,
+    "code": "p.getDuration = function() {\n\treturn this.timeline.duration;\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "getDuration",
+      "string": "p.getDuration()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "labels",
+        "name": "labels",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>labels</p>"
+      },
+      {
+        "type": "type",
+        "string": "{Array}",
+        "types": [
+          "Array"
+        ],
+        "typesDescription": "<code>Array</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{Array}</p>"
+      },
+      {
+        "type": "readonly",
+        "string": "",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "<p>Returns an array of objects with label and position (aka frame) properties, sorted by position.<br />Shortcut to TweenJS: Timeline.getLabels();</p>",
+      "summary": "<p>Returns an array of objects with label and position (aka frame) properties, sorted by position.<br />Shortcut to TweenJS: Timeline.getLabels();</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 336,
+    "codeStart": 343
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "currentLabel",
+        "name": "currentLabel",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>currentLabel</p>"
+      },
+      {
+        "type": "type",
+        "string": "{String}",
+        "types": [
+          "String"
+        ],
+        "typesDescription": "<code>String</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{String}</p>"
+      },
+      {
+        "type": "readonly",
+        "string": "",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "<p>Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()<br />for more information.</p>",
+      "summary": "<p>Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()<br />for more information.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 344,
+    "codeStart": 351
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "totalFrames",
+        "name": "totalFrames",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>totalFrames</p>"
+      },
+      {
+        "type": "type",
+        "string": "{Number}",
+        "types": [
+          "Number"
+        ],
+        "typesDescription": "<code>Number</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{Number}</p>"
+      },
+      {
+        "type": "readonly",
+        "string": "",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "<p>Returns the duration of this MovieClip in seconds or ticks. Identical to {{#crossLink &quot;MovieClip/duration:property&quot;}}{{/crossLink}}<br />and provided for Flash API compatibility.</p>",
+      "summary": "<p>Returns the duration of this MovieClip in seconds or ticks. Identical to {{#crossLink &quot;MovieClip/duration:property&quot;}}{{/crossLink}}<br />and provided for Flash API compatibility.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 352,
+    "codeStart": 359
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "duration",
+        "name": "duration",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>duration</p>"
+      },
+      {
+        "type": "type",
+        "string": "{Number}",
+        "types": [
+          "Number"
+        ],
+        "typesDescription": "<code>Number</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{Number}</p>"
+      },
+      {
+        "type": "readonly",
+        "string": "",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "<p>Returns the duration of this MovieClip in seconds or ticks.</p>",
+      "summary": "<p>Returns the duration of this MovieClip in seconds or ticks.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 360,
+    "codeStart": 366,
+    "code": "try {\n\tObject.defineProperties(p, {\n\t\tlabels: { get: p.getLabels },\n\t\tcurrentLabel: { get: p.getCurrentLabel },\n\t\ttotalFrames: { get: p.getDuration },\n\t\tduration: { get: p.getDuration }\n\t});\n} catch (e) {}\n\n\n// public methods:",
+    "ctx": false
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "initialize",
+        "html": "<p>initialize</p>"
+      },
+      {
+        "type": "deprecated",
+        "string": "in favour of `createjs.promote()`",
+        "html": "<p>in favour of <code>createjs.promote()</code></p>"
+      }
+    ],
+    "description": {
+      "full": "<p>Constructor alias for backwards compatibility. This method will be removed in future versions.<br />Subclasses should be updated to use {{#crossLink &quot;Utility Methods/extends&quot;}}{{/crossLink}}.</p>",
+      "summary": "<p>Constructor alias for backwards compatibility. This method will be removed in future versions.<br />Subclasses should be updated to use {{#crossLink &quot;Utility Methods/extends&quot;}}{{/crossLink}}.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 377,
+    "codeStart": 383,
+    "code": "p.initialize = MovieClip; // TODO: Deprecated. This is for backwards support of FlashCC",
+    "ctx": {
+      "type": "property",
+      "receiver": "p",
+      "name": "initialize",
+      "value": "MovieClip",
+      "string": "p.initialize"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "isVisible",
+        "html": "<p>isVisible</p>"
+      },
+      {
+        "type": "return",
+        "string": "{Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas",
+        "types": [
+          "Boolean"
+        ],
+        "typesDescription": "<code>Boolean</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": "<p>Boolean indicating whether the display object would be visible if drawn to a canvas</p>"
+      }
+    ],
+    "description": {
+      "full": "<p>Returns true or false indicating whether the display object would be visible if drawn to a canvas.<br />This does not account for whether it would be visible within the boundaries of the stage.<br />NOTE: This method is mainly for internal use, though it may be useful for advanced uses.</p>",
+      "summary": "<p>Returns true or false indicating whether the display object would be visible if drawn to a canvas.<br />This does not account for whether it would be visible within the boundaries of the stage.<br />NOTE: This method is mainly for internal use, though it may be useful for advanced uses.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 385,
+    "codeStart": 392,
+    "code": "p.isVisible = function() {\n\t// children are placed in draw, so we can't determine if we have content.\n\treturn !!(this.visible && this.alpha > 0 && this.scaleX != 0 && this.scaleY != 0);\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "isVisible",
+      "string": "p.isVisible()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "draw",
+        "html": "<p>draw</p>"
+      },
+      {
+        "type": "param",
+        "string": "{CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.",
+        "name": "ctx",
+        "description": "<p>The canvas 2D context object to draw into.</p>",
+        "types": [
+          "CanvasRenderingContext2D"
+        ],
+        "typesDescription": "<code>CanvasRenderingContext2D</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "param",
+        "string": "{Boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.\nFor example, used for drawing the cache (to prevent it from simply drawing an existing cache back\ninto itself).",
+        "name": "ignoreCache",
+        "description": "<p>Indicates whether the draw operation should ignore any current cache. For example, used for drawing the cache (to prevent it from simply drawing an existing cache back<br />into itself).</p>",
+        "types": [
+          "Boolean"
+        ],
+        "typesDescription": "<code>Boolean</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      }
+    ],
+    "description": {
+      "full": "<p>Draws the display object into the specified context ignoring its visible, alpha, shadow, and transform.<br />Returns true if the draw was handled (useful for overriding functionality).<br />NOTE: This method is mainly for internal use, though it may be useful for advanced uses.</p>",
+      "summary": "<p>Draws the display object into the specified context ignoring its visible, alpha, shadow, and transform.<br />Returns true if the draw was handled (useful for overriding functionality).<br />NOTE: This method is mainly for internal use, though it may be useful for advanced uses.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 397,
+    "codeStart": 407,
+    "code": "p.draw = function(ctx, ignoreCache) {\n\t// draw to cache first:\n\tif (this.DisplayObject_draw(ctx, ignoreCache)) { return true; }\n\tthis._updateTimeline();\n\tthis.Container_draw(ctx, ignoreCache);\n\treturn true;\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "draw",
+      "string": "p.draw()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "play",
+        "html": "<p>play</p>"
+      }
+    ],
+    "description": {
+      "full": "<p>Sets paused to false.</p>",
+      "summary": "<p>Sets paused to false.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 415,
+    "codeStart": 419,
+    "code": "p.play = function() {\n\tthis.paused = false;\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "play",
+      "string": "p.play()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "stop",
+        "html": "<p>stop</p>"
+      }
+    ],
+    "description": {
+      "full": "<p>Sets paused to true.</p>",
+      "summary": "<p>Sets paused to true.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 423,
+    "codeStart": 427,
+    "code": "p.stop = function() {\n\tthis.paused = true;\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "stop",
+      "string": "p.stop()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "gotoAndPlay",
+        "html": "<p>gotoAndPlay</p>"
+      },
+      {
+        "type": "param",
+        "string": "{String|Number} positionOrLabel The animation name or frame number to go to.",
+        "name": "positionOrLabel",
+        "description": "<p>The animation name or frame number to go to.</p>",
+        "types": [
+          "String",
+          "Number"
+        ],
+        "typesDescription": "<code>String</code>|<code>Number</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      }
+    ],
+    "description": {
+      "full": "<p>Advances this movie clip to the specified position or label and sets paused to false.</p>",
+      "summary": "<p>Advances this movie clip to the specified position or label and sets paused to false.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 431,
+    "codeStart": 436,
+    "code": "p.gotoAndPlay = function(positionOrLabel) {\n\tthis.paused = false;\n\tthis._goto(positionOrLabel);\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "gotoAndPlay",
+      "string": "p.gotoAndPlay()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "gotoAndStop",
+        "html": "<p>gotoAndStop</p>"
+      },
+      {
+        "type": "param",
+        "string": "{String|Number} positionOrLabel The animation or frame name to go to.",
+        "name": "positionOrLabel",
+        "description": "<p>The animation or frame name to go to.</p>",
+        "types": [
+          "String",
+          "Number"
+        ],
+        "typesDescription": "<code>String</code>|<code>Number</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      }
+    ],
+    "description": {
+      "full": "<p>Advances this movie clip to the specified position or label and sets paused to true.</p>",
+      "summary": "<p>Advances this movie clip to the specified position or label and sets paused to true.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 441,
+    "codeStart": 446,
+    "code": "p.gotoAndStop = function(positionOrLabel) {\n\tthis.paused = true;\n\tthis._goto(positionOrLabel);\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "gotoAndStop",
+      "string": "p.gotoAndStop()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "param",
+        "string": "[time] {Number} The amount of time in ms to advance by. Only applicable if framerate is set.",
+        "name": "[time]",
+        "description": "<p>{Number} The amount of time in ms to advance by. Only applicable if framerate is set.</p>",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false
+      },
+      {
+        "type": "method",
+        "string": "advance",
+        "html": "<p>advance</p>"
+      }
+    ],
+    "description": {
+      "full": "<p>Advances the playhead. This occurs automatically each tick by default.</p>",
+      "summary": "<p>Advances the playhead. This occurs automatically each tick by default.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 451,
+    "codeStart": 456,
+    "code": "p.advance = function(time) {\n\t// TODO: should we worry at all about clips who change their own modes via frame scripts?\n\tvar independent = MovieClip.INDEPENDENT;\n\tif (this.mode != independent) { return; }\n\n\tvar o=this, fps = o.framerate;\n\twhile ((o = o.parent) && fps == null) {\n\t\tif (o.mode == independent) { fps = o._framerate; }\n\t}\n\tthis._framerate = fps;\n\n\tvar t = (fps != null && fps != -1 && time != null) ? time/(1000/fps) + this._t : 1;\n\tvar frames = t|0;\n\tthis._t = t-frames; // leftover time\n\n\twhile (!this.paused && frames--) {\n\t\tthis._prevPosition = (this._prevPos < 0) ? 0 : this._prevPosition+1;\n\t\tthis._updateTimeline();\n\t}\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "advance",
+      "string": "p.advance()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "clone",
+        "html": "<p>clone</p>"
+      }
+    ],
+    "description": {
+      "full": "<p>MovieClip instances cannot be cloned.</p>",
+      "summary": "<p>MovieClip instances cannot be cloned.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 477,
+    "codeStart": 481,
+    "code": "p.clone = function() {\n\t// TODO: add support for this? Need to clone the Timeline & retarget tweens - pretty complex.\n\tthrow(\"MovieClip cannot be cloned.\")\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "clone",
+      "string": "p.clone()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "toString",
+        "html": "<p>toString</p>"
+      },
+      {
+        "type": "return",
+        "string": "{String} a string representation of the instance.",
+        "types": [
+          "String"
+        ],
+        "typesDescription": "<code>String</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": "<p>a string representation of the instance.</p>"
+      }
+    ],
+    "description": {
+      "full": "<p>Returns a string representation of this object.</p>",
+      "summary": "<p>Returns a string representation of this object.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 486,
+    "codeStart": 491,
+    "code": "p.toString = function() {\n\treturn \"[MovieClip (name=\"+  this.name +\")]\";\n};\n\n\n// private methods:",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "toString",
+      "string": "p.toString()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "_tick",
+        "html": "<p>_tick</p>"
+      },
+      {
+        "type": "param",
+        "string": "{Object} evtObj An event object that will be dispatched to all tick listeners. This object is reused between dispatchers to reduce construction & GC costs.\nfunction.",
+        "name": "evtObj",
+        "description": "<p>An event object that will be dispatched to all tick listeners. This object is reused between dispatchers to reduce construction &amp; GC costs. function.</p>",
+        "types": [
+          "Object"
+        ],
+        "typesDescription": "<code>Object</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "protected",
+        "string": "",
+        "visibility": "protected",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 497,
+    "codeStart": 503,
+    "code": "p._tick = function(evtObj) {\n\tthis.advance(evtObj&&evtObj.delta);\n\tthis.Container__tick(evtObj);\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "_tick",
+      "string": "p._tick()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "_goto",
+        "html": "<p>_goto</p>"
+      },
+      {
+        "type": "param",
+        "string": "{String|Number} positionOrLabel The animation name or frame number to go to.",
+        "name": "positionOrLabel",
+        "description": "<p>The animation name or frame number to go to.</p>",
+        "types": [
+          "String",
+          "Number"
+        ],
+        "typesDescription": "<code>String</code>|<code>Number</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "protected",
+        "string": "",
+        "visibility": "protected",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 508,
+    "codeStart": 513,
+    "code": "p._goto = function(positionOrLabel) {\n\tvar pos = this.timeline.resolve(positionOrLabel);\n\tif (pos == null) { return; }\n\t// prevent _updateTimeline from overwriting the new position because of a reset:\n\tif (this._prevPos == -1) { this._prevPos = NaN; }\n\tthis._prevPosition = pos;\n\tthis._t = 0;\n\tthis._updateTimeline();\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "_goto",
+      "string": "p._goto()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "_reset",
+        "html": "<p>_reset</p>"
+      },
+      {
+        "type": "private",
+        "string": "",
+        "visibility": "private",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": true,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 523,
+    "codeStart": 527,
+    "code": "p._reset = function() {\n\tthis._prevPos = -1;\n\tthis._t = this.currentFrame = 0;\n\tthis.paused = false;\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "_reset",
+      "string": "p._reset()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "_updateTimeline",
+        "html": "<p>_updateTimeline</p>"
+      },
+      {
+        "type": "protected",
+        "string": "",
+        "visibility": "protected",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 533,
+    "codeStart": 537,
+    "code": "p._updateTimeline = function() {\n\tvar tl = this.timeline;\n\tvar synched = this.mode != MovieClip.INDEPENDENT;\n\ttl.loop = (this.loop==null) ? true : this.loop;\n\n\tvar pos = synched ? this.startPosition + (this.mode==MovieClip.SINGLE_FRAME?0:this._synchOffset) : (this._prevPos < 0 ? 0 : this._prevPosition);\n\tvar mode = synched || !this.actionsEnabled ? createjs.Tween.NONE : null;\n\n\t// pre-assign currentFrame so it is available to frame scripts:\n\tthis.currentFrame = tl._calcPosition(pos);\n\n\t// update timeline position, ignoring actions if this is a graphic.\n\ttl.setPosition(pos, mode);\n\n\tthis._prevPosition = tl._prevPosition;\n\tif (this._prevPos == tl._prevPos) { return; }\n\tthis.currentFrame = this._prevPos = tl._prevPos;\n\n\tfor (var n in this._managed) { this._managed[n] = 1; }\n\n\tvar tweens = tl._tweens;\n\tfor (var i=0, l=tweens.length; i<l; i++) {\n\t\tvar tween = tweens[i];\n\t\tvar target = tween._target;\n\t\tif (target == this || tween.passive) { continue; } // TODO: this assumes actions tween has this as the target. Valid?\n\t\tvar offset = tween._stepPosition;\n\n\t\tif (target instanceof createjs.DisplayObject) {\n\t\t\t// motion tween.\n\t\t\tthis._addManagedChild(target, offset);\n\t\t} else {\n\t\t\t// state tween.\n\t\t\tthis._setState(target.state, offset);\n\t\t}\n\t}\n\n\tvar kids = this.children;\n\tfor (i=kids.length-1; i>=0; i--) {\n\t\tvar id = kids[i].id;\n\t\tif (this._managed[id] == 1) {\n\t\t\tthis.removeChildAt(i);\n\t\t\tdelete(this._managed[id]);\n\t\t}\n\t}\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "_updateTimeline",
+      "string": "p._updateTimeline()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "_setState",
+        "html": "<p>_setState</p>"
+      },
+      {
+        "type": "param",
+        "string": "{Array} state",
+        "name": "state",
+        "description": "",
+        "types": [
+          "Array"
+        ],
+        "typesDescription": "<code>Array</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{Array} state</p>"
+      },
+      {
+        "type": "param",
+        "string": "{Number} offset",
+        "name": "offset",
+        "description": "",
+        "types": [
+          "Number"
+        ],
+        "typesDescription": "<code>Number</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{Number} offset</p>"
+      },
+      {
+        "type": "protected",
+        "string": "",
+        "visibility": "protected",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 583,
+    "codeStart": 589,
+    "code": "p._setState = function(state, offset) {\n\tif (!state) { return; }\n\tfor (var i=state.length-1;i>=0;i--) {\n\t\tvar o = state[i];\n\t\tvar target = o.t;\n\t\tvar props = o.p;\n\t\tfor (var n in props) { target[n] = props[n]; }\n\t\tthis._addManagedChild(target, offset);\n\t}\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "_setState",
+      "string": "p._setState()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "_addManagedChild",
+        "html": "<p>_addManagedChild</p>"
+      },
+      {
+        "type": "param",
+        "string": "{MovieClip} child The child MovieClip to manage",
+        "name": "child",
+        "description": "<p>The child MovieClip to manage</p>",
+        "types": [
+          "MovieClip"
+        ],
+        "typesDescription": "<a href=\"MovieClip.html\">MovieClip</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false
+      },
+      {
+        "type": "param",
+        "string": "{Number} offset",
+        "name": "offset",
+        "description": "",
+        "types": [
+          "Number"
+        ],
+        "typesDescription": "<code>Number</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{Number} offset</p>"
+      },
+      {
+        "type": "private",
+        "string": "",
+        "visibility": "private",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "<p>Adds a child to the timeline, and sets it up as a managed child.</p>",
+      "summary": "<p>Adds a child to the timeline, and sets it up as a managed child.</p>",
+      "body": ""
+    },
+    "isPrivate": true,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 600,
+    "codeStart": 607,
+    "code": "p._addManagedChild = function(child, offset) {\n\tif (child._off) { return; }\n\tthis.addChildAt(child,0);\n\n\tif (child instanceof MovieClip) {\n\t\tchild._synchOffset = offset;\n\t\t// TODO: this does not precisely match Flash. Flash loses track of the clip if it is renamed or removed from the timeline, which causes it to reset.\n\t\tif (child.mode == MovieClip.INDEPENDENT && child.autoReset && !this._managed[child.id]) { child._reset(); }\n\t}\n\tthis._managed[child.id] = 2;\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "_addManagedChild",
+      "string": "p._addManagedChild()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "_getBounds",
+        "html": "<p>_getBounds</p>"
+      },
+      {
+        "type": "param",
+        "string": "{Matrix2D} matrix",
+        "name": "matrix",
+        "description": "",
+        "types": [
+          "Matrix2D"
+        ],
+        "typesDescription": "<a href=\"Matrix2D.html\">Matrix2D</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{Matrix2D} matrix</p>"
+      },
+      {
+        "type": "param",
+        "string": "{Boolean} ignoreTransform",
+        "name": "ignoreTransform",
+        "description": "",
+        "types": [
+          "Boolean"
+        ],
+        "typesDescription": "<code>Boolean</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{Boolean} ignoreTransform</p>"
+      },
+      {
+        "type": "return",
+        "string": "{Rectangle}",
+        "types": [
+          "Rectangle"
+        ],
+        "typesDescription": "<a href=\"Rectangle.html\">Rectangle</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": "",
+        "html": "<p>{Rectangle}</p>"
+      },
+      {
+        "type": "protected",
+        "string": "",
+        "visibility": "protected",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 619,
+    "codeStart": 626,
+    "code": "p._getBounds = function(matrix, ignoreTransform) {\n\tvar bounds = this.DisplayObject_getBounds();\n\tif (!bounds) {\n\t\tthis._updateTimeline();\n\t\tif (this.frameBounds) { bounds = this._rectangle.copy(this.frameBounds[this.currentFrame]); }\n\t}\n\tif (bounds) { return this._transformBounds(bounds, matrix, ignoreTransform); }\n\treturn this.Container__getBounds(matrix, ignoreTransform);\n};\n\n\ncreatejs.MovieClip = createjs.promote(MovieClip, \"Container\");\n\n\n\n// MovieClipPlugin for TweenJS:",
+    "ctx": {
+      "type": "method",
+      "receiver": "p",
+      "name": "_getBounds",
+      "string": "p._getBounds()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "private",
+        "string": "",
+        "visibility": "private",
+        "html": ""
+      },
+      {
+        "type": "class",
+        "string": "MovieClipPlugin",
+        "html": "<p>MovieClipPlugin</p>"
+      },
+      {
+        "type": "constructor",
+        "string": "",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "<p>This plugin works with <a href=\"http://tweenjs.com\" target=\"_blank\">TweenJS</a> to prevent the startPosition<br />property from tweening.</p>",
+      "summary": "<p>This plugin works with <a href=\"http://tweenjs.com\" target=\"_blank\">TweenJS</a> to prevent the startPosition<br />property from tweening.</p>",
+      "body": ""
+    },
+    "isPrivate": true,
+    "isConstructor": true,
+    "isClass": true,
+    "isEvent": false,
+    "ignore": false,
+    "line": 642,
+    "codeStart": 649,
+    "code": "function MovieClipPlugin() {\n\tthrow(\"MovieClipPlugin cannot be instantiated.\")\n}",
+    "ctx": {
+      "type": "constructor",
+      "name": "MovieClipPlugin",
+      "string": "MovieClipPlugin()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "priority",
+        "html": "<p>priority</p>"
+      },
+      {
+        "type": "private",
+        "string": "",
+        "visibility": "private",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": true,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 653,
+    "codeStart": 657,
+    "code": "MovieClipPlugin.priority = 100; // very high priority, should run first",
+    "ctx": {
+      "type": "property",
+      "receiver": "MovieClipPlugin",
+      "name": "priority",
+      "value": "100",
+      "string": "MovieClipPlugin.priority"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "install",
+        "html": "<p>install</p>"
+      },
+      {
+        "type": "private",
+        "string": "",
+        "visibility": "private",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": true,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 659,
+    "codeStart": 663,
+    "code": "MovieClipPlugin.install = function() {\n\tcreatejs.Tween.installPlugin(MovieClipPlugin, [\"startPosition\"]);\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "MovieClipPlugin",
+      "name": "install",
+      "string": "MovieClipPlugin.install()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "init",
+        "html": "<p>init</p>"
+      },
+      {
+        "type": "param",
+        "string": "{Tween} tween",
+        "name": "tween",
+        "description": "",
+        "types": [
+          "Tween"
+        ],
+        "typesDescription": "<a href=\"Tween.html\">Tween</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{Tween} tween</p>"
+      },
+      {
+        "type": "param",
+        "string": "{String} prop",
+        "name": "prop",
+        "description": "",
+        "types": [
+          "String"
+        ],
+        "typesDescription": "<code>String</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{String} prop</p>"
+      },
+      {
+        "type": "param",
+        "string": "{String|Number|Boolean} value",
+        "name": "value",
+        "description": "",
+        "types": [
+          "String",
+          "Number",
+          "Boolean"
+        ],
+        "typesDescription": "<code>String</code>|<code>Number</code>|<code>Boolean</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{String|Number|Boolean} value</p>"
+      },
+      {
+        "type": "private",
+        "string": "",
+        "visibility": "private",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": true,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 667,
+    "codeStart": 674,
+    "code": "MovieClipPlugin.init = function(tween, prop, value) {\n\treturn value;\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "MovieClipPlugin",
+      "name": "init",
+      "string": "MovieClipPlugin.init()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "step",
+        "html": "<p>step</p>"
+      },
+      {
+        "type": "private",
+        "string": "",
+        "visibility": "private",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": true,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 678,
+    "codeStart": 682,
+    "code": "MovieClipPlugin.step = function() {\n\t// unused.\n};",
+    "ctx": {
+      "type": "method",
+      "receiver": "MovieClipPlugin",
+      "name": "step",
+      "string": "MovieClipPlugin.step()"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "method",
+        "string": "tween",
+        "html": "<p>tween</p>"
+      },
+      {
+        "type": "param",
+        "string": "{Tween} tween",
+        "name": "tween",
+        "description": "",
+        "types": [
+          "Tween"
+        ],
+        "typesDescription": "<a href=\"Tween.html\">Tween</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{Tween} tween</p>"
+      },
+      {
+        "type": "param",
+        "string": "{String} prop",
+        "name": "prop",
+        "description": "",
+        "types": [
+          "String"
+        ],
+        "typesDescription": "<code>String</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{String} prop</p>"
+      },
+      {
+        "type": "param",
+        "string": "{String | Number | Boolean} value",
+        "name": "value",
+        "description": "",
+        "types": [
+          "String",
+          "Number",
+          "Boolean"
+        ],
+        "typesDescription": "<code>String</code>|<code>Number</code>|<code>Boolean</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{String | Number | Boolean} value</p>"
+      },
+      {
+        "type": "param",
+        "string": "{Array} startValues",
+        "name": "startValues",
+        "description": "",
+        "types": [
+          "Array"
+        ],
+        "typesDescription": "<code>Array</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{Array} startValues</p>"
+      },
+      {
+        "type": "param",
+        "string": "{Array} endValues",
+        "name": "endValues",
+        "description": "",
+        "types": [
+          "Array"
+        ],
+        "typesDescription": "<code>Array</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{Array} endValues</p>"
+      },
+      {
+        "type": "param",
+        "string": "{Number} ratio",
+        "name": "ratio",
+        "description": "",
+        "types": [
+          "Number"
+        ],
+        "typesDescription": "<code>Number</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{Number} ratio</p>"
+      },
+      {
+        "type": "param",
+        "string": "{Object} wait",
+        "name": "wait",
+        "description": "",
+        "types": [
+          "Object"
+        ],
+        "typesDescription": "<code>Object</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{Object} wait</p>"
+      },
+      {
+        "type": "param",
+        "string": "{Object} end",
+        "name": "end",
+        "description": "",
+        "types": [
+          "Object"
+        ],
+        "typesDescription": "<code>Object</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>{Object} end</p>"
+      },
+      {
+        "type": "return",
+        "string": "{*}",
+        "types": [],
+        "typesDescription": "<code>*</code>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "description": "",
+        "html": "<p>{*}</p>"
+      }
+    ],
+    "description": {
+      "full": "",
+      "summary": "",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 686,
+    "codeStart": 698,
+    "code": "MovieClipPlugin.tween = function(tween, prop, value, startValues, endValues, ratio, wait, end) {\n\tif (!(tween.target instanceof MovieClip)) { return value; }\n\treturn (ratio == 1 ? endValues[prop] : startValues[prop]);\n};\n\n}());\n\n//##############################################################################\n// version_movieclip.js\n//##############################################################################\n\nthis.createjs = this.createjs || {};\n\n(function() {\n\"use strict\";",
+    "ctx": {
+      "type": "method",
+      "receiver": "MovieClipPlugin",
+      "name": "tween",
+      "string": "MovieClipPlugin.tween()"
+    }
+  },
+  {
+    "tags": [],
+    "description": {
+      "full": "<p>Static class holding library specific information such as the version and buildDate of<br />the library.</p>",
+      "summary": "<p>Static class holding library specific information such as the version and buildDate of<br />the library.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 714,
+    "codeStart": 718,
+    "code": "var s = createjs.MovieClip = createjs.MovieClip || {};",
+    "ctx": {
+      "type": "declaration",
+      "name": "s",
+      "value": "createjs.MovieClip = createjs.MovieClip || {}",
+      "string": "s"
+    }
+  },
+  {
+    "tags": [
+      {
+        "type": "property",
+        "string": "version",
+        "name": "version",
+        "description": "",
+        "types": [],
+        "typesDescription": "",
+        "variable": false,
+        "nonNullable": false,
+        "nullable": false,
+        "optional": false,
+        "html": "<p>version</p>"
+      },
+      {
+        "type": "for",
+        "string": "MovieClip",
+        "html": "<p>MovieClip</p>"
+      },
+      {
+        "type": "type",
+        "string": "String",
+        "types": [
+          "trin"
+        ],
+        "typesDescription": "<a href=\"trin.html\">trin</a>",
+        "optional": false,
+        "nullable": false,
+        "nonNullable": false,
+        "variable": false,
+        "html": "<p>String</p>"
+      },
+      {
+        "type": "static",
+        "string": "",
+        "html": ""
+      }
+    ],
+    "description": {
+      "full": "<p>The version string for this release.</p>",
+      "summary": "<p>The version string for this release.</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 720,
+    "codeStart": 727,
+    "code": "s.version =",
+    "ctx": false
+  },
+  {
+    "tags": [],
+    "description": {
+      "full": "<p>=version</p>",
+      "summary": "<p>=version</p>",
+      "body": ""
+    },
+    "isPrivate": false,
+    "isConstructor": false,
+    "isClass": false,
+    "isEvent": false,
+    "ignore": false,
+    "line": 727,
+    "codeStart": 728,
+    "code": "NEXT\"; // injected by build process\n\n\t/**\n\t * The build date for this release in UTC format.\n\t * @property buildDate\n\t * @for MovieClip\n\t * @type String\n\t * @static\n\t **/\n\ts.buildDate = /*=date*/\"Wed, 27 May 2015 18:12:21 GMT\"; // injected by build process\n\n})();",
+    "ctx": false
+  }
+]

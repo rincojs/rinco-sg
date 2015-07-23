@@ -4,7 +4,7 @@
         <title></title>
     </head>
     <body>
-    @dox(file.json as data)
+    @dox(test.json as data)
     @data(user.json)
     @include(header.html)
     @include(nav.html)
@@ -26,6 +26,28 @@
                     </ul>
                 </div>
                 <div class="col-md-9">
+                                {{#data.properties.length}}
+                              <h1>Properties</h1>
+                              <hr>
+                              {{#data.properties}}
+                              <div class="panel panel-default">
+                                  <div class="panel-body">
+                                <section class="params">
+                                    <header>
+                                      <h2>{{ctx.string}}</h2>
+                                      <span class="label label-{{type.css}}">{{type.name}}</span>
+                                    </header>
+                                    <hr>
+
+                      {{{description.full}}}
+
+                                </section>
+                              </div>
+                            </div>
+                        {{/data.properties}}
+                                {{/data.properties.length}}
+                              <h1>Methods</h1>
+                              <hr>
             {{#data.content}}
 
                     <div class="panel panel-default">
