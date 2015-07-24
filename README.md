@@ -5,13 +5,12 @@ Rinco Static Generator
 
 __comming soon__
 
-## Temporary
+## Install
 
 * Clone this repo and after
 
-        npm install -g
-        
+        npm install rinco -g
+
 * To create a project:
 
         $ rinco
-
