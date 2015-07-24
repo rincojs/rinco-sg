@@ -54,20 +54,20 @@ Rinco has some syntax helpers to improve your development
 - @include()
 
 ```
-@include(file.html)      // will include the file.html from assets/includes folder
-@include(path/file.html) // will include the file.html from assets/includes/path folder
+@include(file.html)      // will include the file.html from (assets/includes) folder
+@include(path/file.html) // will include the file.html from (assets/includes/path) folder
 ```
 
 - @data()
 
 ```
-@data(file.json)      // will include the file.html from assets/data folder
-@include(path/file.json) // will include the file.html from assets/data/path folder
+@data(file.json)      // will include the file.html from (assets/data) folder
+@include(path/file.json) // will include the file.html from (assets/data/path) folder
 ```
 
 You can create a alias for a imported file and use it in your template:
 ```
-@data(file.json as myalias)      // will include the file.html from assets/data folder
+@data(file.json as myalias)      // will include the file.html from (assets/data) folder
 ```
 
 ```html
