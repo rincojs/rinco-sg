@@ -62,7 +62,7 @@ Rinco has some syntax helpers to improve your development
 
 ```
 @data(file.json)      // will include the file.html from (assets/data) folder
-@include(path/file.json) // will include the file.html from (assets/data/path) folder
+@data(path/file.json) // will include the file.html from (assets/data/path) folder
 ```
 
 You can create a alias for a imported file and use it in your template:
