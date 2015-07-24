@@ -54,26 +54,39 @@ Rinco has some syntax helpers to improve your development
 - @include()
 
 ```
-@include(file.html)      // will include the file.html of assets/includes folder
-@include(path/file.html) // will include the file.html of assets/includes/path folder
+@include(file.html)      // will include the file.html from assets/includes folder
+@include(path/file.html) // will include the file.html from assets/includes/path folder
 ```
 
 - @data()
 
 ```
-@data(file.json)      // will include the file.html of assets/data folder
-@include(path/file.json) // will include the file.html of assets/data/path folder
+@data(file.json)      // will include the file.html from assets/data folder
+@include(path/file.json) // will include the file.html from assets/data/path folder
 ```
 
+You can create a alias for a imported file and use it in your template:
+```
+@data(file.json as myalias)      // will include the file.html from assets/data folder
+```
+
+```html
+...
+	@data(en-en.json as en)
+	<h1>{{en.title}}</h1>
+...
+```
 
 ### Real example
+
+- index.html ***(assets/pages)***
 
 ```html
 <!doctype html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>{{user.name}}</title>
+	<title>{{user.title}}</title>
 	<link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
@@ -91,7 +104,51 @@ Rinco has some syntax helpers to improve your development
 </body>
 </html>
 ```
+- header.html ***(assets/includes/header.html)***
+ 
 
+```html
+<header>
+	<h1>{{user.name}}</h1>
+	<nav>
+		{{#each menu.items}}
+		  <a href="{{link}}">{{name}}</a></h2>  
+		{{/each}}
+	</nav>
+</header>
+```
+
+- user.json ***(assets/data/user.json)***
+
+```json
+{
+	"name": "Rinco JS",
+	"title": "Rinco JS",
+	"github": "https://github.com/allanesquina/rincojs"
+}
+```
+
+- generic.json ***(assets/data/generic.json)***
+
+```json
+{
+	"items": [
+		{
+			"link": "/home",
+			"name": "home"
+		},
+		{
+			"link": "/doc",
+			"name": "documentation"
+		},
+		{
+			"link": "/download",
+			"name": "download"
+		}
+	]
+}
+
+```
 ### Generate static files
 
 To generate the static files use the build task. The static files will be in **build** folder
