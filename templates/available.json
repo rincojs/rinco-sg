@@ -2,9 +2,5 @@
   {
     "name": "Blank (default)",
     "url":"https://github.com/rincojs/rsg-default.git"
-  },
-  {
-    "name": "Documentation (DOX version)",
-    "url":"https://github.com/rincojs/rsg-doc.git"
   }
 ]

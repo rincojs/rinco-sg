@@ -1,10 +1,18 @@
+* {
+  transition: .2s;
+}
 body {
   background: #f6f6f6;
-  font-size: 20px;
+  // background: #1F252B;
+  // color: #535D67;
+  // font-size: 18px;
 }
 section {
   margin-bottom: 30px;
 }
 table {
-  font-size: 16px;
+  // font-size: 16px;
+}
+.navbar {
+  border-radius: 0;
 }
