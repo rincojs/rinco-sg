@@ -1,0 +1,20 @@
+{{#data.property.length}}
+<h1>Properties</h1>
+<hr>
+{{#data.property}}
+<div class="panel panel-default">
+<div class="panel-body">
+<section class="params">
+<header>
+<h2>{{ctx.string}}</h2>
+<span class="label label-{{type.css}}">{{type.name}}</span>
+</header>
+<hr>
+
+{{{description.full}}}
+
+</section>
+</div>
+</div>
+{{/data.property}}
+{{/data.property.length}}

@@ -26,26 +26,7 @@
                     </ul>
                 </div>
                 <div class="col-md-9">
-                                {{#data.properties.length}}
-                              <h1>Properties</h1>
-                              <hr>
-                              {{#data.properties}}
-                              <div class="panel panel-default">
-                                  <div class="panel-body">
-                                <section class="params">
-                                    <header>
-                                      <h2>{{ctx.string}}</h2>
-                                      <span class="label label-{{type.css}}">{{type.name}}</span>
-                                    </header>
-                                    <hr>
-
-                      {{{description.full}}}
-
-                                </section>
-                              </div>
-                            </div>
-                        {{/data.properties}}
-                                {{/data.properties.length}}
+                    @include(doc/partials/propertie.html)
                               <h1>Methods</h1>
                               <hr>
             {{#data.content}}
