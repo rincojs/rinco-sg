@@ -7,7 +7,6 @@ __comming soon__
 
 ## Install
 
-* Clone this repo and after
 
         npm install rinco -g
 
