@@ -1,15 +1,28 @@
 {
   "name": "rinco",
   "description": "",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Allan Esquina <loloudxur@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/"
+    "url": "https://github.com/rincojs/rinco-staticgen/"
   },
+  "keywords": [
+    "generator",
+    "static",
+    "sass",
+    "less",
+    "stylus",
+    "coffescript",
+    "markdown",
+    "mustache",
+    "rinco",
+    "rincojs",
+    "server"
+  ],
   "bugs": {
-    "url": "https://github.com/"
+    "url": "https://github.com/rincojs/rinco-staticgen/issues"
   },
   "dependencies": {
     "coffee-script": "^1.7.1",
