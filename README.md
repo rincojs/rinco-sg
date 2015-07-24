@@ -65,7 +65,7 @@ Rinco has some syntax helpers to improve your development
 @data(path/file.json) // will include the file.html from (assets/data/path) folder
 ```
 
-You can create a alias for a imported file and use it in your template:
+You can create a alias for an imported file and use it in your template:
 ```
 @data(file.json as myalias)      // will include the file.html from (assets/data) folder
 ```
