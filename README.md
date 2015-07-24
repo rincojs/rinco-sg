@@ -72,8 +72,8 @@ You can create a alias for an imported file and use it in your template:
 
 ```html
 ...
-	@data(en-en.json as en)
-	<h1>{{en.title}}</h1>
+	@data(en-en.json as data)
+	<h1>{{data.title}}</h1>
 ...
 ```
 
