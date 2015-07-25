@@ -8,8 +8,17 @@ Rinco Static Generator
 
 ![Rinco](https://avatars1.githubusercontent.com/u/7665633?v=3&s=300)
 
-## Comming soon...
-## We are in BETA version yet. Feel free to contribute.
+### Comming soon...
+### We are in BETA version yet. Feel free to contribute.
+
+
+#Suport
+<img src="http://coffeescript.org/documentation/images/logo.png" alt="coffeescript" width="150px">
+<img src="http://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg" alt="sass" width="100px">
+<img src="http://lesscss.org/public/img/logo.png" alt="less" width="100px">
+<img src="https://learnboost.github.io/stylus/docs/graphics/Logos/stylus.png" alt="stylus" width="100px">
+<img src="http://kirkstrobeck.github.io/whatismarkdown.com/img/markdown.png" alt="markdown" width="100px">
+<img src="https://media-3.haircrazy.com/photos/forum/mustache_t_w250_h250.jpg" alt="mustache" width="100px">
 
 
 # Install
@@ -49,16 +58,16 @@ Rinco has a simple path convention that you need to follow:
 
 ### Syntax
 
-Rinco has some syntax helpers to improve your development
+Rinco has some syntax helpers to improve your development:
 
-- @include()
+- <code>@include()</code>
 
 ```
 @include(file.html)      // will include the file.html from (assets/includes) folder
 @include(path/file.html) // will include the file.html from (assets/includes/path) folder
 ```
 
-- @data()
+- <code>@data()</code>
 
 ```
 @data(file.json)      // will include the file.html from (assets/data) folder
@@ -79,7 +88,7 @@ You can create a alias for an imported file and use it in your template:
 
 ### Real example
 
-- index.html ***(assets/pages)***
+- index.html (refers to file <code>assets/pages</code>)
 
 ```html
 <!doctype html>
@@ -104,7 +113,7 @@ You can create a alias for an imported file and use it in your template:
 </body>
 </html>
 ```
-- header.html ***(assets/includes/header.html)***
+- header.html (refers to file <code>assets/includes/header.html</code>)
  
 
 ```html
@@ -118,7 +127,7 @@ You can create a alias for an imported file and use it in your template:
 </header>
 ```
 
-- user.json ***(assets/data/user.json)***
+- user.json (refers to file <code>assets/data/user.json</code>)
 
 ```json
 {
@@ -128,7 +137,7 @@ You can create a alias for an imported file and use it in your template:
 }
 ```
 
-- generic.json ***(assets/data/generic.json)***
+- generic.json (refers to file <code>assets/data/generic.json</code>)
 
 ```json
 {
@@ -149,9 +158,45 @@ You can create a alias for an imported file and use it in your template:
 }
 
 ```
+
+### CSS
+
+**Rinco** supports many CSS extension languages like sass, less and stylus. To use it, just change the extension to your prefered language and **Rinco** compile it to you. Don't worry about the choice, you can use all together.
+To link a css file use the css filename changing the extention to <code>.css</code>.
+
+```html
+<!-- refers to file assets/css/styles.sass --> 
+<link rel="stylesheet" href="/css/styles.css">
+<!-- refers to file assets/css/colors.less --> 
+<link rel="stylesheet" href="/css/colors.css">
+<!-- refers to file assets/css/custom.styl --> 
+<link rel="stylesheet" href="/css/custom.css">
+```
+
+**Rinco** will create the file in <code>public/css</code> folder.
+
+
+### Javascript
+
+**Rinco** allows you to code in **coffeescript** language, it's similar of the CSS compile behavior, so you just need to change the file extension to <code>.coffee</code>. To link it on page, change the extension to <code>.js</code>.
+
+```html
+<!-- refers to file assets/js/styles.sass --> 
+<script src="/js/app.js" charset="utf-8"></script>
+```
+
+**Rinco** will create the file in <code>public/js</code> folder
+
+### Ignoring files
+You can ignore a file put <code>_</code> at the beginning of the filename like this:
+```
+_variables.sass
+```
+This is helpful to CSS imported files.
+
 ### Generate static files
 
-To generate the static files use the build task. The static files will be in **build** folder
+To generate the static files use the build task. The static files will be in **build** folder.
 
 ```
 $ rinco build
