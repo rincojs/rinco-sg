@@ -39,7 +39,7 @@
     "open": "~0.0.5",
     "shelljs": "^0.2.6",
     "socket.io": "^0.9.16",
-    "stylus": "^0.43.1",
+    "stylus": "^0.52.0",
     "sync": "^0.2.2"
   },
   "devDependencies": {
