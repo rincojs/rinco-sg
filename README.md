@@ -188,7 +188,7 @@ To link a css file use the css filename changing the extention to <code>.css</co
 **Rinco** will create the file in <code>public/js</code> folder
 
 ### Ignoring files
-You can ignore a file put <code>_</code> at the beginning of the filename like this:
+You can ignore a file putting <code>_</code> at the beginning of the filename like this:
 ```
 _variables.sass
 ```
