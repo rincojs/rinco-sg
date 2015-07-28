@@ -1,7 +1,7 @@
 {
   "name": "rinco",
   "description": "",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Allan Esquina <loloudxur@gmail.com>",
   "license": "MIT",
   "repository": {
@@ -15,7 +15,9 @@
     "less",
     "stylus",
     "coffescript",
+    "babel",
     "typescript",
+    "es6",
     "markdown",
     "mustache",
     "rinco",
