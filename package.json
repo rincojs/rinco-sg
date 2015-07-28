@@ -26,6 +26,7 @@
     "url": "https://github.com/rincojs/rinco-staticgen/issues"
   },
   "dependencies": {
+    "babel-core": "^5.8.12",
     "coffee-script": "^1.7.1",
     "colors": "~0.6.2",
     "connect": "2.14.4",

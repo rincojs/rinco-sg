@@ -13,13 +13,7 @@
 # Suport
 
 
-<img src="http://agehost.com.br/allanesquina/rinco/coffee.png" alt="coffeescript">
-<img src="http://agehost.com.br/allanesquina/rinco/ts.png" alt="typescript">
-<img src="http://agehost.com.br/allanesquina/rinco/sass.png" alt="sass">
-<img src="http://agehost.com.br/allanesquina/rinco/less.png" alt="less">
-<img src="http://agehost.com.br/allanesquina/rinco/stylus.png" alt="stylus">
-<img src="http://agehost.com.br/allanesquina/rinco/md.png" alt="markdown">
-<img src="http://agehost.com.br/allanesquina/rinco/mustache.png" alt="mustache">
+<img src="http://agehost.com.br/allanesquina/rinco/suport.png" alt="coffeescript">
 
 
 # Install
@@ -179,13 +173,15 @@ To link a css file use the css filename changing the extention to <code>.css</co
 
 ### Javascript
 
-**Rinco** allows you to code in **coffeescript** or **typescript** language, it's similar of the CSS compile behavior, so you just need to change the file extension to <code>.coffee</code> or <code>.ts</code>. To link it on page, change the extension to <code>.js</code>.
+**Rinco** allows you to code in **coffeescript**, **typescript** and **ES6(BABEL)** language, it's similar of the CSS compile behavior, so you just need to change the file extension to <code>.coffee</code>, <code>.ts</code> and <code>.babel</code>. To link it on page, change the extension to <code>.js</code>.
 
 ```html
 <!-- refers to file assets/js/app.coffee -->
 <script src="/js/app.js" charset="utf-8"></script>
 <!-- refers to file assets/js/test.ts -->
 <script src="/js/test.js" charset="utf-8"></script>
+<!-- refers to file assets/js/es6.babel -->
+<script src="/js/es6.js" charset="utf-8"></script>
 ```
 
 **Rinco** will create the file in <code>public/js</code> folder
