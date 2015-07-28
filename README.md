@@ -1,5 +1,4 @@
 Rinco Static Generator
-============
 
 [![Build Status](https://travis-ci.org/rincojs/rinco-staticgen.svg?branch=master)](https://travis-ci.org/rincojs/rinco-staticgen)
 [![npm version](https://badge.fury.io/js/rinco.svg)](http://badge.fury.io/js/rinco)
@@ -8,7 +7,6 @@ Rinco Static Generator
 
 ![Rinco](https://avatars1.githubusercontent.com/u/7665633?v=3&s=300)
 
-### Comming soon...
 ### We are in BETA version yet. Feel free to contribute.
 
 
@@ -182,7 +180,7 @@ To link a css file use the css filename changing the extention to <code>.css</co
 **Rinco** allows you to code in **coffeescript** or **typescript** language, it's similar of the CSS compile behavior, so you just need to change the file extension to <code>.coffee</code> or <code>.ts</code>. To link it on page, change the extension to <code>.js</code>.
 
 ```html
-<!-- refers to file assets/js/app.coffe -->
+<!-- refers to file assets/js/app.coffee -->
 <script src="/js/app.js" charset="utf-8"></script>
 <!-- refers to file assets/js/test.ts -->
 <script src="/js/test.js" charset="utf-8"></script>
