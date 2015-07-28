@@ -13,12 +13,13 @@ Rinco Static Generator
 
 
 #Suport
-<img src="http://coffeescript.org/documentation/images/logo.png" alt="coffeescript" width="150px">
-<img src="http://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg" alt="sass" width="100px">
-<img src="http://lesscss.org/public/img/logo.png" alt="less" width="100px">
-<img src="https://learnboost.github.io/stylus/docs/graphics/Logos/stylus.png" alt="stylus" width="100px">
-<img src="http://kirkstrobeck.github.io/whatismarkdown.com/img/markdown.png" alt="markdown" width="100px">
-<img src="https://media-3.haircrazy.com/photos/forum/mustache_t_w250_h250.jpg" alt="mustache" width="100px">
+<img src="http://agehost.com.br/allanesquina/rinco/coffee.png" alt="coffeescript">
+<img src="http://agehost.com.br/allanesquina/rinco/ts.png" alt="typescript">
+<img src="http://agehost.com.br/allanesquina/rinco/sass.png" alt="sass">
+<img src="http://agehost.com.br/allanesquina/rinco/less.png" alt="less">
+<img src="http://agehost.com.br/allanesquina/rinco/stylus.png" alt="stylus">
+<img src="http://agehost.com.br/allanesquina/rinco/md.png" alt="markdown">
+<img src="http://agehost.com.br/allanesquina/rinco/mustache.png" alt="mustache">
 
 
 # Install
@@ -114,7 +115,7 @@ You can create a alias for an imported file and use it in your template:
 </html>
 ```
 - header.html (refers to file <code>assets/includes/header.html</code>)
- 
+
 
 ```html
 <header>
@@ -165,11 +166,11 @@ You can create a alias for an imported file and use it in your template:
 To link a css file use the css filename changing the extention to <code>.css</code>.
 
 ```html
-<!-- refers to file assets/css/styles.sass --> 
+<!-- refers to file assets/css/styles.sass -->
 <link rel="stylesheet" href="/css/styles.css">
-<!-- refers to file assets/css/colors.less --> 
+<!-- refers to file assets/css/colors.less -->
 <link rel="stylesheet" href="/css/colors.css">
-<!-- refers to file assets/css/custom.styl --> 
+<!-- refers to file assets/css/custom.styl -->
 <link rel="stylesheet" href="/css/custom.css">
 ```
 
@@ -178,11 +179,13 @@ To link a css file use the css filename changing the extention to <code>.css</co
 
 ### Javascript
 
-**Rinco** allows you to code in **coffeescript** language, it's similar of the CSS compile behavior, so you just need to change the file extension to <code>.coffee</code>. To link it on page, change the extension to <code>.js</code>.
+**Rinco** allows you to code in **coffeescript** or **typescript** language, it's similar of the CSS compile behavior, so you just need to change the file extension to <code>.coffee</code> or <code>.ts</code>. To link it on page, change the extension to <code>.js</code>.
 
 ```html
-<!-- refers to file assets/js/styles.sass --> 
+<!-- refers to file assets/js/app.coffe -->
 <script src="/js/app.js" charset="utf-8"></script>
+<!-- refers to file assets/js/test.ts -->
+<script src="/js/test.js" charset="utf-8"></script>
 ```
 
 **Rinco** will create the file in <code>public/js</code> folder
