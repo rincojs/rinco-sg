@@ -1,5 +1,7 @@
 # Rinco Static Generator
 
+
+
 [![Build Status](https://travis-ci.org/rincojs/rinco-staticgen.svg?branch=master)](https://travis-ci.org/rincojs/rinco-staticgen)
 [![npm version](https://badge.fury.io/js/rinco.svg)](http://badge.fury.io/js/rinco)
 
