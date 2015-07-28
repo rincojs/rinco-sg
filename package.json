@@ -15,6 +15,7 @@
     "less",
     "stylus",
     "coffescript",
+    "typescript",
     "markdown",
     "mustache",
     "rinco",
