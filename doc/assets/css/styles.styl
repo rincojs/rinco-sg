@@ -40,7 +40,17 @@ table
 
 .logo
     margin-bottom:10px
+    position: relative;
 
+.logo-wrapper:before
+    content:" "
+    display:block
+    position: absolute;
+    box-shadow: 0 0 325px 115px #444
+    margin:auto
+    top:100px
+    top: 115px;
+    left: 131px;
 .showroom
     font-size:26px;
     line-height: 1.62857143;
@@ -49,19 +59,25 @@ table
     margin:auto;
     margin-bottom:20px;
     display:block;
+
 .wow
     visibility:hidden
+
 .features
     text-align:center
     margin:150px 0;
+
 .stars
     margin-left:15px;
-    opacity:0.6
+    opacity:0.7
+    box-shadow: 0 0 15px 5px #2e2e2e
+
 .stars:hover
     opacity:1;
 
 .users
     text-align:center
+
 .user
     display:inline-block
     margin-right:20px
@@ -73,14 +89,16 @@ table
     display:none
 
 .btn.github
-    background-color:alpha($githubColor, 0.5)
-    border-color:alpha($githubColor, 0.5)
+    background-color:alpha($githubColor, 0.7)
+    border-color:alpha($githubColor, 0.7)
 
 .btn.github:hover
     background-color:$githubColor
 
 .btn.gstart
-    background-color:alpha($gstartColor, 0.5)
-    border-color:alpha($gstartColor, 0.5)
+    background-color:alpha($gstartColor, 0.7)
+    border-color:alpha($gstartColor, 0.7)
 .btn.gstart:hover
     background-color:$gstartColor
+.btn
+    box-shadow: 0 0 15px 5px #2e2e2e
