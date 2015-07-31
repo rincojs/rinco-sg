@@ -55,3 +55,30 @@ table
     opacity:0.6
 .stars:hover
     opacity:1;
+
+.users
+    text-align:center
+.user
+    display:inline-block
+    margin-right:20px
+
+.user img
+    border-radius:50%
+
+.user span
+    display:none
+$gstartColor = #D31959;
+$githubColor = #54BCE8;
+
+.btn.github
+    background-color:alpha($githubColor, 0.5)
+    border-color:alpha($githubColor, 0.5)
+
+.btn.github:hover
+    background-color:$githubColor
+
+.btn.gstart
+    background-color:alpha($gstartColor, 0.5)
+    border-color:alpha($gstartColor, 0.5)
+.btn.gstart:hover
+    background-color:$gstartColor
