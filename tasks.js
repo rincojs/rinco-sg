@@ -17,3 +17,7 @@ rinco.task.register("server", function () {
 rinco.task.register("build", function () {
     rinco.build.generate();
 });
+
+rinco.task.register("build-uncss", function () {
+    rinco.build.generateUncss();
+});
