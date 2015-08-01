@@ -15,5 +15,5 @@ rinco.task.register("server", function () {
 
 
 rinco.task.register("build", function () {
-    rinco.util.build();
+    rinco.build.generate();
 });
