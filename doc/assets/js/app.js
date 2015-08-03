@@ -9,7 +9,7 @@ var App = (function( window, document, $ ) {
         init: function() {
             new WOW().init();
             this.getGithubContrib();
-            $('code').addClass('language-javascript');
+            // $('code').addClass('language-javascript');
         },
         // Getting the project's contributors
         getGithubContrib: function() {
