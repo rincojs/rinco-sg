@@ -16,7 +16,7 @@ $ rinco
 Rinco supports templates, but for now, we have only one (blank template).
 
 <a name="server"></a>
-### Running the development server
+### Development server
 
 ```javascript
 // within of your project's folder
@@ -24,35 +24,35 @@ $ rinco server
 ```
 
 <a name="structure"></a>
-### Structure convention
+### Structure
 
 Rinco has a simple path convention that you need to follow:
 
 ```javascript
-      Rinco Project  // path of your project
-        assets       // assets path
-           css       // stylus, sass, less or pure css
-           data      // json to be imported
-           img       // images
-           includes  // (.html|.md) partials to be imported
-           js        // coffescript or pure js
-           pages     // main pages of your project
-        build        // static files
+Rinco Project  // path of your project
+  assets       // assets path
+     css       // stylus, sass, less or pure css
+     data      // json to be imported
+     img       // images
+     includes  // (.html|.md) partials to be imported
+     js        // coffescript or pure js
+     pages     // main pages of your project
+  build        // static files
 ```
 
 <a name="syntax"></a>
-### Syntax
+### Include
 
-Rinco has some syntax helpers to improve your development:
-
-- <code>@.include()</code>
+To include a file, use <code>@@include()</code> function:
 
 ```javascript
 @@include(file.html) // include file.html from (assets/includes)
 @@include(path/file.html) // include file.html from (assets/includes/path)
 ```
 
-- <code>@.data()</code>
+### Data
+
+To import a data file into your page use <code>@@data()</code> function:
 
 ```javascript
 @@data(file.json) // include file.html from (assets/data)
@@ -71,31 +71,60 @@ You can create a alias for an imported file and use it in your template:
 ...
 ```
 
-<a name="example"></a>
-### Real example
 
-- index.html (refers to file <code>assets/pages</code>)
+<a name="css"></a>
+### CSS
+
+**Rinco** supports many CSS extension languages like sass, less and stylus. To use it, just change the extension to your prefered language and **Rinco** compile it to you. Don't worry about the choice, you can use all together.
+To link a css file use the css filename changing the extention to <code>.css</code>.
+
+```markup
+<!-- refers to file assets/css/styles.sass -->
+@@css(styles.sass)
+<!-- refers to file assets/css/colors.less -->
+@@css(colors.less)
+<!-- refers to file assets/css/custom.styl -->
+@@css(custom.styl)
+```
+
+
+<a name="javascript"></a>
+### Javascript
+
+**Rinco** allows you to code in **coffeescript**, and **ES6(BABEL)** language, it's similar of the CSS compile behavior, so you just need to change the file extension to <code>.coffee</code>, <code>.ts</code> and <code>.babel</code>. To link it on page, change the extension to <code>.js</code>.
+
+```markup
+<!-- refers to file assets/js/app.coffee -->
+@@js(app.coffee)
+<!-- refers to file assets/js/es6.babel -->
+@@js(es6.babel)
+```
+
+<a name="example"></a>
+### Example
+
+- index.html (refers to file <code>assets/pages/index.html</code>)
 
 ```markup
 <!doctype html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>{{user.title}}</title>
-	<link rel="stylesheet" href="/css/styles.css">
+	<title>{{site.title}}</title>
+	@@css(styles.css)
 </head>
 <body>
 	<section>
 		<!-- data usage -->
-		@@data(user.json)
-		@@data(generic.json as menu)
+		@@data(site.json)
+		@@data(areas.json as menu)
 
 		<!-- include usage -->
 		@@include(header.html)
 		@@include(content.html)
 		@@include(footer.html)
 	</section>
-	<script src="/js/app.js" charset="utf-8"></script>
+	@@js(app.coffee)
 </body>
 </html>
 ```
@@ -104,7 +133,7 @@ You can create a alias for an imported file and use it in your template:
 
 ```markup
 <header>
-	<h1>{{"{{user.name}}"}}</h1>
+	<h1>{&#8203;{"{{user.name}}"}}</h1>
 	<nav>
 		{{{#menu.items}}}
 		  <a href="{{link}}">{{{name}}}</a></h2>  
@@ -144,35 +173,6 @@ You can create a alias for an imported file and use it in your template:
 }
 
 ```
-
-<a name="css"></a>
-### CSS
-
-**Rinco** supports many CSS extension languages like sass, less and stylus. To use it, just change the extension to your prefered language and **Rinco** compile it to you. Don't worry about the choice, you can use all together.
-To link a css file use the css filename changing the extention to <code>.css</code>.
-
-```markup
-<!-- refers to file assets/css/styles.sass -->
-@@css(styles.sass)
-<!-- refers to file assets/css/colors.less -->
-@@css(colors.less)
-<!-- refers to file assets/css/custom.styl -->
-@@css(custom.styl)
-```
-
-
-<a name="javascript"></a>
-### Javascript
-
-**Rinco** allows you to code in **coffeescript**, and **ES6(BABEL)** language, it's similar of the CSS compile behavior, so you just need to change the file extension to <code>.coffee</code>, <code>.ts</code> and <code>.babel</code>. To link it on page, change the extension to <code>.js</code>.
-
-```markup
-<!-- refers to file assets/js/app.coffee -->
-@@js(app.coffee)
-<!-- refers to file assets/js/es6.babel -->
-@@js(es6.babel)
-```
-
 <a name="ignorefiles"></a>
 ### Ignoring files
 You can ignore a file putting <code>_</code> at the beginning of the filename like this:

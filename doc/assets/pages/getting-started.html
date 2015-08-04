@@ -1,13 +1,15 @@
 @include(header.html)
+<body class="gs">
 @include(nav.html)
 @data(gs.json as menu)
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container gs">
 
         <div class="row">
 
-            <div class="col-md-3">
+            <div class="col-md-3  logo-wrapper">
+						  <img src="https://avatars1.githubusercontent.com/u/7665633?v=3&s=200" alt="" class="center-block logo" >
 							<ul class="nav">
                                 {{#menu.items}}
 							    <li><a href="{{url}}" class="navbar-link ">{{name}}</a></li>
@@ -31,6 +33,3 @@
 
     </div>
   @include(footer.html)
-  @js(prism.js)
-</body>
-</html>
