@@ -1,16 +1,16 @@
 @include(header.html)
 <body class="gs">
 @include(nav.html)
-@data(gs.json as menu)
+@data(gs.json => menu)
 
     <!-- Page Content -->
     <div class="container gs">
 
         <div class="row">
 
-            <div class="col-md-3  logo-wrapper">
-						  <img src="https://avatars1.githubusercontent.com/u/7665633?v=3&s=200" alt="" class="center-block logo" >
-							<ul class="nav">
+            <div class="col-md-3  ">
+							<ul class="nav menu">
+						        <li class="logo-wrapper"><img width="100" src="https://avatars1.githubusercontent.com/u/7665633?v=3&s=100" alt="" class="center-block logo" ></li>
                                 {{#menu.items}}
 							    <li><a href="{{url}}" class="navbar-link ">{{name}}</a></li>
                                 {{/menu.items}}
@@ -18,6 +18,7 @@
             </div>
 
             <div class="col-md-9">
+                <h2>Getting Started</h2>
 
 						<div class="panel panel-default">
 

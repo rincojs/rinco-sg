@@ -40,7 +40,7 @@ Rinco Project  // path of your project
   build        // static files
 ```
 
-<a name="syntax"></a>
+<a name="include"></a>
 ### Include
 
 To include a file, use <code>@@include()</code> function:
@@ -50,6 +50,7 @@ To include a file, use <code>@@include()</code> function:
 @@include(path/file.html) // include file.html from (assets/includes/path)
 ```
 
+<a name="data"></a>
 ### Data
 
 To import a data file into your page use <code>@@data()</code> function:
@@ -61,12 +62,12 @@ To import a data file into your page use <code>@@data()</code> function:
 
 You can create a alias for an imported file and use it in your template:
 ```javascript
-@@data(file.json as myalias) // include file.html from (assets/data)
+@@data(file.json => myalias) // include file.html from (assets/data)
 ```
 
 ```javascript
 ...
-	@@data(en-en.json as data)
+	@@data(en-en.json => data)
 	<h1>{{data.title}}</h1>
 ...
 ```
@@ -91,7 +92,7 @@ To link a css file use the css filename changing the extention to <code>.css</co
 <a name="javascript"></a>
 ### Javascript
 
-**Rinco** allows you to code in **coffeescript**, and **ES6(BABEL)** language, it's similar of the CSS compile behavior, so you just need to change the file extension to <code>.coffee</code>, <code>.ts</code> and <code>.babel</code>. To link it on page, change the extension to <code>.js</code>.
+**Rinco** allows you to code in **coffeescript**, and **ES6 with Babel** language, it's similar of the CSS compile behavior, so you just need to change the file extension to <code>.coffee</code>, <code>.ts</code> and <code>.babel</code>. To link it on page, change the extension to <code>.js</code>.
 
 ```markup
 <!-- refers to file assets/js/app.coffee -->
@@ -106,72 +107,87 @@ To link a css file use the css filename changing the extention to <code>.css</co
 - index.html (refers to file <code>assets/pages/index.html</code>)
 
 ```markup
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>{{site.title}}</title>
-	@@css(styles.css)
-</head>
-<body>
-	<section>
-		<!-- data usage -->
-		@@data(site.json)
-		@@data(areas.json as menu)
+<!-- data usage -->
+@@data(site.json)
+@@data(areas.json => menu)
 
-		<!-- include usage -->
-		@@include(header.html)
-		@@include(content.html)
-		@@include(footer.html)
-	</section>
-	@@js(app.coffee)
-</body>
-</html>
+<!-- include usage -->
+@@include(header.html)
+@@include(content.html)
+@@include(footer.html)
+
 ```
 - header.html (refers to file <code>assets/includes/header.html</code>)
 
 
 ```markup
-<header>
-	<h1>{&#8203;{"{{user.name}}"}}</h1>
-	<nav>
-		{{{#menu.items}}}
-		  <a href="{{link}}">{{{name}}}</a></h2>  
-		{{{/menu.items}}}
-	</nav>
-</header>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{site.title}}</title>
+	@@css(styles.scss)
+</head>
+
 ```
 
-- user.json (refers to file <code>assets/data/user.json</code>)
+- content.html (refers to file <code>assets/includes/content.html</code>)
+
+```markup
+<section>
+    <figure class="logo-wrapper">
+        <img src="https://avatars1.githubusercontent.com/u/7665633?v=3&s=300" alt="">
+    </figure>
+</section>
+
+@@include(content/welcome.md)
+
+```
+- footer.html (refers to file <code>assets/includes/footer.html</code>)
+
+```markup
+<footer>
+    <nav>
+        {{#menu.items}}
+          <a href="{{link}}">{{name}}</a></h2>
+        {{/menu.items}}
+    </nav>
+</footer>
+@@js(app.coffee)
+</body>
+</html>
+```
+- welcome&#46;md (refers to file <code>assets/includes/content/welcome.md</code>)
+
+```markup
+# Rinco Static Generator
+You're using a **BETA** version of the application, so if you find a bug, please, [send to us](https://github.com/rincojs/rinco-staticgen/issues).
+```
+- site.json (refers to file <code>assets/data/site.json</code>)
 
 ```javascript
 {
-	"name": "Rinco JS",
-	"title": "Rinco JS",
-	"github": "https://github.com/allanesquina/rincojs"
+	"title": "Rinco Static Generator",
+	"github": "https://github.com/rincojs/rinco-staticgen"
 }
+
 ```
 
-- generic.json (refers to file <code>assets/data/generic.json</code>)
+- areas.json (refers to file <code>assets/data/areas.json</code>)
 
 ```javascript
 {
 	"items": [
 		{
-			"link": "/home",
-			"name": "home"
+			"link": "https://github.com/rincojs/rinco-staticgen",
+			"name": "Github"
 		},
 		{
-			"link": "/doc",
-			"name": "documentation"
-		},
-		{
-			"link": "/download",
-			"name": "download"
+			"link": "https://rincojs.com/sg/",
+			"name": "Documentation"
 		}
 	]
 }
-
 ```
 <a name="ignorefiles"></a>
 ### Ignoring files

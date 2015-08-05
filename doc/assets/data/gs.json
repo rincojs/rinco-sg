@@ -21,12 +21,12 @@
 			"name": "Structure"
 		},
 		{
-			"url": "#syntax",
-			"name": "Syntax"
+			"url": "#include",
+			"name": "Include"
 		},
 		{
-			"url": "#example",
-			"name": "Example"
+			"url": "#data",
+			"name": "Data"
 		},
 		{
 			"url": "#css",
@@ -35,6 +35,10 @@
 		{
 			"url": "#javascript",
 			"name": "JavaScript"
+		},
+		{
+			"url": "#example",
+			"name": "Example"
 		},
 		{
 			"url": "#ignorefiles",
