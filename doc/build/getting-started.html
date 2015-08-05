@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+
+
+
+
+
+ <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="gs"><!-- Navigation -->
+<nav class="navbar navbar-default">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">Rinco SG</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <!-- <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Link</a></li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                      </ul>
+                    </li>
+                  </ul> -->
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/index.html">About</a></li>
+                    <li><a href="/getting-started.html">Getting Started</a></li>
+                    <!-- <li><a href="/documentation/index.html">Documentation</a></li> -->
+                    <li><a href="https://github.com/rincojs/rinco-staticgen">github</a></li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+
+
+    <!-- Page Content -->
+    <div class="container gs">
+
+        <div class="row">
+
+            <div class="col-md-3  ">
+							<ul class="nav menu">
+						        <li class="logo-wrapper"><img width="100" src="/assets/img/logo.png" alt="" class="center-block logo" ></li>
+							    <li><a href="#install" class="navbar-link ">Install</a></li>
+							    <li><a href="#new" class="navbar-link ">Create a project</a></li>
+							    <li><a href="#template" class="navbar-link ">Templates</a></li>
+							    <li><a href="#server" class="navbar-link ">Server</a></li>
+							    <li><a href="#structure" class="navbar-link ">Structure</a></li>
+							    <li><a href="#include" class="navbar-link ">Include</a></li>
+							    <li><a href="#data" class="navbar-link ">Data</a></li>
+							    <li><a href="#css" class="navbar-link ">CSS</a></li>
+							    <li><a href="#javascript" class="navbar-link ">JavaScript</a></li>
+							    <li><a href="#example" class="navbar-link ">Example</a></li>
+							    <li><a href="#ignorefiles" class="navbar-link ">Ignoring Files</a></li>
+							    <li><a href="#build" class="navbar-link ">Build</a></li>
+							</ul>
+            </div>
+
+            <div class="col-md-9">
+                <h2>Getting Started</h2>
+
+						<div class="panel panel-default">
+
+						  <div class="panel-body">
+                 <p><a name="install"></a></p>
+<h3>Install</h3>
+<pre><code class="language-javascript">npm install rinco -g
+</code></pre>
+<p><a name="new"></a></p>
+<h3>Create a new project</h3>
+<pre><code class="language-javascript">$ rinco
+</code></pre>
+<p><a name="template"></a></p>
+<h3>Templates</h3>
+<p>Rinco supports templates, but for now, we have only one (blank template).</p>
+<p><a name="server"></a></p>
+<h3>Development server</h3>
+<pre><code class="language-javascript">// within of your project's folder
+$ rinco server
+</code></pre>
+<p><a name="structure"></a></p>
+<h3>Structure</h3>
+<p>Rinco has a simple path convention that you need to follow:</p>
+<pre><code class="language-javascript">Rinco Project  // path of your project
+  assets       // assets path
+     css       // stylus, sass, less or pure css
+     data      // json to be imported
+     img       // images
+     includes  // (.html|.md) partials to be imported
+     js        // coffescript or pure js
+     pages     // main pages of your project
+  build        // static files
+</code></pre>
+<p><a name="include"></a></p>
+<h3>Include</h3>
+<p>To include a file, use <code>@include()</code> function:</p>
+<pre><code class="language-javascript">@include(file.html) // include file.html from (assets/includes)
+@include(path/file.html) // include file.html from (assets/includes/path)
+</code></pre>
+<p><a name="data"></a></p>
+<h3>Data</h3>
+<p>To import a data file into your page use <code>@data()</code> function:</p>
+<pre><code class="language-javascript">@data(file.json) // include file.html from (assets/data)
+@data(path/file.json) // include file.html from (assets/data/path)
+</code></pre>
+<p>You can create a alias for an imported file and use it in your template:</p>
+<pre><code class="language-javascript">@data(file.json =&gt; myalias) // include file.html from (assets/data)
+</code></pre>
+<pre><code class="language-javascript">...
+    @data(en-en.json =&gt; data)
+    &lt;h1&gt;&lt;!code!&gt;&lt;/h1&gt;
+...
+</code></pre>
+<p><a name="css"></a></p>
+<h3>CSS</h3>
+<p><strong>Rinco</strong> supports many CSS extension languages like sass, less and stylus. To use it, just change the extension to your prefered language and <strong>Rinco</strong> compile it to you. Don’t worry about the choice, you can use all together.
+To link a css file use the css filename changing the extention to <code>.css</code>.</p>
+<pre><code class="language-markup">&lt;!-- refers to file assets/css/styles.sass --&gt;
+@
+&lt;!-- refers to file assets/css/colors.less --&gt;
+@
+&lt;!-- refers to file assets/css/custom.styl --&gt;
+@
+</code></pre>
+<p><a name="javascript"></a></p>
+<h3>Javascript</h3>
+<p><strong>Rinco</strong> allows you to code in <strong>coffeescript</strong>, and <strong>ES6 with Babel</strong> language, it’s similar of the CSS compile behavior, so you just need to change the file extension to <code>.coffee</code>, <code>.ts</code> and <code>.babel</code>. To link it on page, change the extension to <code>.js</code>.</p>
+<pre><code class="language-markup">&lt;!-- refers to file assets/js/app.coffee --&gt;
+@File: /home/allan/projects/rinco/rinco-staticgen/doc/assets/js/app.coffee
+&lt;!-- refers to file assets/js/es6.babel --&gt;
+@File: /home/allan/projects/rinco/rinco-staticgen/doc/assets/js/es6.babel
+</code></pre>
+<p><a name="example"></a></p>
+<h3>Example</h3>
+<ul>
+<li>index.html (refers to file <code>assets/pages/index.html</code>)</li>
+</ul>
+<pre><code class="language-markup">&lt;!-- data usage --&gt;
+@data(site.json)
+@data(areas.json =&gt; menu)
+
+&lt;!-- include usage --&gt;
+@include(header.html)
+@include(content.html)
+@include(footer.html)
+
+</code></pre>
+<ul>
+<li>header.html (refers to file <code>assets/includes/header.html</code>)</li>
+</ul>
+<pre><code class="language-markup">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;&lt;!code!&gt;&lt;/title&gt;
+    @
+&lt;/head&gt;
+
+</code></pre>
+<ul>
+<li>content.html (refers to file <code>assets/includes/content.html</code>)</li>
+</ul>
+<pre><code class="language-markup">&lt;section&gt;
+    &lt;figure class=&quot;logo-wrapper&quot;&gt;
+        &lt;img src=&quot;assets/img/logo.png&quot; alt=&quot;&quot;&gt;
+    &lt;/figure&gt;
+&lt;/section&gt;
+
+@include(content/welcome.md)
+
+</code></pre>
+<ul>
+<li>footer.html (refers to file <code>assets/includes/footer.html</code>)</li>
+</ul>
+<pre><code class="language-markup">&lt;footer&gt;
+    &lt;nav&gt;
+        &lt;!code!&gt;
+    &lt;/nav&gt;
+&lt;/footer&gt;
+@File: /home/allan/projects/rinco/rinco-staticgen/doc/assets/js/app.coffee
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<ul>
+<li>welcome.md (refers to file <code>assets/includes/content/welcome.md</code>)</li>
+</ul>
+<pre><code class="language-markup"># Rinco Static Generator
+You're using a **BETA** version of the application, so if you find a bug, please, [send to us](https://github.com/rincojs/rinco-staticgen/issues).
+</code></pre>
+<ul>
+<li>site.json (refers to file <code>assets/data/site.json</code>)</li>
+</ul>
+<pre><code class="language-javascript">{
+    &quot;title&quot;: &quot;Rinco Static Generator&quot;,
+    &quot;github&quot;: &quot;https://github.com/rincojs/rinco-staticgen&quot;
+}
+
+</code></pre>
+<ul>
+<li>areas.json (refers to file <code>assets/data/areas.json</code>)</li>
+</ul>
+<pre><code class="language-javascript">{
+    &quot;items&quot;: [
+        {
+            &quot;link&quot;: &quot;https://github.com/rincojs/rinco-staticgen&quot;,
+            &quot;name&quot;: &quot;Github&quot;
+        },
+        {
+            &quot;link&quot;: &quot;https://rincojs.com/sg/&quot;,
+            &quot;name&quot;: &quot;Documentation&quot;
+        }
+    ]
+}
+</code></pre>
+<p><a name="ignorefiles"></a></p>
+<h3>Ignoring files</h3>
+<p>You can ignore a file putting <code>_</code> at the beginning of the filename like this:</p>
+<pre><code class="language-javascript">_variables.sass
+</code></pre>
+<p>This is helpful to CSS imported files.</p>
+<p><a name="build"></a></p>
+<h3>Generate static files</h3>
+<p>There’s two ways to generate the statics files.</p>
+<ul>
+<li>To generate the static files without <strong>uncss</strong> feature use the <code>build</code> task.</li>
+</ul>
+<pre><code class="language-javascript">$ rinco build
+</code></pre>
+<ul>
+<li>To generate the static files with <strong>uncss</strong> feature use the <code>build-uncss</code> task.</li>
+</ul>
+<pre><code class="language-javascript">$ rinco build-uncss
+</code></pre>
+<p>The static files will be in <strong>build</strong> folder.</p>
+
+						  </div>
+						</div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+<div class="container">
+    <!-- Footer -->
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; RincoJS 2015</p>
+            </div>
+        </div>
+    </footer>
+
+</div>
+<!-- /.container -->
+<script src="http://code.jquery.com/jquery-2.1.4.min.js" charset="utf-8"></script>
+
+
+
+
+
+<script src="assets/js/script.js" charset="utf-8"></script>
+</body>
+</html>

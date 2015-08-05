@@ -68,7 +68,7 @@ You can create a alias for an imported file and use it in your template:
 ```javascript
 ...
 	@@data(en-en.json => data)
-	<h1>{{data.title}}</h1>
+	<h1><!code!></h1>
 ...
 ```
 
@@ -125,7 +125,7 @@ To link a css file use the css filename changing the extention to <code>.css</co
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>{{site.title}}</title>
+	<title><!code!></title>
 	@@css(styles.scss)
 </head>
 
@@ -136,7 +136,7 @@ To link a css file use the css filename changing the extention to <code>.css</co
 ```markup
 <section>
     <figure class="logo-wrapper">
-        <img src="https://avatars1.githubusercontent.com/u/7665633?v=3&s=300" alt="">
+        <img src="assets/img/logo.png" alt="">
     </figure>
 </section>
 
@@ -148,9 +148,7 @@ To link a css file use the css filename changing the extention to <code>.css</co
 ```markup
 <footer>
     <nav>
-        {{#menu.items}}
-          <a href="{{link}}">{{name}}</a></h2>
-        {{/menu.items}}
+        <!code!>
     </nav>
 </footer>
 @@js(app.coffee)
