@@ -32,12 +32,11 @@ Rinco has a simple path convention that you need to follow:
 Rinco Project  // path of your project
   assets       // assets path
      css       // stylus, sass, less or pure css
-     data      // json to be imported
      img       // images
-     includes  // (.html|.md) partials to be imported
-     js        // coffescript or pure js
-     pages     // main pages of your project
-  build        // static files
+     js        // coffescript, babel or pure js
+  data         // json to be imported
+  templates    // main pages and partials (.html|.md) to be imported
+  build        // generated static files (build)
 ```
 
 <a name="include"></a>
@@ -46,8 +45,9 @@ Rinco Project  // path of your project
 To include a file, use <code>@@include()</code> function:
 
 ```javascript
-@@include(file.html) // include file.html from (assets/includes)
-@@include(path/file.html) // include file.html from (assets/includes/path)
+@@include(_file.html) // include _file.html from (templates)
+@@include(_path/_file.html) // include _file.html from (templates/_path)
+@@include(_articles/_somearticle.md) // include _somearticle.md from (templates/_articles)
 ```
 
 <a name="data"></a>
@@ -56,13 +56,13 @@ To include a file, use <code>@@include()</code> function:
 To import a data file into your page use <code>@@data()</code> function:
 
 ```javascript
-@@data(file.json) // include file.html from (assets/data)
-@@data(path/file.json) // include file.html from (assets/data/path)
+@@data(file.json) // include file.html from (data)
+@@data(path/file.json) // include file.html from (data/path)
 ```
 
 You can create a alias for an imported file and use it in your template:
 ```javascript
-@@data(file.json => myalias) // include file.html from (assets/data)
+@@data(file.json => myalias) // include file.html from (data)
 ```
 
 ```javascript
@@ -104,7 +104,7 @@ To link a css file use the css filename changing the extention to <code>.css</co
 <a name="example"></a>
 ### Example
 
-- index.html (refers to file <code>assets/pages/index.html</code>)
+- index.html (refers to file <code>templates/index.html</code>)
 
 ```markup
 <!-- data usage -->
@@ -112,12 +112,12 @@ To link a css file use the css filename changing the extention to <code>.css</co
 @@data(areas.json => menu)
 
 <!-- include usage -->
-@@include(header.html)
-@@include(content.html)
-@@include(footer.html)
+@@include(_header.html)
+@@include(_content.html)
+@@include(_footer.html)
 
 ```
-- header.html (refers to file <code>assets/includes/header.html</code>)
+- header.html (refers to file <code>templates/_header.html</code>)
 
 
 ```markup
@@ -131,7 +131,7 @@ To link a css file use the css filename changing the extention to <code>.css</co
 
 ```
 
-- content.html (refers to file <code>assets/includes/content.html</code>)
+- content.html (refers to file <code>templates/_content.html</code>)
 
 ```markup
 <section>
@@ -140,10 +140,10 @@ To link a css file use the css filename changing the extention to <code>.css</co
     </figure>
 </section>
 
-@@include(content/welcome.md)
+@@include(_content/_welcome.md)
 
 ```
-- footer.html (refers to file <code>assets/includes/footer.html</code>)
+- footer.html (refers to file <code>templates/_footer.html</code>)
 
 ```markup
 <footer>
@@ -155,13 +155,13 @@ To link a css file use the css filename changing the extention to <code>.css</co
 </body>
 </html>
 ```
-- welcome&#46;md (refers to file <code>assets/includes/content/welcome.md</code>)
+- welcome&#46;md (refers to file <code>templates/_content/_welcome.md</code>)
 
 ```markup
 # Rinco Static Generator
 You're using a **BETA** version of the application, so if you find a bug, please, [send to us](https://github.com/rincojs/rinco-staticgen/issues).
 ```
-- site.json (refers to file <code>assets/data/site.json</code>)
+- site.json (refers to file <code>data/site.json</code>)
 
 ```javascript
 {
@@ -171,7 +171,7 @@ You're using a **BETA** version of the application, so if you find a bug, please
 
 ```
 
-- areas.json (refers to file <code>assets/data/areas.json</code>)
+- areas.json (refers to file <code>data/areas.json</code>)
 
 ```javascript
 {

@@ -1,0 +1,39 @@
+@include(_header.html)
+<body class="gs">
+@include(_nav.html)
+@data(gs.json => menu)
+
+    <!-- Page Content -->
+    <div class="container gs">
+
+        <div class="row">
+
+            <div class="col-md-3  ">
+							<ul class="nav menu">
+						        <li class="logo-wrapper"><img width="100" src="/assets/img/logo.png" alt="" class="center-block logo" ></li>
+                    <iframe class="stars" src="https://ghbtns.com/github-btn.html?user=rincojs&repo=rinco-staticgen&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+                                {{#menu.items}}
+							    <li><a href="{{url}}" class="navbar-link ">{{name}}</a></li>
+                                {{/menu.items}}
+							</ul>
+            </div>
+
+            <div class="col-md-9">
+                <h2>Getting Started</h2>
+              <hr>
+						<div class="panel panel-default">
+
+						  <div class="panel-body">
+                  @include(_partials/_gs.md)
+						  </div>
+						</div>
+
+            <iframe class="stars" src="https://ghbtns.com/github-btn.html?user=rincojs&repo=rinco-staticgen&type=fork&count=true&size=large" frameborder="0" scrolling="0" width="158px" height="30px"></iframe>
+            <iframe class="stars" src="https://ghbtns.com/github-btn.html?user=allanesquina&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+
+            </div>
+
+        </div>
+
+    </div>
+  @include(_footer.html)

@@ -1,6 +1,6 @@
-@include(header.html)
+@include(_header.html)
 <body>
-@include(nav.html)
+@include(_nav.html)
 
 
 						    <div class="top-container">
@@ -27,9 +27,7 @@
 										                <div class="col-md-12">
 															<br>
 															<br>
-															<iframe class="stars" src="https://ghbtns.com/github-btn.html?user=rincojs&repo=rinco-staticgen&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
-															<iframe class="stars" src="https://ghbtns.com/github-btn.html?user=rincojs&repo=rinco-staticgen&type=fork&count=true&size=large" frameborder="0" scrolling="0" width="158px" height="30px"></iframe>
-															<iframe class="stars" src="https://ghbtns.com/github-btn.html?user=allanesquina&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+															@include(_github.html)
 														</div>
 													</div>
 											</div>
@@ -129,4 +127,4 @@
 								<section class="features wow fadeInUp">
 									<h1>Feel free to contribute!</h1>
 								</section>
-@include(footer.html)
+@include(_footer.html)
