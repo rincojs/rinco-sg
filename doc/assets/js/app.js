@@ -37,10 +37,10 @@ var App = (function( window, document, $ ) {
         addBrace: function () {
             var codejs = $('code.language-javascript');
             var codem = $('code.language-markup');
+            if(codejs.length === 0  && codem.length ===0) return;
             codejs[7].innerHTML = codejs[7].innerHTML.replace('&lt;!code!&gt;', '{{data.title}}');
             codem[3].innerHTML = codem[3].innerHTML.replace('&lt;!code!&gt;', '{{site.title}}');
             codem[5].innerHTML = codem[5].innerHTML.replace('&lt;!code!&gt;', '{{#menu.items}}\n         &lt;a href="{{link}}"&gt;{{name}}&lt;/a&gt;\n        {{/menu.items}}');
-
         }
     }
 

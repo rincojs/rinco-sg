@@ -10,6 +10,9 @@ body
     font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif
     font-size: 16px
     color:#333
+    @media (max-width: 992px)
+        text-align:center;
+
 
 section
     margin-bottom: 30px;
@@ -52,6 +55,10 @@ a
     text-align:left;
     font-size:24px
     color:#CFCFCF
+    @media (max-width: 600px)
+        margin:80px 0;
+        font-size:20px
+        text-align: center;
 
 .logo
     margin-bottom:10px
@@ -69,6 +76,8 @@ a
 .showroom
     font-size:26px;
     line-height: 1.62857143;
+    @media (max-width: 600px)
+        font-size:18px;
 
 .showroom img
     margin:auto;
@@ -81,6 +90,8 @@ a
 .features
     text-align:center
     margin:150px 0;
+    @media (max-width: 600px)
+        margin:80px 0;
 
 .stars
     margin-left:15px;
@@ -112,6 +123,10 @@ a
 .btn.gstart
     background-color:alpha($gstartColor, 0.7)
     border-color:alpha($gstartColor, 0.7)
+
+    @media (max-width: 992px)
+        margin:20px 0;
+
 .btn.gstart:hover
     background-color:$gstartColor
 .btn
