@@ -3,6 +3,7 @@ var rinco = require('./../lib/rinco');
 var should = require('should');
 var path = require('path');
 
+// TESTING fs.js
 describe('Rinco', function () {
     it('should return false when no config file is found', function () {
         assert.equal(rinco.util.hasConfig(), false);
@@ -49,5 +50,52 @@ describe('fs.dir.read', function () {
 describe('fs.dir.remove', function () {
     it('should return true', function () {
         should(rinco.fs.dir.remove(path.join(__dirname, '/sandbox'))).be.exactly(true);
+    });
+});
+
+// TESTING render.js
+
+require('./../lib/middleware/rinco-parse-template');
+require('./../lib/middleware/rinco-parse-css');
+require('./../lib/middleware/rinco-parse-js');
+require('./../lib/middleware/rinco-mustache');
+require('./../lib/middleware/rinco-reload');
+describe('render.file', function () {
+    it('should fire done ', function (done) {
+        should(
+            rinco.render.file('test/templates/index.html', function (data) {
+                if(rinco.fs.file.read('test/rendered/index.html').toString().trim() === data.toString().replace(/[\n\r]/g, '').trim()) {
+                    done();
+                }
+            })
+        );
+    });
+});
+
+// TESTING CSS compile.js
+describe('compile.tocss', function () {
+    it('should fire done ', function (done) {
+        var rendered = rinco.fs.file.read('test/rendered/style.css').toString();
+        should(
+            rinco.compile.tocss('less.less|sass.scss|stylus.styl|style.css'.split('|'), function (data) {
+                if(rendered.trim() == data.trim()) {
+                    done();
+                }
+            })
+        );
+    });
+});
+
+// TESTING JS compile.js
+describe('compile.tocss', function () {
+    it('should fire done ', function (done) {
+        var rendered = rinco.fs.file.read('test/rendered/script.js').toString();
+        should(
+            rinco.compile.tojs('babel.babel|coffee.coffee|script.js'.split('|'), function (data) {
+                if(rendered.trim() == data.trim()) {
+                    done();
+                }
+            })
+        );
     });
 });
