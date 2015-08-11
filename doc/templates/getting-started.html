@@ -3,6 +3,29 @@
 @include(_nav.html)
 @data(gs.json => menu)
 
+						    <div class="top-container">
+								<div class='container '>
+									<!-- Features Section -->
+									<div class="row">
+											<div class="col-md-4 logo-wrapper ">
+													<img src="https://avatars1.githubusercontent.com/u/7665633?v=3&s=300" alt="" class="center-block logo" >
+											</div>
+											<div class="col-md-8 wow fadeIn">
+										            <div class="row">
+															<h1 class="title">Getting Started
+															</h1>
+
+										            </div>
+													<div class="row">
+										                <div class="col-md-12">
+															<br>
+															@include(_github.html)
+														</div>
+													</div>
+											</div>
+									</div>
+								</div>
+							</div>
     <!-- Page Content -->
     <div class="container gs">
 
@@ -10,7 +33,6 @@
 
             <div class="col-md-3  ">
 							<ul class="nav menu">
-                                <li><iframe class="stars" src="https://ghbtns.com/github-btn.html?user=rincojs&repo=rinco-staticgen&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe></li>
                                 {{#menu.items}}
 							    <li><a href="{{url}}" class="navbar-link ">{{name}}</a></li>
                                 {{/menu.items}}

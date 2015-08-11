@@ -6,8 +6,8 @@
     <body>
     @dox(test.json as data)
     @data(user.json)
-    @include(header.html)
-    @include(nav.html)
+    @include(_header.html)
+    @include(_nav.html)
 
         <div class='container '>
             <div class="row">
@@ -48,7 +48,4 @@
             </div>
         </div>
 <!-- /.container -->
-<script src="http://code.jquery.com/jquery-2.1.4.min.js" charset="utf-8"></script>
-<script src="/js/bootstrap.js" charset="utf-8"></script>
-<script src="/js/app.js" charset="utf-8"></script>
-<script src="/js/prism.js" charset="utf-8"></script>
+@include(_footer.html)
