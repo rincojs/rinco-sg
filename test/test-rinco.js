@@ -39,11 +39,11 @@ describe('fs.file.read', function () {
 
 describe('fs.dir.read', function () {
     it('should fire done ', function (done) {
-        should(rinco.fs.dir.read(path.join(__dirname, '/sandbox'), function (filename) {
-           if(filename === 'test.test') {
+        rinco.fs.dir.read(path.join(__dirname, '/sandbox'), function (filename) {
+            if(filename === 'test.test') {
              done();
-           }
-        }));
+            }
+        });
     });
 });
 
@@ -62,13 +62,11 @@ require('./../lib/middleware/rinco-mustache');
 require('./../lib/middleware/rinco-reload');
 describe('render.file', function () {
     it('should fire done ', function (done) {
-        should(
-            rinco.render.file('test/templates/index.html', function (data) {
-                if(rinco.fs.file.read('test/rendered/index.html').toString().trim() === data.toString().replace(/[\n\r]/g, '').trim()) {
-                    done();
-                }
-            })
-        );
+        rinco.render.file('test/templates/index.html', function (data) {
+            if(rinco.fs.file.read('test/rendered/index.html').toString().trim() === data.toString().replace(/[\n\r]/g, '').trim()) {
+                done();
+            }
+        });
     });
 });
 
@@ -76,26 +74,35 @@ describe('render.file', function () {
 describe('compile.tocss', function () {
     it('should fire done ', function (done) {
         var rendered = rinco.fs.file.read('test/rendered/style.css').toString();
-        should(
-            rinco.compile.tocss('less.less|sass.scss|stylus.styl|style.css'.split('|'), function (data) {
-                if(rendered.trim() == data.trim()) {
-                    done();
-                }
-            })
-        );
+        rinco.compile.tocss('less.less|sass.scss|stylus.styl|style.css'.split('|'), function (data) {
+            if(rendered.trim() == data.trim()) {
+                done();
+            }
+        });
     });
 });
 
 // TESTING JS compile.js
-describe('compile.tocss', function () {
+describe('compile.tojs', function () {
     it('should fire done ', function (done) {
         var rendered = rinco.fs.file.read('test/rendered/script.js').toString();
-        should(
-            rinco.compile.tojs('babel.babel|coffee.coffee|script.js'.split('|'), function (data) {
-                if(rendered.trim() == data.trim()) {
-                    done();
-                }
-            })
-        );
+        rinco.compile.tojs('babel.babel|coffee.coffee|script.js'.split('|'), function (data) {
+            if(rendered.trim() == data.trim()) {
+                done();
+            }
+        });
+    });
+});
+
+// TESTING SERVER server.js
+describe('server.start', function () {
+    it('should fire done ', function (done) {
+        var rendered = rinco.fs.file.read('test/rendered/server_index.html').toString();
+        rinco.server.start([], 3000);
+        rinco.server.get('localhost','', function (data) {
+            if(rendered.trim() === data.trim()){
+                done();
+            }
+        }, 3000);
     });
 });

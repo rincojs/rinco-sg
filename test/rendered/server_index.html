@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+   
+   
+   
+ <link rel="stylesheet" href="/styles.css?files=less.less|sass.scss|stylus.styl|style.css">
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect('http://localhost');
+  socket.on('refresh', function (data) {
+  	if(data.action === "refresh") {
+  		window.location.reload();
+  	}
+    	console.log(data.action);	    
+  });
+</script>
+</head>
+<body><h1>done</h1>
+
+test1
+test2
+
+
+<script src="/scripts.js?files=babel.babel|coffee.coffee|script.js" charset="utf-8"></script>
+</body>
+</html>
