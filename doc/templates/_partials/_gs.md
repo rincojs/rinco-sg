@@ -18,10 +18,13 @@ Rinco supports templates, but for now, we have only one (blank template).
 <a name="server"></a>
 ### Development server
 
+To run the development server use:
+
 ```javascript
 // within of your project's folder
-$ rinco server
+$ rinco server port(optional)
 ```
+The default port is <code>3000</code>.
 
 <a name="structure"></a>
 ### Structure

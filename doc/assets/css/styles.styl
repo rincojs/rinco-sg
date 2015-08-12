@@ -1,14 +1,14 @@
 $bg = #323232
-$gstartColor = #D31959;
-$githubColor = #54BCE8;
+$gstartColor = #54BCE8;
+$githubColor = #333;
 
 *
     transition: .2s;
 
 body
-    background-color:#f6f6f6
+    background-color:#fff
     font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif
-    font-size: 16px
+    font-size: 1.1em
     color:#333
     @media (max-width: 992px)
         text-align:center;
@@ -24,15 +24,23 @@ h3
 a
     color: #333
 
+footer
+    text-align center
 .navbar
     border-radius: 0
     margin-bottom:0
     font-size:14px
 
+.navbar-nav a:hover
+    color #fff !important
+
+
+.navbar-nav li:hover
+    background-color #54BCE8
 
 .navbar-default
-    background-color:$bg
-
+    background-color:#1f1f1f
+    border-bottom: 10px solid #54BCE8;
 .navbar-link:hover
     color:#333
 .menu
@@ -46,15 +54,23 @@ a
 
 .top-container
     padding-top:50px;
-    text-align:center
-    color:#f6f6f6
-    background-color:$bg
+    color:#444
+    background-color:#f6f6f6
     min-height:500px;
+    border-bottom 10px solid #eee
+
+    pre
+        border:1px solid #ccc
+        background: #ECECEC
+        color:#eee
+        margin 0 15px
+        font-size 1.6em
+    h1
+        font-size 3.5em;
 
 .getting-started
     text-align:left;
-    font-size:24px
-    color:#CFCFCF
+    font-size:18px
     @media (max-width: 600px)
         margin:80px 0;
         font-size:20px
@@ -68,22 +84,26 @@ a
     content:" "
     display:block
     position: absolute;
-    box-shadow: 0 0 175px 115px #525252;
+    /*box-shadow: 0 0 175px 115px #525252;*/
     margin:auto
     top:100px
     top: 115px;
     left: 131px;
 .showroom
-    font-size:26px;
+    font-size:22px;
     line-height: 1.62857143;
     @media (max-width: 600px)
         font-size:18px;
 
-.showroom img
-    margin:auto;
-    margin-bottom:20px;
-    display:block;
+    img
+        margin:auto;
+        margin-bottom:20px;
+        display:block;
 
+    .txt
+        margin auto
+        font-size 40px
+        text-align center
 .wow
     visibility:hidden
 
@@ -95,7 +115,7 @@ a
 
 .stars
     margin-left:15px;
-    opacity:0.7
+    opacity:0.8
 
 .stars:hover
     opacity:1;
@@ -114,15 +134,16 @@ a
     display:none
 
 .btn.github
-    background-color:alpha($githubColor, 0.7)
-    border-color:alpha($githubColor, 0.7)
+    background-color:alpha($githubColor, 0.9)
+    border-color:alpha($githubColor, 0.9)
 
 .btn.github:hover
     background-color:$githubColor
 
 .btn.gstart
-    background-color:alpha($gstartColor, 0.7)
-    border-color:alpha($gstartColor, 0.7)
+    background-color:alpha($gstartColor, 0.9)
+    border-color:alpha($gstartColor, 0.9)
+
 
     @media (max-width: 992px)
         margin:20px 0;
@@ -130,12 +151,11 @@ a
 .btn.gstart:hover
     background-color:$gstartColor
 .btn
-    box-shadow: 0 0 15px 5px #2e2e2e
+    box-shadow: 0 0 15px 5px #E6E6E6
+    text-transform uppercase
 .gs
-  background-color: #323232;
   color: #5b5b5b;
 .gs a
     color: #D8D8D8;
 .gs .panel
-  box-shadow: 0 0 28px 5px #262626
-  margin-top:40px
+  /*box-shadow: 0 0 28px 5px #262626*/
