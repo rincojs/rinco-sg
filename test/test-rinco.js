@@ -59,11 +59,15 @@ require('./../lib/middleware/rinco-parse-template');
 require('./../lib/middleware/rinco-parse-css');
 require('./../lib/middleware/rinco-parse-js');
 require('./../lib/middleware/rinco-mustache');
+require('./../lib/middleware/rinco-parse-exp');
 require('./../lib/middleware/rinco-reload');
 describe('render.file', function () {
     it('should fire done ', function (done) {
+        var rendered = rinco.fs.file.read('test/rendered/index.html').toString().trim();
         rinco.render.file('test/templates/index.html', function (data) {
-            if(rinco.fs.file.read('test/rendered/index.html').toString().trim() === data.toString().replace(/[\n\r]/g, '').trim()) {
+            // rinco.fs.file.write('test/rendered/index.html', data);
+            console.log(rendered == data.trim());
+            if(rendered === data.trim()) {
                 done();
             }
         });
@@ -97,10 +101,10 @@ describe('compile.tojs', function () {
 // TESTING SERVER server.js
 describe('server.start', function () {
     it('should fire done ', function (done) {
-        var rendered = rinco.fs.file.read('test/rendered/server_index.html').toString();
+        var rendered = rinco.fs.file.read('test/rendered/index.html').toString();
         rinco.server.start([], 3000);
         rinco.server.get('localhost','', function (data) {
-            if(rendered.trim() === data.trim()){
+            if(rendered.trim() === data.toString().trim()){
                 done();
             }
         }, 3000);
