@@ -1,7 +1,6 @@
-@include(_header.html)
-<body class="gs">
-@include(_nav.html)
-@data(gs.json => menu)
+<r-include _header.html>
+<r-include _nav.html>
+<r-data gs.json = menu>
 
 						    <div class="top-container">
 								<div class='container '>
@@ -9,7 +8,7 @@
 									<div class="row">
 											<div class="col-md-4 logo-wrapper ">
 													<img src="https://avatars1.githubusercontent.com/u/7665633?v=3&s=300" alt="" class="center-block logo" >
-															@include(_github.html)
+															<r-include _github.html>
 											</div>
 											<div class="col-md-8 wow fadeIn">
 										            <div class="row">
@@ -43,7 +42,7 @@
 						<div class="panel panel-default">
 
 						  <div class="panel-body">
-                  @include(_partials/_gs.md)
+                  <r-include _partials/_gs.md>
 						  </div>
 						</div>
 
@@ -55,4 +54,4 @@
         </div>
 
     </div>
-  @include(_footer.html)
+  <r-include _footer.html>

@@ -45,32 +45,32 @@ Rinco Project  // path of your project
 <a name="include"></a>
 ### Include
 
-To include a file, use <code>@@include()</code> function:
+To include a file, use <code>r-include </code> tag:
 
-```javascript
-@@include(_file.html) // include _file.html from (templates)
-@@include(_path/_file.html) // include _file.html from (templates/_path)
-@@include(_articles/_somearticle.md) // include _somearticle.md from (templates/_articles)
+```markup
+<r-include _file.html> // include _file.html from (templates)
+<r-include _path/_file.html> // include _file.html from (templates/_path)
+<r-include _articles/_somearticle.md> // include _somearticle.md from (templates/_articles)
 ```
 
 <a name="data"></a>
 ### Data
 
-To import a data file into your page use <code>@@data()</code> function:
+To import a data file into your page use <code>r-data</code> tag:
 
-```javascript
-@@data(file.json) // include file.html from (data)
-@@data(path/file.json) // include file.html from (data/path)
+```markup
+<r-data file.json> // include file.html from (data)
+<r-data path/file.json> // include file.html from (data/path)
 ```
 
 You can create a alias for an imported file and use it in your template:
-```javascript
-@@data(file.json => myalias) // include file.html from (data)
+```markup
+<r-data file.json = myalias> // include file.html from (data)
 ```
 
-```javascript
+```markup
 ...
-	@@data(en-en.json => data)
+	<r-data en-en.json = data>
 	<h1><!code!></h1>
 ...
 ```
@@ -84,11 +84,11 @@ To link a css file use the css filename changing the extention to <code>.css</co
 
 ```markup
 <!-- refers to file assets/css/styles.sass -->
-@@css(styles.sass)
+<r-css styles.sass>
 <!-- refers to file assets/css/colors.less -->
-@@css(colors.less)
+<r-css colors.less>
 <!-- refers to file assets/css/custom.styl -->
-@@css(custom.styl)
+<r-css custom.styl>
 ```
 
 
@@ -99,10 +99,17 @@ To link a css file use the css filename changing the extention to <code>.css</co
 
 ```markup
 <!-- refers to file assets/js/app.coffee -->
-@@js(app.coffee)
+<r-js app.coffee>
 <!-- refers to file assets/js/es6.babel -->
-@@js(es6.babel)
+<r-js es6.babel>
 ```
+<a name="ignorefiles"></a>
+### Ignoring files
+You can ignore a file putting <code>_</code> at the beginning of the filename like this:
+```javascript
+_variables.sass
+```
+This is helpful to CSS imported files.
 
 <a name="example"></a>
 ### Example
@@ -111,13 +118,13 @@ To link a css file use the css filename changing the extention to <code>.css</co
 
 ```markup
 <!-- data usage -->
-@@data(site.json)
-@@data(areas.json => menu)
+<r-data site.json>
+<r-data areas.json => menu>
 
 <!-- include usage -->
-@@include(_header.html)
-@@include(_content.html)
-@@include(_footer.html)
+<r-include _header.html>
+<r-include _content.html>
+<r-include _footer.html>
 
 ```
 - header.html (refers to file <code>templates/_header.html</code>)
@@ -129,7 +136,7 @@ To link a css file use the css filename changing the extention to <code>.css</co
 <head>
 	<meta charset="UTF-8">
 	<title><!code!></title>
-	@@css(styles.scss)
+	<r-css styles.scss>
 </head>
 
 ```
@@ -143,7 +150,7 @@ To link a css file use the css filename changing the extention to <code>.css</co
     </figure>
 </section>
 
-@@include(_content/_welcome.md)
+<r-include _content/_welcome.md>
 
 ```
 - footer.html (refers to file <code>templates/_footer.html</code>)
@@ -154,7 +161,7 @@ To link a css file use the css filename changing the extention to <code>.css</co
         <!code!>
     </nav>
 </footer>
-@@js(app.coffee)
+<r-js app.coffee>
 </body>
 </html>
 ```
@@ -190,13 +197,6 @@ You're using a **BETA** version of the application, so if you find a bug, please
 	]
 }
 ```
-<a name="ignorefiles"></a>
-### Ignoring files
-You can ignore a file putting <code>_</code> at the beginning of the filename like this:
-```javascript
-_variables.sass
-```
-This is helpful to CSS imported files.
 
 <a name="build"></a>
 ### Generate static files
