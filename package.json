@@ -16,13 +16,14 @@
     "stylus",
     "coffescript",
     "babel",
-    "typescript",
     "es6",
     "markdown",
     "mustache",
     "rinco",
     "rincojs",
-    "server"
+    "server",
+    "uncss",
+    "cdnjs"
   ],
   "bugs": {
     "url": "https://github.com/rincojs/rinco-staticgen/issues"
