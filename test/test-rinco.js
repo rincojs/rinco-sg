@@ -66,7 +66,6 @@ describe('render.file', function () {
         var rendered = rinco.fs.file.read('test/rendered/index.html').toString().trim();
         rinco.render.file('test/templates/index.html', function (data) {
             // rinco.fs.file.write('test/rendered/index.html', data);
-            console.log(rendered == data.trim());
             if(rendered === data.trim()) {
                 done();
             }
