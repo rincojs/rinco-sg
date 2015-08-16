@@ -106,10 +106,6 @@ $window-height: 480px;
 
 		overflow-y: auto;
 
-		&::after {
-			content: "|";
-			animation: blink 2s steps(1) infinite;
-		}
 	}
 }
 

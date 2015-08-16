@@ -9,8 +9,56 @@ var App = (function( window, document, $ ) {
         init: function() {
             new WOW().init();
             this.getGithubContrib();
-            this.addBrace();
+            this.startTerminal();
+            // this.addBrace();
             // $('code').addClass('language-javascript');
+        },
+        startTerminal: function () {
+            $('.mac-install').val('$ ')
+   .typetype("rinco", {
+     callback: function() {
+       $('.mac-install').val($('.mac-install').val() + '\n[?] What do you want to do? (Use arrow keys)\n‣ Create a new project\nSee the documentation')
+   },
+    t:500,
+    e:0
+
+}).delay(1400)
+   .typetype("\n", {
+       callback:function () {
+           $('.mac-install').val($('.mac-install').val() + '[?] What do you want to do? Create a new project\n[?] Project name: ')
+    },
+    t:0,e:0
+}).delay(1000)
+   .typetype("MyProject", {
+       callback:function () {
+           $('.mac-install').val($('.mac-install').val() + '\n[?] Select a template: (Use arrow keys)\n‣ Blank (default)')
+    },
+    t:100,e:0
+}).delay(1500)
+    .typetype('\nCloning into "MyProject"...', {t:4,e:0})
+    .delay(1500)
+    .typetype('', {
+        callback:function () {
+           $('.mac-install').val('$ [?] Select a task: (Use arrow keys)\n‣ server\n  add\n  update\n  build\n  build-uncss')
+        }
+    }).delay(1500)
+    .typetype('', {
+        callback:function () {
+           $('.mac-install').val('$ info  - socket.io started\n-----------------------------------------\n* Server started on http://localhost:3000\n-----------------------------------------')
+        }
+    }
+).delay(3000)
+.typetype('', {
+    callback:function () {
+       App.startTerminal();
+    }
+})
+
+
+
+
+
+
         },
         // Getting the project's contributors
         getGithubContrib: function() {

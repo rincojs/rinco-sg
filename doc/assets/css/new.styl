@@ -2,6 +2,10 @@ body
     color #393c44
     line-height 1.5
     font-size 17px
+    background-image: url("/assets/img/bg.png"), radial-gradient(circle at 0 0, #0F3476, #87B9D7);
+    background-attachment:fixed;
+    font-family: 'Open Sans', sans-serif;
+
 h1
     font-family 'Poiret One', cursive
     line-height 1.2
@@ -9,9 +13,84 @@ h1
     margin-bottom 60px
     font-size 65px
 
+a
+    text-decoration none
+    color #269DFF
+
+.navbar
+    text-align right
+    margin 0 50px
+    height: 60px;
+    line-height 80px
+    .logo
+        color #fff
+        float left
+    ul
+        margin 0
+    li
+        margin 0 10px
+        display inline
+    a
+        color #fff
+        font-size 14px
+        transition: all .1s ease-in-out;
+        border-bottom 4px solid transparent
+        border-top 4px solid transparent
+    a:hover, .active
+        border-bottom 1px solid #CCE0F3
+        border-top 1px solid #CCE0F3
+        padding-bottom 13px
+        padding-top 13px
+    .active
+        border-color #6AABBE
+
+.mac-install
+    background black
+    border none
+    display block;
+    width 99%
+    overflow hidden
+    outline: none;
+    box-shadow: none;
+
 .top-container
-    background-color #7E8AA2
     color #fff
+    min-height 400px
+    text-align center;
+    clear both
+    p
+        font-size 20px
+    h1
+        font-weight bold
+        font-size 50px
+        margin 30px 0
+
+img.logo
+    display inline-block !important
+    margin 0 10px !important
+.github
+    text-align center
+    .stars
+        width 80px
+    .follow
+        width 145px
+.btn
+    line-height 50px
+    display inline-block
+    color #fff
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.21);
+    height: 54px;
+    width: 330px;
+
+    background:linear-gradient(-180deg, #47BDC9 0, #4BB0C4 100%);
+    border-radius: 4px;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    margin: 30px auto 0;
+
+.btn:hover
+    background:linear-gradient(-180deg, #47C9AD 0, #4BB0C4 100%);
 
 .features
     min-height 600px
@@ -19,7 +98,7 @@ h1
     width 100%
     background-color #fff
 
-.features:nth-child(2n+1)
+.features:nth-child(even)
     background-color #f8f8f8
 
 .showroom
