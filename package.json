@@ -34,6 +34,7 @@
     "coffee-script": "^1.7.1",
     "colors": "~0.6.2",
     "connect": "2.14.4",
+    "deasync": "^0.1.0",
     "handlebars": "^2.0.0-alpha.2",
     "imagemin": "^3.2.0",
     "inquirer": "^0.4.1",

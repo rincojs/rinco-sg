@@ -15,7 +15,7 @@
 									<div class="content">
 										<h1>Building static sites now is too easy</h1>
 										<p>Choose a template and start now building your static site.</p>
-										<r-include _github.html>
+										<r-render _github.html {"size":"small"}/>
 										<br>
 						                <a class="btn" href="/getting-started.html">Quick Started</a>
 									</div>
@@ -145,26 +145,6 @@
 											<img width="200" src="/assets/img/pagespeed.png" alt="">
 											<div class="txt"></div>
 											<div class="container">
-				<div class="window">
-				<div class="handle">
-					<div class="buttons">
-							<button class="close">
-							</button>
-							<button class="minimize">
-							</button>
-							<button class="maximize">
-							</button>
-					</div>
-					<span class="title"></span>
-				</div>
-				<div class="terminal">$ rinco server
-
-				info  - socket.io started
-				-----------------------------------------
-				* Server started on http://localhost:3000
-				-----------------------------------------
-				</div>
-				</div>
 </div>
 								                </div>
 								            </div>
@@ -181,14 +161,24 @@
 								</section>
 
 								<section class="features">
-									<h1>We are working to improve your workflow!</h1>
+					        		<div class="showroom">
+										<div class="content center">
+											<h1>We are working to improve your workflow</h1>
+											<section class="users wow fadeInUp">
+											</section>
+										</div>
+									</div>
 								</section>
 						        <!-- /.row -->
 
-						        <hr>
-								<section class="users wow fadeInUp">
-								</section>
-								<section class="features wow fadeInUp">
-									<h1>Feel free to contribute!</h1>
+								<section class="features top-container bgless ">
+					        		<div class="showroom">
+										<div class="content center wow fadeInUp">
+											<h1>Feel free to contribute</h1>
+											<r-render _github.html {"size":"large"}/>
+						                	<a class="btn" href="/getting-started.html">See the documentation</a>
+										</div>
+									</div>
+
 								</section>
 <r-include _footer.html>

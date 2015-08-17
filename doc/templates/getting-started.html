@@ -2,56 +2,52 @@
 <r-include _nav.html>
 <r-data gs.json = menu>
 
-						    <div class="top-container">
-								<div class='container '>
-									<!-- Features Section -->
-									<div class="row">
-											<div class="col-md-4 logo-wrapper ">
-													<img src="https://avatars1.githubusercontent.com/u/7665633?v=3&s=300" alt="" class="center-block logo" >
-															<r-include _github.html>
-											</div>
-											<div class="col-md-8 wow fadeIn">
-										            <div class="row">
-															<h1 class="title">Getting Started
-															</h1>
-
-										            </div>
-													<div class="row">
-										                <div class="col-md-12">
-															<br>
-														</div>
-													</div>
-											</div>
-									</div>
-								</div>
-							</div>
-    <!-- Page Content -->
-    <div class="container gs">
-
-        <div class="row">
-
-            <div class="col-md-3  ">
-							<ul class="nav menu">
-                                {{#menu.items}}
-							    <li><a href="{{url}}" class="navbar-link ">{{name}}</a></li>
-                                {{/menu.items}}
-							</ul>
-            </div>
-
-            <div class="col-md-9">
-						<div class="panel panel-default">
-
-						  <div class="panel-body">
-                  <r-include _partials/_gs.md>
-						  </div>
+    <div class="top-container gs">
+		<div class='container '>
+			<!-- Features Section -->
+			<div class="row">
+					<div class="logo-wrapper ">
+							<!-- <img src="https://avatars1.githubusercontent.com/u/7665633?v=3&s=300" width="250" alt="" class="center-block logo" >
+							<img src="/assets/img/npm.png" width="150" alt="" class="center-block logo" >
+							<img src="/assets/img/nodejs.png" width="150" alt="" class="center-block logo" > -->
+					</div>
+					<div class="col-12 wow fadeIn">
+						<div class="content">
+							<h1><i class="fa fa-graduation-cap"></i> Learning Rinco SG</h1>
+							<r-render _github.html {"size":"small"}/>
+							<br>
 						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+    <!-- Page Content -->
+	<div class="doc">
+	    <div class="content">
 
-            <iframe class="stars" src="https://ghbtns.com/github-btn.html?user=rincojs&repo=rinco-staticgen&type=fork&count=true&size=large" frameborder="0" scrolling="0" width="158px" height="30px"></iframe>
-            <iframe class="stars" src="https://ghbtns.com/github-btn.html?user=allanesquina&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+	        <div class="row">
 
-            </div>
+	            <div class="col-3  ">
+								<ul class="nav menu">
+	                                {{#menu.items}}
+								    <li><a href="{{url}}" class="navbar-link ">{{name}}</a></li>
+	                                {{/menu.items}}
+								</ul>
+	            </div>
 
-        </div>
+	            <div class="col-9">
+							<div class="panel panel-default">
 
-    </div>
+							  <div class="panel-body">
+	                  <r-include _partials/_gs.md>
+							  </div>
+							</div>
+
+	            </div>
+
+	        </div>
+
+	    </div>
+	</div>
+
   <r-include _footer.html>

@@ -17,6 +17,9 @@ a
     text-decoration none
     color #269DFF
 
+.wow
+    visibility:hidden;
+
 .navbar
     text-align right
     margin 0 50px
@@ -55,7 +58,7 @@ a
 
 .top-container
     color #fff
-    min-height 400px
+    height 400px
     text-align center;
     clear both
     p
@@ -64,7 +67,8 @@ a
         font-weight bold
         font-size 50px
         margin 30px 0
-
+.gs
+    height 200px
 img.logo
     display inline-block !important
     margin 0 10px !important
@@ -74,6 +78,11 @@ img.logo
         width 80px
     .follow
         width 145px
+.github.large
+    .stars
+        width 130px
+    .follow
+        width 210px
 .btn
     line-height 50px
     display inline-block
@@ -93,7 +102,7 @@ img.logo
     background:linear-gradient(-180deg, #47C9AD 0, #4BB0C4 100%);
 
 .features
-    min-height 600px
+    height 600px
     display table
     width 100%
     background-color #fff
@@ -114,3 +123,33 @@ img.logo
     max-width 1248px
     margin auto
     overflow visible
+
+.users
+    text-align center
+    .user
+        margin 0 20px
+        display inline-block
+        position relative
+
+        img
+            box-shadow: 0 3px 13px 0 rgba(0,0,0,.11);
+            border-radius 50%
+            overflow hidden
+            transition .2s
+        img:hover
+            box-shadow: 0 1px 33px 0 rgba(0,0,0,.21);
+            transform scale(1.1)
+        a
+            display inline-block
+        span
+            display none
+
+.center
+    text-align center
+.bgless
+    background none !important
+.doc
+    background #fff
+    font-size 14px
+    pre *
+        font-size 13px
