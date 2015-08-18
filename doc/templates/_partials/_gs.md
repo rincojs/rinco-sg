@@ -38,8 +38,9 @@ Rinco Project  // path of your project
      img       // images
      js        // coffescript, babel or pure js
   data         // json to be imported
-  templates    // main pages and partials (.html|.md) to be imported
   build        // generated static files (build)
+  Public       // Public files like robots.txt, favicon.ico etc. 
+  templates    // main pages and partials (.html|.md) to be imported
 ```
 
 <a name="include"></a>

@@ -9,8 +9,40 @@
 			"name": "Create a project"
 		},
 		{
+			"url": "#new",
+			"name": "CLI commands"
+		},
+		{
 			"url": "#template",
 			"name": "Templates"
+		},
+		{
+			"name":"<r-js>",
+			"url":"asfasdf"
+		},
+		{
+			"name":"<r-css>",
+			"url":"asfasdf"
+		},
+		{
+			"name":"<r-include>",
+			"url":"asfasdf"
+		},
+		{
+			"name":"<r-render/>",
+			"url":"asfasdf"
+		},
+		{
+			"name":"<r-data>",
+			"url":"asfasdf"
+		},
+		{
+			"name":"<r-object/>",
+			"url":"asfasdf"
+		},
+		{
+			"name":"<<script/>>",
+			"url":"asfasdf"
 		},
 		{
 			"url": "#server",
@@ -21,14 +53,6 @@
 			"name": "Structure"
 		},
 		{
-			"url": "#include",
-			"name": "Include"
-		},
-		{
-			"url": "#data",
-			"name": "Data"
-		},
-		{
 			"url": "#css",
 			"name": "CSS"
 		},
@@ -37,12 +61,12 @@
 			"name": "JavaScript"
 		},
 		{
-			"url": "#example",
-			"name": "Example"
-		},
-		{
 			"url": "#ignorefiles",
 			"name": "Ignoring Files"
+		},
+		{
+			"url": "#example",
+			"name": "Example"
 		},
 		{
 			"url": "#build",

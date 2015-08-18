@@ -30,17 +30,14 @@
 	            <div class="col-3  ">
 								<ul class="nav menu">
 	                                {{#menu.items}}
-								    <li><a href="{{url}}" class="navbar-link ">{{name}}</a></li>
+								    <li><a href="{{url}}" class="navbar-link "><i class="fa fa-caret-right"></i> {{name}}</a>
 	                                {{/menu.items}}
 								</ul>
 	            </div>
 
 	            <div class="col-9">
 							<div class="panel panel-default">
-
-							  <div class="panel-body">
-	                  <r-include _partials/_gs.md>
-							  </div>
+	                         <r-include _partials/_gs.md>
 							</div>
 
 	            </div>

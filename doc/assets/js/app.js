@@ -31,7 +31,7 @@ var App = (function( window, document, $ ) {
 }).delay(1000)
    .typetype("MyProject", {
        callback:function () {
-           $('.mac-install').val($('.mac-install').val() + '\n[?] Select a template: (Use arrow keys)\n‣ Blank (default)')
+           $('.mac-install').val($('.mac-install').val() + '\n[?] Select a template: (Use arrow keys)\n‣ Blank (default)\n  HTML5 Boilerplate')
     },
     t:100,e:0
 }).delay(1500)
