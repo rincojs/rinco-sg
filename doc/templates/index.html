@@ -15,9 +15,9 @@
 									<div class="content">
 										<h1>Building static sites now is too easy</h1>
 										<p>Choose a template and start now building your static site.</p>
-										<r-render _github.html {"size":"small"}/>
+										<r-render _github.html => {"size":"small"}/>
 										<br>
-						                <a class="btn" href="/getting-started.html">Quick Started</a>
+						                <a class="btn" href="#quick">Quick Started</a>
 									</div>
 								</div>
 						</div>
@@ -27,6 +27,7 @@
 			    <div class="container main-container">
 			        <!-- Marketing Icons Section -->
 					<section class="features">
+						<a name="quick"></a>
 				        <div class="showroom">
 							<div class="row content">
 					            <div class="col-5">
@@ -171,14 +172,5 @@
 								</section>
 						        <!-- /.row -->
 
-								<section class="features top-container bgless ">
-					        		<div class="showroom">
-										<div class="content center wow fadeInUp">
-											<h1>Feel free to contribute</h1>
-											<r-render _github.html {"size":"large"}/>
-						                	<a class="btn" href="/getting-started.html">See the documentation</a>
-										</div>
-									</div>
-
-								</section>
+<r-render _feelfree.html => {"data":{"url":"documentation.html","name":"See the Documentation"}}/>
 <r-include _footer.html>

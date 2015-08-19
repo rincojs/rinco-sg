@@ -1,7 +1,7 @@
 <a name="install"></a>
 ### Install
 ```javascript
-npm install rinco -g
+npm install -g rinco
 ```
 
 <a name="new"></a>
@@ -10,10 +10,17 @@ npm install rinco -g
 $ rinco
 ```
 
-<a name="template"></a>
-### Templates
+<a name="cli"></a>
+### CLI Commands
 
-Rinco supports templates, but for now, we have only one (blank template).
+```javascript
+$ rinco (command)
+    server // Development server
+    add // Add a library from CDNJS
+    update // Update library list from CDNJS
+    build // Generate the static files
+    build-uncss // Generate the static files with CSS optimization
+```
 
 <a name="server"></a>
 ### Development server
@@ -39,12 +46,12 @@ Rinco Project  // path of your project
      js        // coffescript, babel or pure js
   data         // json to be imported
   build        // generated static files (build)
-  Public       // Public files like robots.txt, favicon.ico etc. 
+  Public       // Public files like robots.txt, favicon.ico etc.
   templates    // main pages and partials (.html|.md) to be imported
 ```
 
 <a name="include"></a>
-### Include
+### r-include
 
 To include a file, use <code>r-include </code> tag:
 
@@ -54,8 +61,17 @@ To include a file, use <code>r-include </code> tag:
 <r-include _articles/_somearticle.md> // include _somearticle.md from (templates/_articles)
 ```
 
+<a name="render"></a>
+### r-render
+
+Similar from <code>r-include</code> tag, you can render a partial page with a specific data, just passing through the tag as a json:
+
+```markup
+<r-render _user.html {"data":{"name":"John Doe"}}/> // include _file.html from (templates)
+```
+
 <a name="data"></a>
-### Data
+### r-data
 
 To import a data file into your page use <code>r-data</code> tag:
 
@@ -76,12 +92,79 @@ You can create a alias for an imported file and use it in your template:
 ...
 ```
 
+<a name="object"></a>
+### r-object
 
+Instead you import a data with <code>r-data</code> tag,  you can return a javascript object as data in your page. This object need to have two properties, name and data, which name is the key to access the value into the mustache template and data as the content of this object.
+
+```javascript
+...
+<r-object>
+    return {
+        data: {
+            name:"Rinco"
+        },
+        name: 'newObj'
+    }
+</r-object>
+
+<h1>{ {newObj.name}}</h1>
+...
+```
+
+You can also use the values of the imported data (global data) like this:
+
+```javascript
+...
+<r-data config.json>
+<r-object>
+    var name = global.config.name.replace(/a/g,'e');
+    return {
+        data: {
+            name:name
+        },
+        name: 'newObj'
+    }
+</r-object>
+
+<h1>{ {newObj.name}}</h1>
+...
+```
+The <code>global</code> variable refers to global data.
+
+<a name="script"></a>
+### script
+
+Differently from <code>r-object</code> tag, the <code>script</code> tag returns a string:
+
+```javascript
+...
+<h1>
+<<script>>
+    var name = "Rinco";
+    return global.name.replace(/o/g,'a');
+<</script>>
+</h1>
+...
+```
+Or the shorthand:
+```javascript
+...
+<a href="/user.html" class="<<script return _system.current_page == 'user.html' ? 'active' : ''>>">User</a>
+...
+```
+You can also use the imported data:
+
+```javascript
+...
+<r-data config.json>
+<h1><<script return global.config.name.replace(/a/g,'e');>></h1>
+...
+```
 <a name="css"></a>
-### CSS
+### r-css
 
 **Rinco** supports many CSS extension languages like sass, less and stylus. To use it, just change the extension to your prefered language and **Rinco** compile it to you. Don't worry about the choice, you can use all together.
-To link a css file use the css filename changing the extention to <code>.css</code>.
 
 ```markup
 <!-- refers to file assets/css/styles.sass -->
@@ -92,11 +175,12 @@ To link a css file use the css filename changing the extention to <code>.css</co
 <r-css custom.styl>
 ```
 
+The order will be respected.
 
-<a name="javascript"></a>
-### Javascript
+<a name="js"></a>
+### r-js
 
-**Rinco** allows you to code in **coffeescript**, and **ES6 with Babel** language, it's similar of the CSS compile behavior, so you just need to change the file extension to <code>.coffee</code>, <code>.ts</code> and <code>.babel</code>. To link it on page, change the extension to <code>.js</code>.
+**Rinco** allows you to code in **coffeescript**, and **ES6 with Babel** language, it's similar of the CSS compile behavior, so you just need to change the file extension to <code>.coffee</code> and <code>.babel</code>.
 
 ```markup
 <!-- refers to file assets/js/app.coffee -->
@@ -104,13 +188,18 @@ To link a css file use the css filename changing the extention to <code>.css</co
 <!-- refers to file assets/js/es6.babel -->
 <r-js es6.babel>
 ```
+
+The order will be respected.
+
 <a name="ignorefiles"></a>
 ### Ignoring files
-You can ignore a file putting <code>_</code> at the beginning of the filename like this:
+You can ignore a file putting "<code> _ </code>" at the beginning of the filename like this:
 ```javascript
-_variables.sass
+_head.html
+_nav.html
+_footer.html
 ```
-This is helpful to CSS imported files.
+This is helpful to avoid that partial files are generated.
 
 <a name="example"></a>
 ### Example
@@ -139,6 +228,7 @@ This is helpful to CSS imported files.
 	<title><!code!></title>
 	<r-css styles.scss>
 </head>
+<body>
 
 ```
 
@@ -170,7 +260,7 @@ This is helpful to CSS imported files.
 
 ```markup
 # Rinco Static Generator
-You're using a **BETA** version of the application, so if you find a bug, please, [send to us](https://github.com/rincojs/rinco-staticgen/issues).
+If you find a bug, please, [send to us](https://github.com/rincojs/rinco-staticgen/issues).
 ```
 - site.json (refers to file <code>data/site.json</code>)
 
