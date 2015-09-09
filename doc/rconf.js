@@ -7,5 +7,5 @@
  var rinco = require('rinco');
  rinco.setConfig({
      path_dev: '',
-     path_build: '/sg/'
+     path_build: '/sg'
  });
