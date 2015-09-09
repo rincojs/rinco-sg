@@ -1,10 +1,13 @@
 body
     color #393c44
     line-height 1.5
-    font-size 17px
+    font-size 20px
     background-image: url("/assets/img/bg.png"), radial-gradient(circle at 0 0, #0F3476, #87B9D7);
     background-attachment:fixed;
     font-family: 'Open Sans', sans-serif;
+    @media screen and (max-width: 600px)
+        font-size 15px
+
 
 h1
     font-family 'Poiret One', cursive
@@ -12,6 +15,8 @@ h1
     font-weight 100
     margin-bottom 60px
     font-size 65px
+    @media screen and (max-width: 600px)
+        font-size 45px
 
 a
     text-decoration none
@@ -28,6 +33,10 @@ a
     .logo
         color #fff
         float left
+        a
+            font-size 20px
+        @media screen and (max-width: 600px)
+            display:none;
     ul
         margin 0
     li
@@ -46,6 +55,10 @@ a
         padding-top 13px
     .active
         border-color #6AABBE
+
+    @media screen and (max-width: 600px)
+        text-align left
+        margin 0
 
 .mac-install
     background black
@@ -67,6 +80,13 @@ a
         font-weight bold
         font-size 50px
         margin 30px 0
+        @media screen and (max-width: 600px)
+            font-size 40px
+    @media screen and (max-width: 600px)
+        margin-top 50px
+        padding 30px
+        height 500px
+
 .gs
     height 200px
 img.logo
@@ -89,7 +109,8 @@ img.logo
     color #fff
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.21);
     height: 54px;
-    width: 330px;
+    max-width: 330px;
+    width 90%;
 
     background:linear-gradient(-180deg, #47BDC9 0, #4BB0C4 100%);
     border-radius: 4px;
@@ -106,6 +127,9 @@ img.logo
     display table
     width 100%
     background-color #fff
+    @media screen and (max-width: 600px)
+        width auto
+
 
 .features:nth-child(even)
     background-color #f8f8f8
@@ -118,6 +142,8 @@ img.logo
         img
             display block
             margin auto
+        @media screen and (max-width: 600px)
+            margin 15px
 
 .content
     max-width 1248px
@@ -130,6 +156,9 @@ img.logo
         margin 0 20px
         display inline-block
         position relative
+        @media screen and (max-width: 600px)
+            display block
+            margin 30px 0
 
         img
             box-shadow: 0 3px 13px 0 rgba(0,0,0,.11);
@@ -174,7 +203,7 @@ img.logo
         list-style none
 
 .panel
-    margin 150px 20px
+    margin 50px 20px
 .footer
     height 100px
     line-height 100px

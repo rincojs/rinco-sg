@@ -22,5 +22,4 @@ require('./lib/middleware/rinco-parse-exp');
 require('./lib/middleware/rinco-mustache');
 require('./lib/middleware/rinco-reload');
 require('./tasks');
-
 rinco.init();

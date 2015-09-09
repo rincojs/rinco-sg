@@ -1,6 +1,6 @@
-<r-include _header.html>
-<r-include _nav.html>
-<r-data gs.json = menu>
+<r-include _header.html />
+<r-include _nav.html/>
+<r-data gs.json => menu/>
 
     <div class="top-container gs">
 		<div class='container '>
@@ -37,7 +37,7 @@
 
 	            <div class="col-9">
 							<div class="panel panel-default">
-	                         <r-include _partials/_gs.md>
+	                         <r-include _partials/_gs.md />
 							</div>
 
 	            </div>
@@ -46,5 +46,9 @@
 
 	    </div>
 	</div>
+  <r-include _footer.html/>
 
-  <r-include _footer.html>
+<script>
+   App.replaces();
+   console.log('test');
+</script>

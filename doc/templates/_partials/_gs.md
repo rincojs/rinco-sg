@@ -22,6 +22,16 @@ $ rinco (command)
     build-uncss // Generate the static files with CSS optimization
 ```
 
+<a name="cdnjs"></a>
+### CDNJS
+
+- To add a library from CDNJS use the command <code>add</code> in rinco cli .
+
+```javascript
+$ rinco add jquery
+```
+- After to chose your library, you need to select the pages that the library will be included.
+
 <a name="server"></a>
 ### Development server
 
@@ -56,9 +66,9 @@ Rinco Project  // path of your project
 To include a file, use <code>r-include </code> tag:
 
 ```markup
-<r-include _file.html> // include _file.html from (templates)
-<r-include _path/_file.html> // include _file.html from (templates/_path)
-<r-include _articles/_somearticle.md> // include _somearticle.md from (templates/_articles)
+<r-include _file.html/> // include _file.html from (templates)
+<r-include _path/_file.html/> // include _file.html from (templates/_path)
+<r-include _articles/_somearticle.md/> // include _somearticle.md from (templates/_articles)
 ```
 
 <a name="render"></a>
@@ -67,7 +77,7 @@ To include a file, use <code>r-include </code> tag:
 Similar from <code>r-include</code> tag, you can render a partial page with a specific data, just passing through the tag as a json:
 
 ```markup
-<r-render _user.html {"data":{"name":"John Doe"}}/> // include _file.html from (templates)
+<r-render _user.html {"data":{"name":"John Doe"}}/> // include _user.html from (templates)
 ```
 
 <a name="data"></a>
@@ -76,19 +86,19 @@ Similar from <code>r-include</code> tag, you can render a partial page with a sp
 To import a data file into your page use <code>r-data</code> tag:
 
 ```markup
-<r-data file.json> // include file.html from (data)
-<r-data path/file.json> // include file.html from (data/path)
+<r-data file.json/> // include file.json from (data)
+<r-data path/file.json/> // include file.json from (data/path)
 ```
 
 You can create a alias for an imported file and use it in your template:
 ```markup
-<r-data file.json = myalias> // include file.html from (data)
+<r-data file.json = myalias/> // include file.json from (data)
 ```
 
 ```markup
 ...
-	<r-data en-en.json = data>
-	<h1><!code!></h1>
+	<r-data en-en.json => data/>
+	<h1>{.{data.title}}</h1>
 ...
 ```
 
@@ -108,7 +118,7 @@ Instead you import a data with <code>r-data</code> tag,  you can return a javasc
     }
 </r-object>
 
-<h1>{ {newObj.name}}</h1>
+<h1>{.{newObj.name}}</h1>
 ...
 ```
 
@@ -116,7 +126,7 @@ You can also use the values of the imported data (global data) like this:
 
 ```javascript
 ...
-<r-data config.json>
+<r-data config.json/>
 <r-object>
     var name = global.config.name.replace(/a/g,'e');
     return {
@@ -127,7 +137,7 @@ You can also use the values of the imported data (global data) like this:
     }
 </r-object>
 
-<h1>{ {newObj.name}}</h1>
+<h1>{.{newObj.name}}</h1>
 ...
 ```
 The <code>global</code> variable refers to global data.
@@ -140,25 +150,25 @@ Differently from <code>r-object</code> tag, the <code>script</code> tag returns 
 ```javascript
 ...
 <h1>
-<<script>>
+<r-script>
     var name = "Rinco";
     return global.name.replace(/o/g,'a');
-<</script>>
+</r-script>
 </h1>
 ...
 ```
 Or the shorthand:
 ```javascript
 ...
-<a href="/user.html" class="<<script return _system.current_page == 'user.html' ? 'active' : ''>>">User</a>
+<a href="/user.html" class="<r-script return _system.current_page == 'user.html' ? 'active' : ''/>">User</a>
 ...
 ```
 You can also use the imported data:
 
 ```javascript
 ...
-<r-data config.json>
-<h1><<script return global.config.name.replace(/a/g,'e');>></h1>
+<r-data config.json/>
+<h1><r-script return global.config.name.replace(/a/g,'e');/></h1>
 ...
 ```
 <a name="css"></a>
@@ -168,11 +178,11 @@ You can also use the imported data:
 
 ```markup
 <!-- refers to file assets/css/styles.sass -->
-<r-css styles.sass>
+<r-css styles.sass/>
 <!-- refers to file assets/css/colors.less -->
-<r-css colors.less>
+<r-css colors.less/>
 <!-- refers to file assets/css/custom.styl -->
-<r-css custom.styl>
+<r-css custom.styl/>
 ```
 
 The order will be respected.
@@ -184,9 +194,9 @@ The order will be respected.
 
 ```markup
 <!-- refers to file assets/js/app.coffee -->
-<r-js app.coffee>
+<r-js app.coffee/>
 <!-- refers to file assets/js/es6.babel -->
-<r-js es6.babel>
+<r-js es6.babel/>
 ```
 
 The order will be respected.
@@ -208,13 +218,13 @@ This is helpful to avoid that partial files are generated.
 
 ```markup
 <!-- data usage -->
-<r-data site.json>
-<r-data areas.json => menu>
+<r-data config.json/>
+<r-data areas.json => menu/>
 
 <!-- include usage -->
-<r-include _header.html>
-<r-include _content.html>
-<r-include _footer.html>
+<r-include _header.html/>
+<r-include _content.html/>
+<r-include _footer.html/>
 
 ```
 - header.html (refers to file <code>templates/_header.html</code>)
@@ -225,8 +235,8 @@ This is helpful to avoid that partial files are generated.
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title><!code!></title>
-	<r-css styles.scss>
+	<title>{.{config.title}}</title>
+	<r-css styles.scss/>
 </head>
 <body>
 
@@ -241,7 +251,7 @@ This is helpful to avoid that partial files are generated.
     </figure>
 </section>
 
-<r-include _content/_welcome.md>
+<r-include _content/_welcome.md/>
 
 ```
 - footer.html (refers to file <code>templates/_footer.html</code>)
@@ -249,10 +259,12 @@ This is helpful to avoid that partial files are generated.
 ```markup
 <footer>
     <nav>
-        <!code!>
+    {.{#menu.items}}
+        <a href="{.{link}}">{.{name}}</a>;
+    {.{/menu.items}}
     </nav>
 </footer>
-<r-js app.coffee>
+<r-js app.coffee/>
 </body>
 </html>
 ```
@@ -288,6 +300,7 @@ If you find a bug, please, [send to us](https://github.com/rincojs/rinco-staticg
 	]
 }
 ```
+
 
 <a name="build"></a>
 ### Generate static files

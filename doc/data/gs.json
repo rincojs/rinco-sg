@@ -13,7 +13,11 @@
 			"name": "CLI commands"
 		},
 		{
-			"name":"<r-include>",
+			"url": "#cdnjs",
+			"name": "CDNJS"
+		},
+		{
+			"name":"<r-include/>",
 			"url":"#include"
 		},
 		{
@@ -21,7 +25,7 @@
 			"url":"#render"
 		},
 		{
-			"name":"<r-data>",
+			"name":"<r-data/>",
 			"url":"#data"
 		},
 		{
@@ -29,15 +33,15 @@
 			"url":"#object"
 		},
 		{
-			"name":"<<script/>>",
+			"name":"<r-script/>",
 			"url":"#script"
 		},
 		{
-			"name":"<r-css>",
+			"name":"<r-css/>",
 			"url":"#css"
 		},
 		{
-			"name":"<r-js>",
+			"name":"<r-js/>",
 			"url":"#js"
 		},
 		{
