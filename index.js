@@ -20,6 +20,7 @@ require('./lib/middleware/rinco-global-data');
 require('./lib/middleware/rinco-parse-obj');
 require('./lib/middleware/rinco-parse-exp');
 require('./lib/middleware/rinco-mustache');
+require('./lib/middleware/rinco-parse-path');
 require('./lib/middleware/rinco-reload');
 require('./tasks');
 rinco.init();

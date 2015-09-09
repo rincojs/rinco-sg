@@ -4,3 +4,8 @@
  * MIT Licensed
  */
 
+ var rinco = require('rinco');
+ rinco.setConfig({
+     path_dev: '',
+     path_build: '/sg/'
+ });
