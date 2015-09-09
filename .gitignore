@@ -61,5 +61,5 @@ npm-debug.log
 # Components #
 ##############
 
-/build
-/components
+build
+components
