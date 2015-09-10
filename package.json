@@ -4,9 +4,10 @@
   "version": "0.1.0",
   "author": "Allan Esquina <loloudxur@gmail.com>",
   "license": "MIT",
+  "homepage": "http://rincojs.com/sg",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rincojs/rinco-staticgen/"
+    "url": "https://github.com/rincojs/rinco-sg/"
   },
   "keywords": [
     "generator",
@@ -26,7 +27,7 @@
     "cdnjs"
   ],
   "bugs": {
-    "url": "https://github.com/rincojs/rinco-staticgen/issues"
+    "url": "https://github.com/rincojs/rinco-sg/issues"
   },
   "dependencies": {
     "babel-core": "^5.8.12",
