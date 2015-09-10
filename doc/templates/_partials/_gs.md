@@ -69,7 +69,7 @@ To ensure that all links and assets will be called correctly, you need to config
 var rinco = require('rinco');
 rinco.setConfig({
     path_dev: '',
-    path_build: '/sg' // blank for root folder ex: rincojs.com
+    path_build: '/sg' // empty for root folder ex: rincojs.com
 });
 ```
 In this example, the **path_build** was configured to **/sg folder**, it means that the project will be hosted inside the folder **/sg**.
