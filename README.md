@@ -2,7 +2,7 @@
 
 
 --
-[![Build Status](https://travis-ci.org/rincojs/rinco-staticgen.svg?branch=master)](https://travis-ci.org/rincojs/rinco-staticgen)
+[![Build Status](https://travis-ci.org/rincojs/rinco-sg.svg?branch=master)](https://travis-ci.org/rincojs/rinco-sg)
 [![npm version](https://badge.fury.io/js/rinco.svg)](http://badge.fury.io/js/rinco)
 
 
