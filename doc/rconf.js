@@ -4,8 +4,7 @@
  * MIT Licensed
  */
 
- var rinco = require('rinco');
- rinco.setConfig({
-     path_dev: '',
-     path_build: '/sg'
- });
+ module.exports = {
+      path_dev: '',
+      path_build: '' // empty for root folder ex: rincojs.com
+ };
