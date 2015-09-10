@@ -1,7 +1,7 @@
 <a name="install"></a>
 ### Install
 ```javascript
-npm install -g rinco
+$ npm install -g rinco
 ```
 
 <a name="new"></a>
@@ -25,12 +25,12 @@ $ rinco (command)
 <a name="cdnjs"></a>
 ### CDNJS
 
-- To add a library from CDNJS use the command <code>add</code> in rinco cli .
+To add a library from CDNJS use the command <code>add</code> in rinco cli .
 
 ```javascript
 $ rinco add jquery
 ```
-- After to chose your library, you need to select the pages that the library will be included.
+After to chose your library, you need to select the pages that the library will be included.
 
 <a name="server"></a>
 ### Development server
@@ -58,6 +58,45 @@ Rinco Project  // path of your project
   build        // generated static files (build)
   Public       // Public files like robots.txt, favicon.ico etc.
   templates    // main pages and partials (.html|.md) to be imported
+```
+
+<a name="path"></a>
+### r-path
+
+To ensure that all links and assets will be called correctly, you need to configure the path variable in your **rconf.js** file.
+
+```javascript
+var rinco = require('rinco');
+rinco.setConfig({
+    path_dev: '',
+    path_build: '/sg' // blank for root folder ex: rincojs.com
+});
+```
+In this example, the **path_build** was configured to **/sg folder**, it means that the project will be hosted inside the folder **/sg**.
+
+```javascript
+http://rincojs.com/sg
+```
+
+To use it within the project, use the <code>r-path</code> tag:
+
+```markup
+<ul class="navbar-nav">
+    <li><a href="<r-path/>/index.html">About</a></li>
+    <li><a href="<r-path/>/documentation/variables/index.html">Variables</a></li>
+</ul>
+```
+
+Loading images:
+
+```markup
+<img width="200" src="<r-path/>/assets/img/pagespeed.png" alt="pagespeed">
+```
+
+CSS and Javascript files:
+
+```css
+background-image: url("<r-path/>/assets/img/bg.png"), radial-gradient(circle at 0 0, #0F3476, #87B9D7);
 ```
 
 <a name="include"></a>

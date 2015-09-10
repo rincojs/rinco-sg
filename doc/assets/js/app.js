@@ -15,7 +15,7 @@ var App = (function( window, document, $ ) {
             $('.mac-install').val('$ ')
                .typetype("rinco", {
                  callback: function() {
-                   $('.mac-install').val($('.mac-install').val() + '\n[?] What do you want to do? (Use arrow keys)\n‣ Create a new project\nSee the documentation')
+                   $('.mac-install').val($('.mac-install').val() + '\n[?] Choose an option (Use arrow keys)\n‣ New project\nDocumentation')
                },
                 t:500,
                 e:0
@@ -23,7 +23,7 @@ var App = (function( window, document, $ ) {
             }).delay(1400)
                .typetype("\n", {
                    callback:function () {
-                       $('.mac-install').val($('.mac-install').val() + '[?] What do you want to do? Create a new project\n[?] Project name: ')
+                       $('.mac-install').val($('.mac-install').val() + '[?] Choose an option: New project\n[?] Project name: ')
                 },
                 t:0,e:0
             }).delay(1000)
@@ -55,6 +55,8 @@ var App = (function( window, document, $ ) {
         // Getting the project's contributors
         getGithubContrib: function() {
 
+            var $users = $('.users');
+            if($users.length === 0) return
             // Callback function
             function cb( result ) {
                 var i=0,
@@ -72,7 +74,7 @@ var App = (function( window, document, $ ) {
             }
 
             // Doing the request
-            $.get( URL + 'repos/rincojs/rinco-staticgen/contributors?client_secret=9f345d86b2fbe462def3e759f73d080d4e5d3f52', cb )
+            $.get( URL + 'repos/rincojs/rinco-sg/contributors?client_secret=9f345d86b2fbe462def3e759f73d080d4e5d3f52', cb )
         },
         replaces: function () {
             var codejs = $('code');
