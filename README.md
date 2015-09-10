@@ -9,7 +9,7 @@
 ### We are in BETA version yet. Feel free to contribute.
 
 ## See the complete documentation:
-# http://rincojs.com/sg
+# [http://rincojs.com/sg](http://rincojs.com/sg)
 
 
 # Install
@@ -21,4 +21,3 @@
 ### Create a new project
 
         $ rinco
-
