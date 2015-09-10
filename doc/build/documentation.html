@@ -1,1 +1,160 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="A nodejs-based static website generator"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link href='http://fonts.googleapis.com/css?family=Poiret+One|Open+Sans:400,30' rel='stylesheet' type='text/css'><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"><title></title><link rel="stylesheet" href="/sg/assets/css/style.css"></head><body class="documentation"><nav class="navbar"><div class="content"><div class="logo"><a href="/sg/"><span>Rinco SG</span></a></div><ul class="navbar-nav"><li><a href="/sg/index.html" class="" >About</a></li><li><a href="/sg/documentation.html" class="active"><i class="fa fa-graduation-cap"></i> Documentation</a></li></ul><a href="https://github.com/rincojs/rinco-staticgen/" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a></div></nav><div class="top-container gs"><div class='container '><div class="row"><div class="logo-wrapper "><!-- <img src="https://avatars1.githubusercontent.com/u/7665633?v=3&s=300" width="250" alt="" class="center-block logo" ><img src="/assets/img/npm.png" width="150" alt="" class="center-block logo" ><img src="/assets/img/nodejs.png" width="150" alt="" class="center-block logo" > --></div><div class="col-12 wow fadeIn"><div class="content"><h1><i class="fa fa-graduation-cap"></i> Learning Rinco SG</h1><div class="github small"><iframe class="stars" src="https://ghbtns.com/github-btn.html?user=rincojs&repo=rinco-sg&type=star&count=true&size=small" frameborder="0" scrolling="0" width="160px" height="30px"></iframe><iframe class="stars" src="https://ghbtns.com/github-btn.html?user=rincojs&repo=rinco-sg&type=fork&count=true&size=small" frameborder="0" scrolling="0" width="158px" height="30px"></iframe><iframe class="follow" src="https://ghbtns.com/github-btn.html?user=allanesquina&type=follow&count=false&size=small" frameborder="0" scrolling="0" width="220px" height="30px"></iframe></div><br></div></div></div></div></div><div class="doc"><div class="content"><div class="row"><div class="col-3 "><ul class="nav menu"><li><a href="#install" class="navbar-link "><i class="fa fa-caret-right"></i> Install</a><li><a href="#new" class="navbar-link "><i class="fa fa-caret-right"></i> Create a project</a><li><a href="#cli" class="navbar-link "><i class="fa fa-caret-right"></i> CLI commands</a><li><a href="#cdnjs" class="navbar-link "><i class="fa fa-caret-right"></i> CDNJS</a><li><a href="#include" class="navbar-link "><i class="fa fa-caret-right"></i> &lt;r-include&#x2F;&gt;</a><li><a href="#render" class="navbar-link "><i class="fa fa-caret-right"></i> &lt;r-render&#x2F;&gt;</a><li><a href="#data" class="navbar-link "><i class="fa fa-caret-right"></i> &lt;r-data&#x2F;&gt;</a><li><a href="#object" class="navbar-link "><i class="fa fa-caret-right"></i> &lt;r-object&#x2F;&gt;</a><li><a href="#script" class="navbar-link "><i class="fa fa-caret-right"></i> &lt;r-script&#x2F;&gt;</a><li><a href="#css" class="navbar-link "><i class="fa fa-caret-right"></i> &lt;r-css&#x2F;&gt;</a><li><a href="#js" class="navbar-link "><i class="fa fa-caret-right"></i> &lt;r-js&#x2F;&gt;</a><li><a href="#ignorefiles" class="navbar-link "><i class="fa fa-caret-right"></i> Ignoring Files</a><li><a href="#example" class="navbar-link "><i class="fa fa-caret-right"></i> Example</a><li><a href="#build" class="navbar-link "><i class="fa fa-caret-right"></i> Build</a></ul></div><div class="col-9"><div class="panel panel-default"><p><a name="install"></a></p><h3>Install</h3><pre><code class="language-javascript">npm install -g rinco </code></pre><p><a name="new"></a></p><h3>Create a new project</h3><pre><code class="language-javascript">$ rinco </code></pre><p><a name="cli"></a></p><h3>CLI Commands</h3><pre><code class="language-javascript">$ rinco (command) server // Development server add // Add a library from CDNJS update // Update library list from CDNJS build // Generate the static files build-uncss // Generate the static files with CSS optimization </code></pre><p><a name="cdnjs"></a></p><h3>CDNJS</h3><ul><li>To add a library from CDNJS use the command <code>add</code> in rinco cli .</li></ul><pre><code class="language-javascript">$ rinco add jquery </code></pre><ul><li>After to chose your library, you need to select the pages that the library will be included.</li></ul><p><a name="server"></a></p><h3>Development server</h3><p>To run the development server use:</p><pre><code class="language-javascript">// within of your project's folder $ rinco server port(optional) </code></pre><p>The default port is <code>3000</code>.</p><p><a name="structure"></a></p><h3>Structure</h3><p>Rinco has a simple path convention that you need to follow:</p><pre><code class="language-javascript">Rinco Project // path of your project assets // assets path css // stylus, sass, less or pure css img // images js // coffescript, babel or pure js data // json to be imported build // generated static files (build) Public // Public files like robots.txt, favicon.ico etc. templates // main pages and partials (.html|.md) to be imported </code></pre><p><a name="include"></a></p><h3>r-include</h3><p>To include a file, use <code>r-include </code> tag:</p><pre><code class="language-markup">&lt;r-include _file.html/&gt; // include _file.html from (templates) &lt;r-include _path/_file.html/&gt; // include _file.html from (templates/_path) &lt;r-include _articles/_somearticle.md/&gt; // include _somearticle.md from (templates/_articles) </code></pre><p><a name="render"></a></p><h3>r-render</h3><p>Similar from <code>r-include</code> tag, you can render a partial page with a specific data, just passing through the tag as a json:</p><pre><code class="language-markup">&lt;r-render _user.html {&quot;data&quot;:{&quot;name&quot;:&quot;John Doe&quot;}}/&gt; // include _user.html from (templates) </code></pre><p><a name="data"></a></p><h3>r-data</h3><p>To import a data file into your page use <code>r-data</code> tag:</p><pre><code class="language-markup">&lt;r-data file.json/&gt; // include file.json from (data) &lt;r-data path/file.json/&gt; // include file.json from (data/path) </code></pre><p>You can create a alias for an imported file and use it in your template:</p><pre><code class="language-markup">&lt;r-data file.json = myalias/&gt; // include file.json from (data) </code></pre><pre><code class="language-markup">... &lt;r-data en-en.json =&gt; data/&gt; &lt;h1&gt;{.{data.title}}&lt;/h1&gt; ... </code></pre><p><a name="object"></a></p><h3>r-object</h3><p>Instead you import a data with <code>r-data</code> tag, you can return a javascript object as data in your page. This object need to have two properties, name and data, which name is the key to access the value into the mustache template and data as the content of this object.</p><pre><code class="language-javascript">... &lt;r-object&gt; return { data: { name:&quot;Rinco&quot; }, name: 'newObj' } &lt;/r-object&gt; &lt;h1&gt;{.{newObj.name}}&lt;/h1&gt; ... </code></pre><p>You can also use the values of the imported data (global data) like this:</p><pre><code class="language-javascript">... &lt;r-data config.json/&gt; &lt;r-object&gt; var name = global.config.name.replace(/a/g,'e'); return { data: { name:name }, name: 'newObj' } &lt;/r-object&gt; &lt;h1&gt;{.{newObj.name}}&lt;/h1&gt; ... </code></pre><p>The <code>global</code> variable refers to global data.</p><p><a name="script"></a></p><h3>script</h3><p>Differently from <code>r-object</code> tag, the <code>script</code> tag returns a string:</p><pre><code class="language-javascript">... &lt;h1&gt; &lt;r-script&gt; var name = &quot;Rinco&quot;; return global.name.replace(/o/g,'a'); &lt;/r-script&gt; &lt;/h1&gt; ... </code></pre><p>Or the shorthand:</p><pre><code class="language-javascript">... &lt;a href=&quot;/user.html&quot; class=&quot;&lt;r-script return _system.current_page == 'user.html' ? 'active' : ''/&gt;&quot;&gt;User&lt;/a&gt; ... </code></pre><p>You can also use the imported data:</p><pre><code class="language-javascript">... &lt;r-data config.json/&gt; &lt;h1&gt;&lt;r-script return global.config.name.replace(/a/g,'e');/&gt;&lt;/h1&gt; ... </code></pre><p><a name="css"></a></p><h3>r-css</h3><p><strong>Rinco</strong> supports many CSS extension languages like sass, less and stylus. To use it, just change the extension to your prefered language and <strong>Rinco</strong> compile it to you. Don’t worry about the choice, you can use all together.</p><pre><code class="language-markup">&lt;!-- refers to file assets/css/styles.sass --&gt; &lt;r-css styles.sass/&gt; &lt;!-- refers to file assets/css/colors.less --&gt; &lt;r-css colors.less/&gt; &lt;!-- refers to file assets/css/custom.styl --&gt; &lt;r-css custom.styl/&gt; </code></pre><p>The order will be respected.</p><p><a name="js"></a></p><h3>r-js</h3><p><strong>Rinco</strong> allows you to code in <strong>coffeescript</strong>, and <strong>ES6 with Babel</strong> language, it’s similar of the CSS compile behavior, so you just need to change the file extension to <code>.coffee</code> and <code>.babel</code>.</p><pre><code class="language-markup">&lt;!-- refers to file assets/js/app.coffee --&gt; &lt;r-js app.coffee/&gt; &lt;!-- refers to file assets/js/es6.babel --&gt; &lt;r-js es6.babel/&gt; </code></pre><p>The order will be respected.</p><p><a name="ignorefiles"></a></p><h3>Ignoring files</h3><p>You can ignore a file putting &quot;<code> _ </code>&quot; at the beginning of the filename like this:</p><pre><code class="language-javascript">_head.html _nav.html _footer.html </code></pre><p>This is helpful to avoid that partial files are generated.</p><p><a name="example"></a></p><h3>Example</h3><ul><li>index.html (refers to file <code>templates/index.html</code>)</li></ul><pre><code class="language-markup">&lt;!-- data usage --&gt; &lt;r-data config.json/&gt; &lt;r-data areas.json =&gt; menu/&gt; &lt;!-- include usage --&gt; &lt;r-include _header.html/&gt; &lt;r-include _content.html/&gt; &lt;r-include _footer.html/&gt; </code></pre><ul><li>header.html (refers to file <code>templates/_header.html</code>)</li></ul><pre><code class="language-markup">&lt;!doctype html&gt; &lt;html lang=&quot;en&quot;&gt; &lt;head&gt; &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;title&gt;{.{config.title}}&lt;/title&gt; &lt;r-css styles.scss/&gt; &lt;/head&gt; &lt;body&gt; </code></pre><ul><li>content.html (refers to file <code>templates/_content.html</code>)</li></ul><pre><code class="language-markup">&lt;section&gt; &lt;figure class=&quot;logo-wrapper&quot;&gt; &lt;img src=&quot;assets/img/logo.png&quot; alt=&quot;&quot;&gt; &lt;/figure&gt; &lt;/section&gt; &lt;r-include _content/_welcome.md/&gt; </code></pre><ul><li>footer.html (refers to file <code>templates/_footer.html</code>)</li></ul><pre><code class="language-markup">&lt;footer&gt; &lt;nav&gt; {.{#menu.items}} &lt;a href=&quot;{.{link}}&quot;&gt;{.{name}}&lt;/a&gt;; {.{/menu.items}} &lt;/nav&gt; &lt;/footer&gt; &lt;r-js app.coffee/&gt; &lt;/body&gt; &lt;/html&gt; </code></pre><ul><li>welcome.md (refers to file <code>templates/_content/_welcome.md</code>)</li></ul><pre><code class="language-markup"># Rinco Static Generator If you find a bug, please, [send to us](https://github.com/rincojs/rinco-staticgen/issues). </code></pre><ul><li>site.json (refers to file <code>data/site.json</code>)</li></ul><pre><code class="language-javascript">{ &quot;title&quot;: &quot;Rinco Static Generator&quot;, &quot;github&quot;: &quot;https://github.com/rincojs/rinco-staticgen&quot; } </code></pre><ul><li>areas.json (refers to file <code>data/areas.json</code>)</li></ul><pre><code class="language-javascript">{ &quot;items&quot;: [ { &quot;link&quot;: &quot;https://github.com/rincojs/rinco-staticgen&quot;, &quot;name&quot;: &quot;Github&quot; }, { &quot;link&quot;: &quot;https://rincojs.com/sg/&quot;, &quot;name&quot;: &quot;Documentation&quot; } ] } </code></pre><p><a name="build"></a></p><h3>Generate static files</h3><p>There’s two ways to generate the statics files.</p><ul><li>To generate the static files without <strong>uncss</strong> feature use the <code>build</code> task.</li></ul><pre><code class="language-javascript">$ rinco build </code></pre><ul><li>To generate the static files with <strong>uncss</strong> feature use the <code>build-uncss</code> task.</li></ul><pre><code class="language-javascript">$ rinco build-uncss </code></pre><p>The static files will be in <strong>build</strong> folder.</p></div></div></div></div></div><div class="container footer"><footer><div class="row"><div class="col-12"><p>Copyright &copy; RincoJS 2015</p></div></div></footer></div><script src="//code.jquery.com/jquery-1.11.3.min.js"></script><script> (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]= function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date; e=o.createElement(i);r=o.getElementsByTagName(i)[0]; e.src='https://www.google-analytics.com/analytics.js'; r.parentNode.insertBefore(e,r)}(window,document,'script','ga')); ga('create','UA-XXXXX-X','auto');ga('send','pageview'); </script><script src="/sg/assets/js/script.js" charset="utf-8"></script></body></html><script> App.replaces(); </script> 
+<!doctype html> <html lang="en"> <head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width,initial-scale=1"> <meta name="description" content="A nodejs-based static website generator"> <link rel="apple-touch-icon" href="apple-touch-icon.png"> <link href="http://fonts.googleapis.com/css?family=Poiret+One|Open+Sans:400,30" rel="stylesheet"> <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> <title></title> <link rel="stylesheet" href="/sg/assets/css/style.css"> </head> <body class="documentation">  <nav class="navbar"> <div class="content"> <div class="logo"> <a href="/sg/"><span>Rinco SG</span></a> </div> <ul class="navbar-nav"> <li><a href="/sg/index.html">About</a></li> <li><a href="/sg/documentation.html" class="active"><i class="fa fa-graduation-cap"></i> Documentation</a></li>  </ul> <a href="https://github.com/rincojs/rinco-sg/" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a> </div> </nav> <div class="top-container gs"> <div class="container">  <div class="row"> <div class="logo-wrapper">  </div> <div class="col-12 wow fadeIn"> <div class="content"> <h1><i class="fa fa-graduation-cap"></i> Learning Rinco SG</h1> <div class="github small"> <iframe class="stars" src="https://ghbtns.com/github-btn.html?user=rincojs&repo=rinco-sg&type=star&count=true&size=small" frameborder="0" scrolling="0" width="160px" height="30px"></iframe> <iframe class="stars" src="https://ghbtns.com/github-btn.html?user=rincojs&repo=rinco-sg&type=fork&count=true&size=small" frameborder="0" scrolling="0" width="158px" height="30px"></iframe> <iframe class="follow" src="https://ghbtns.com/github-btn.html?user=allanesquina&type=follow&count=false&size=small" frameborder="0" scrolling="0" width="220px" height="30px"></iframe> </div> <br> </div> </div> </div> </div> </div>  <div class="doc"> <div class="content"> <div class="row"> <div class="col-3"> <ul class="nav menu"> <li><a href="#install" class="navbar-link"><i class="fa fa-caret-right"></i> Install</a> </li><li><a href="#new" class="navbar-link"><i class="fa fa-caret-right"></i> Create a project</a> </li><li><a href="#cli" class="navbar-link"><i class="fa fa-caret-right"></i> CLI commands</a> </li><li><a href="#cdnjs" class="navbar-link"><i class="fa fa-caret-right"></i> CDNJS</a> </li><li><a href="#path" class="navbar-link"><i class="fa fa-caret-right"></i> &lt;r-path&#x2F;&gt;</a> </li><li><a href="#include" class="navbar-link"><i class="fa fa-caret-right"></i> &lt;r-include&#x2F;&gt;</a> </li><li><a href="#render" class="navbar-link"><i class="fa fa-caret-right"></i> &lt;r-render&#x2F;&gt;</a> </li><li><a href="#data" class="navbar-link"><i class="fa fa-caret-right"></i> &lt;r-data&#x2F;&gt;</a> </li><li><a href="#object" class="navbar-link"><i class="fa fa-caret-right"></i> &lt;r-object&#x2F;&gt;</a> </li><li><a href="#script" class="navbar-link"><i class="fa fa-caret-right"></i> &lt;r-script&#x2F;&gt;</a> </li><li><a href="#css" class="navbar-link"><i class="fa fa-caret-right"></i> &lt;r-css&#x2F;&gt;</a> </li><li><a href="#js" class="navbar-link"><i class="fa fa-caret-right"></i> &lt;r-js&#x2F;&gt;</a> </li><li><a href="#ignorefiles" class="navbar-link"><i class="fa fa-caret-right"></i> Ignoring Files</a> </li><li><a href="#example" class="navbar-link"><i class="fa fa-caret-right"></i> Example</a> </li><li><a href="#build" class="navbar-link"><i class="fa fa-caret-right"></i> Build</a> </li></ul> </div> <div class="col-9"> <div class="panel panel-default"> <p><a name="install"></a></p> <h3>Install</h3> <pre><code class="language-javascript">$ npm install -g rinco
+</code></pre> <p><a name="new"></a></p> <h3>Create a new project</h3> <pre><code class="language-javascript">$ rinco
+</code></pre> <p><a name="cli"></a></p> <h3>CLI Commands</h3> <pre><code class="language-javascript">$ rinco (command)
+    server // Development server
+    add // Add a library from CDNJS
+    update // Update library list from CDNJS
+    build // Generate the static files
+    build-uncss // Generate the static files with CSS optimization
+</code></pre> <p><a name="cdnjs"></a></p> <h3>CDNJS</h3> <p>To add a library from CDNJS use the command <code>add</code> in rinco cli .</p> <pre><code class="language-javascript">$ rinco add jquery
+</code></pre> <p>After to chose your library, you need to select the pages that the library will be included.</p> <p><a name="server"></a></p> <h3>Development server</h3> <p>To run the development server use:</p> <pre><code class="language-javascript">// within of your project's folder
+$ rinco server port(optional)
+</code></pre> <p>The default port is <code>3000</code>.</p> <p><a name="structure"></a></p> <h3>Structure</h3> <p>Rinco has a simple path convention that you need to follow:</p> <pre><code class="language-javascript">Rinco Project  // path of your project
+  assets       // assets path
+     css       // stylus, sass, less or pure css
+     img       // images
+     js        // coffescript, babel or pure js
+  data         // json to be imported
+  build        // generated static files (build)
+  Public       // Public files like robots.txt, favicon.ico etc.
+  templates    // main pages and partials (.html|.md) to be imported
+</code></pre> <p><a name="path"></a></p> <h3>r-path</h3> <p>To ensure that all links and assets will be called correctly, you need to configure the path variable in your <strong>rconf.js</strong> file.</p> <pre><code class="language-javascript">var rinco = require('rinco');
+rinco.setConfig({
+    path_dev: '',
+    path_build: '/sg' // blank for root folder ex: rincojs.com
+});
+</code></pre> <p>In this example, the <strong>path_build</strong> was configured to <strong>/sg folder</strong>, it means that the project will be hosted inside the folder <strong>/sg</strong>.</p> <pre><code class="language-javascript">http://rincojs.com/sg
+</code></pre> <p>To use it within the project, use the <code>r-path</code> tag:</p> <pre><code class="language-markup">&lt;ul class=&quot;navbar-nav&quot;&gt;
+    &lt;li&gt;&lt;a href=&quot;&lt;r-path/&gt;/index.html&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;&lt;r-path/&gt;/documentation/variables/index.html&quot;&gt;Variables&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre> <p>Loading images:</p> <pre><code class="language-markup">&lt;img width=&quot;200&quot; src=&quot;&lt;r-path/&gt;/assets/img/pagespeed.png&quot; alt=&quot;pagespeed&quot;&gt;
+</code></pre> <p>CSS and Javascript files:</p> <pre><code class="language-css">background-image: url(&quot;&lt;r-path/&gt;/assets/img/bg.png&quot;), radial-gradient(circle at 0 0, #0F3476, #87B9D7);
+</code></pre> <p><a name="include"></a></p> <h3>r-include</h3> <p>To include a file, use <code>r-include </code> tag:</p> <pre><code class="language-markup">&lt;r-include _file.html/&gt; // include _file.html from (templates)
+&lt;r-include _path/_file.html/&gt; // include _file.html from (templates/_path)
+&lt;r-include _articles/_somearticle.md/&gt; // include _somearticle.md from (templates/_articles)
+</code></pre> <p><a name="render"></a></p> <h3>r-render</h3> <p>Similar from <code>r-include</code> tag, you can render a partial page with a specific data, just passing through the tag as a json:</p> <pre><code class="language-markup">&lt;r-render _user.html {&quot;data&quot;:{&quot;name&quot;:&quot;John Doe&quot;}}/&gt; // include _user.html from (templates)
+</code></pre> <p><a name="data"></a></p> <h3>r-data</h3> <p>To import a data file into your page use <code>r-data</code> tag:</p> <pre><code class="language-markup">&lt;r-data file.json/&gt; // include file.json from (data)
+&lt;r-data path/file.json/&gt; // include file.json from (data/path)
+</code></pre> <p>You can create a alias for an imported file and use it in your template:</p> <pre><code class="language-markup">&lt;r-data file.json = myalias/&gt; // include file.json from (data)
+</code></pre> <pre><code class="language-markup">...
+    &lt;r-data en-en.json =&gt; data/&gt;
+    &lt;h1&gt;{.{data.title}}&lt;/h1&gt;
+...
+</code></pre> <p><a name="object"></a></p> <h3>r-object</h3> <p>Instead you import a data with <code>r-data</code> tag, you can return a javascript object as data in your page. This object need to have two properties, name and data, which name is the key to access the value into the mustache template and data as the content of this object.</p> <pre><code class="language-javascript">...
+&lt;r-object&gt;
+    return {
+        data: {
+            name:&quot;Rinco&quot;
+        },
+        name: 'newObj'
+    }
+&lt;/r-object&gt;
+
+&lt;h1&gt;{.{newObj.name}}&lt;/h1&gt;
+...
+</code></pre> <p>You can also use the values of the imported data (global data) like this:</p> <pre><code class="language-javascript">...
+&lt;r-data config.json/&gt;
+&lt;r-object&gt;
+    var name = global.config.name.replace(/a/g,'e');
+    return {
+        data: {
+            name:name
+        },
+        name: 'newObj'
+    }
+&lt;/r-object&gt;
+
+&lt;h1&gt;{.{newObj.name}}&lt;/h1&gt;
+...
+</code></pre> <p>The <code>global</code> variable refers to global data.</p> <p><a name="script"></a></p> <h3>script</h3> <p>Differently from <code>r-object</code> tag, the <code>script</code> tag returns a string:</p> <pre><code class="language-javascript">...
+&lt;h1&gt;
+&lt;r-script&gt;
+    var name = &quot;Rinco&quot;;
+    return global.name.replace(/o/g,'a');
+&lt;/r-script&gt;
+&lt;/h1&gt;
+...
+</code></pre> <p>Or the shorthand:</p> <pre><code class="language-javascript">...
+&lt;a href=&quot;/user.html&quot; class=&quot;&lt;r-script return _system.current_page == 'user.html' ? 'active' : ''/&gt;&quot;&gt;User&lt;/a&gt;
+...
+</code></pre> <p>You can also use the imported data:</p> <pre><code class="language-javascript">...
+&lt;r-data config.json/&gt;
+&lt;h1&gt;&lt;r-script return global.config.name.replace(/a/g,'e');/&gt;&lt;/h1&gt;
+...
+</code></pre> <p><a name="css"></a></p> <h3>r-css</h3> <p><strong>Rinco</strong> supports many CSS extension languages like sass, less and stylus. To use it, just change the extension to your prefered language and <strong>Rinco</strong> compile it to you. Don’t worry about the choice, you can use all together.</p> <pre><code class="language-markup">&lt;!-- refers to file assets/css/styles.sass --&gt;
+&lt;r-css styles.sass/&gt;
+&lt;!-- refers to file assets/css/colors.less --&gt;
+&lt;r-css colors.less/&gt;
+&lt;!-- refers to file assets/css/custom.styl --&gt;
+&lt;r-css custom.styl/&gt;
+</code></pre> <p>The order will be respected.</p> <p><a name="js"></a></p> <h3>r-js</h3> <p><strong>Rinco</strong> allows you to code in <strong>coffeescript</strong>, and <strong>ES6 with Babel</strong> language, it’s similar of the CSS compile behavior, so you just need to change the file extension to <code>.coffee</code> and <code>.babel</code>.</p> <pre><code class="language-markup">&lt;!-- refers to file assets/js/app.coffee --&gt;
+&lt;r-js app.coffee/&gt;
+&lt;!-- refers to file assets/js/es6.babel --&gt;
+&lt;r-js es6.babel/&gt;
+</code></pre> <p>The order will be respected.</p> <p><a name="ignorefiles"></a></p> <h3>Ignoring files</h3> <p>You can ignore a file putting &quot;<code> _ </code>&quot; at the beginning of the filename like this:</p> <pre><code class="language-javascript">_head.html
+_nav.html
+_footer.html
+</code></pre> <p>This is helpful to avoid that partial files are generated.</p> <p><a name="example"></a></p> <h3>Example</h3> <ul> <li>index.html (refers to file <code>templates/index.html</code>)</li> </ul> <pre><code class="language-markup">&lt;!-- data usage --&gt;
+&lt;r-data config.json/&gt;
+&lt;r-data areas.json =&gt; menu/&gt;
+
+&lt;!-- include usage --&gt;
+&lt;r-include _header.html/&gt;
+&lt;r-include _content.html/&gt;
+&lt;r-include _footer.html/&gt;
+
+</code></pre> <ul> <li>header.html (refers to file <code>templates/_header.html</code>)</li> </ul> <pre><code class="language-markup">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;{.{config.title}}&lt;/title&gt;
+    &lt;r-css styles.scss/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+</code></pre> <ul> <li>content.html (refers to file <code>templates/_content.html</code>)</li> </ul> <pre><code class="language-markup">&lt;section&gt;
+    &lt;figure class=&quot;logo-wrapper&quot;&gt;
+        &lt;img src=&quot;assets/img/logo.png&quot; alt=&quot;&quot;&gt;
+    &lt;/figure&gt;
+&lt;/section&gt;
+
+&lt;r-include _content/_welcome.md/&gt;
+
+</code></pre> <ul> <li>footer.html (refers to file <code>templates/_footer.html</code>)</li> </ul> <pre><code class="language-markup">&lt;footer&gt;
+    &lt;nav&gt;
+    {.{#menu.items}}
+        &lt;a href=&quot;{.{link}}&quot;&gt;{.{name}}&lt;/a&gt;;
+    {.{/menu.items}}
+    &lt;/nav&gt;
+&lt;/footer&gt;
+&lt;r-js app.coffee/&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre> <ul> <li>welcome.md (refers to file <code>templates/_content/_welcome.md</code>)</li> </ul> <pre><code class="language-markup"># Rinco Static Generator
+If you find a bug, please, [send to us](https://github.com/rincojs/rinco-staticgen/issues).
+</code></pre> <ul> <li>site.json (refers to file <code>data/site.json</code>)</li> </ul> <pre><code class="language-javascript">{
+    &quot;title&quot;: &quot;Rinco Static Generator&quot;,
+    &quot;github&quot;: &quot;https://github.com/rincojs/rinco-staticgen&quot;
+}
+
+</code></pre> <ul> <li>areas.json (refers to file <code>data/areas.json</code>)</li> </ul> <pre><code class="language-javascript">{
+    &quot;items&quot;: [
+        {
+            &quot;link&quot;: &quot;https://github.com/rincojs/rinco-staticgen&quot;,
+            &quot;name&quot;: &quot;Github&quot;
+        },
+        {
+            &quot;link&quot;: &quot;https://rincojs.com/sg/&quot;,
+            &quot;name&quot;: &quot;Documentation&quot;
+        }
+    ]
+}
+</code></pre> <p><a name="build"></a></p> <h3>Generate static files</h3> <p>There’s two ways to generate the statics files.</p> <ul> <li>To generate the static files without <strong>uncss</strong> feature use the <code>build</code> task.</li> </ul> <pre><code class="language-javascript">$ rinco build
+</code></pre> <ul> <li>To generate the static files with <strong>uncss</strong> feature use the <code>build-uncss</code> task.</li> </ul> <pre><code class="language-javascript">$ rinco build-uncss
+</code></pre> <p>The static files will be in <strong>build</strong> folder.</p> </div> </div> </div> </div> </div> <div class="container footer">  <footer> <div class="row"> <div class="col-12"> <p>Copyright &copy; RincoJS 2015</p> </div> </div> </footer> </div>   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script> <script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+   function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+   e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+   e.src='https://www.google-analytics.com/analytics.js';
+   r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+   ga('create','UA-XXXXX-X','auto');ga('send','pageview');</script> <script src="/sg/assets/js/script.js" charset="utf-8"></script> </body> </html> <script>App.replaces();</script>

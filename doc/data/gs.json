@@ -17,6 +17,10 @@
 			"name": "CDNJS"
 		},
 		{
+			"name":"<r-path/>",
+			"url":"#path"
+		},
+		{
 			"name":"<r-include/>",
 			"url":"#include"
 		},
