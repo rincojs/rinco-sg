@@ -66,11 +66,10 @@ Rinco Project  // path of your project
 To ensure that all links and assets will be called correctly, you need to configure the path variable in your **rconf.js** file.
 
 ```javascript
-var rinco = require('rinco');
-rinco.setConfig({
-    path_dev: '',
-    path_build: '/sg' // empty for root folder ex: rincojs.com
-});
+module.exports = {
+     path_dev: '',
+     path_build: '/sg' // empty for root folder ex: rincojs.com
+};
 ```
 In this example, the **path_build** was configured to **/sg folder**, it means that the project will be hosted inside the folder **/sg**.
 

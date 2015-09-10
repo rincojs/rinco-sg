@@ -6,5 +6,5 @@
 
  module.exports = {
       path_dev: '',
-      path_build: '' // empty for root folder ex: rincojs.com
+      path_build: '/sg' // empty for root folder ex: rincojs.com
  };
