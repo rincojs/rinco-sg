@@ -1,3 +1,0 @@
-#!/usr/bin/env node
-var ts = require('./tsc.js')
-ts.executeCommandLine(ts.sys.args);

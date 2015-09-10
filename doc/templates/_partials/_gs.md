@@ -69,7 +69,7 @@ To ensure that all links and assets will be called correctly, you need to config
 var rinco = require('rinco');
 rinco.setConfig({
     path_dev: '',
-    path_build: '/sg' // blank for root folder ex: rincojs.com
+    path_build: '/sg' // empty for root folder ex: rincojs.com
 });
 ```
 In this example, the **path_build** was configured to **/sg folder**, it means that the project will be hosted inside the folder **/sg**.
@@ -199,7 +199,7 @@ Differently from <code>r-object</code> tag, the <code>script</code> tag returns 
 Or the shorthand:
 ```javascript
 ...
-<a href="/user.html" class="<r-script return _system.current_page == 'user.html' ? 'active' : ''/>">User</a>
+<a href="<r-path/>/user.html" class="<r-script return _system.current_page == 'user.html' ? 'active' : ''/>">User</a>
 ...
 ```
 You can also use the imported data:
@@ -286,7 +286,7 @@ This is helpful to avoid that partial files are generated.
 ```markup
 <section>
     <figure class="logo-wrapper">
-        <img src="assets/img/logo.png" alt="">
+        <img src="<r-path/>/assets/img/logo.png" alt="">
     </figure>
 </section>
 
@@ -299,7 +299,7 @@ This is helpful to avoid that partial files are generated.
 <footer>
     <nav>
     {.{#menu.items}}
-        <a href="{.{link}}">{.{name}}</a>;
+        <a href="<r-path/>/{.{link}}">{.{name}}</a>;
     {.{/menu.items}}
     </nav>
 </footer>
