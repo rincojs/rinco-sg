@@ -8,6 +8,8 @@
 
 ### We are in BETA version yet. Feel free to contribute.
 
+## See the complete documentation:
+# http://rincojs.com/sg
 
 
 # Install
@@ -20,5 +22,3 @@
 
         $ rinco
 
-See the complete documentation:
-http://rincojs.com/sg
