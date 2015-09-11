@@ -130,7 +130,7 @@ To import a data file into your page use <code>r-data</code> tag:
 
 You can create a alias for an imported file and use it in your template:
 ```markup
-<r-data file.json = myalias/> // include file.json from (data)
+<r-data file.json => myalias/> // include file.json from (data)
 ```
 
 ```markup
