@@ -42,7 +42,7 @@ var App = (function( window, document, $ ) {
                 }).delay(1500)
                 .typetype('', {
                     callback:function () {
-                       $('.mac-install').val('$ info  - socket.io started\n-----------------------------------------\n* Server started on http://localhost:3000\n-----------------------------------------')
+                       $('.mac-install').val('$\n-----------------------------------------\n* Server started on http://localhost:3000\n-----------------------------------------')
                     }
                 }
             ).delay(3000)

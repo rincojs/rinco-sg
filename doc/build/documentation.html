@@ -35,7 +35,7 @@ $ rinco server port(optional)
 </code></pre> <p><a name="render"></a></p> <h3>r-render</h3> <p>Similar from <code>r-include</code> tag, you can render a partial page with a specific data, just passing through the tag as a json:</p> <pre><code class="language-markup">&lt;r-render _user.html {&quot;data&quot;:{&quot;name&quot;:&quot;John Doe&quot;}}/&gt; // include _user.html from (templates)
 </code></pre> <p><a name="data"></a></p> <h3>r-data</h3> <p>To import a data file into your page use <code>r-data</code> tag:</p> <pre><code class="language-markup">&lt;r-data file.json/&gt; // include file.json from (data)
 &lt;r-data path/file.json/&gt; // include file.json from (data/path)
-</code></pre> <p>You can create a alias for an imported file and use it in your template:</p> <pre><code class="language-markup">&lt;r-data file.json = myalias/&gt; // include file.json from (data)
+</code></pre> <p>You can create a alias for an imported file and use it in your template:</p> <pre><code class="language-markup">&lt;r-data file.json =&gt; myalias/&gt; // include file.json from (data)
 </code></pre> <pre><code class="language-markup">...
     &lt;r-data en-en.json =&gt; data/&gt;
     &lt;h1&gt;{.{data.title}}&lt;/h1&gt;
