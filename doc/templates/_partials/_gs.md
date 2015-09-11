@@ -298,7 +298,7 @@ This is helpful to avoid that partial files are generated.
 <footer>
     <nav>
     {.{#menu.items}}
-        <a href="<r-path/>/{.{link}}">{.{name}}</a>;
+        <a href="{.{link}}">{.{name}}</a>;
     {.{/menu.items}}
     </nav>
 </footer>
