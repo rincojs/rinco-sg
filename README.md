@@ -362,6 +362,7 @@ There's two ways to generate the statics files.
 $ rinco build
 ```
 - To generate the static files with **uncss** feature use the <code>build-uncss</code> task.
+- *You need to install **uncss** module. [uncss npm](https://www.npmjs.com/package/uncss)*
 
 ```javascript
 $ rinco build-uncss

@@ -45,15 +45,14 @@
     "markdown-it": "^4.4.0",
     "mkdirp": "^0.5.1",
     "mustache": "^2.1.2",
-    "node-sass": "^3.2.0",
+    "node-sass": "^3.3.3",
     "node-watch": "^0.3.4",
     "open": "~0.0.5",
     "shelljs": "^0.2.6",
     "socket.io": "^0.9.16",
     "stylus": "^0.52.0",
     "sync": "^0.2.2",
-    "uglify-js": "^2.4.24",
-    "uncss": "^0.12.1"
+    "uglify-js": "^2.4.24"
   },
   "devDependencies": {
     "mocha": "*",
