@@ -80,7 +80,8 @@ To ensure that all links and assets will be called correctly, you need to config
 ```javascript
 module.exports = {
      path_dev: '',
-     path_build: '/sg' // empty for root folder ex: rincojs.com
+     path_build: '/sg', // empty for root folder ex: rincojs.com
+     mustache_delimiter: '{{=<% %>=}}' // empty for default delimiter
 };
 ```
 In this example, the **path_build** was configured to **/sg folder**, it means that the project will be hosted inside the folder **/sg**.
