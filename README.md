@@ -7,7 +7,7 @@
 
 
 ## See the official webpage:
-[http://rincojs.com/sg](http://rincojs.com)
+[http://rincojs.com](http://rincojs.com)
 
 
 <a name="install"></a>
